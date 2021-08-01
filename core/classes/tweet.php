@@ -138,7 +138,8 @@
             $stmt = $this->pdo->prepare("DELETE FROM `likes` WHERE `likeBy` = :user_id AND `likeOn` = :tweet_id");
             $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
-            $stmt->execute(); 
+            $stmt->execute();  
+            
         }
 
     }
