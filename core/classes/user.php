@@ -223,7 +223,9 @@
                 if($error ===0){
                     if($fileSize <= 209272152){
                         $date = date('Y_m_d-H-i-s');
-                        $fileRoot = 'users/'.$date.'-'.$filename;
+                        $exts = pathinfo($filename, PATHINFO_EXTENSION);
+                        $random = rand(99,99999999);
+                        $fileRoot = 'users/'.$date.'_'.$random.'_'.$exts;
                         move_uploaded_file($fileTem,$fileRoot);
                         return $fileRoot;
                     }else {
