@@ -25,7 +25,7 @@
                                 <div class="t-show-head">
                                 <div class="t-show-banner">
                                     <div class="t-show-banner-inner">
-                                        <span><i class="fa fa-share" aria-hidden="true"></i></span><span>'.(( $tweet->tweetBy === $tweet->retweetBy ) ? 'You' : $user->screenName ).' Retweeted'.((!empty(($tweet->retweetMsg))) ? ' with comment' : '').' </span>
+                                        <span><i class="fa fa-share" aria-hidden="true"></i></span><span>'.(( $tweet->retweetBy === $user_id ) ? 'You' : $user->screenName ).' Retweeted'.((!empty(($tweet->retweetMsg))) ? ' with comment' : '').' </span>
                                     </div>
                                 </div>
                                 <div class="t-show-img">
