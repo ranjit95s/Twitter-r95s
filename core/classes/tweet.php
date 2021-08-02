@@ -20,7 +20,6 @@
                 echo '<div class="all-tweet">
                         <div class="t-show-wrap">	
                             <div class="t-show-inner">
-
                                 '.((empty($tweet->retweetMsg) && $tweet->tweetID === (isset($retweet['tweetID'])) || $tweet->retweetID > 0) ? '
                                 <div class="t-show-head">
                                 <div class="t-show-banner">
@@ -50,7 +49,7 @@
                                             </div>
                                             <div class="t-show-img">
                                             <img src="'.$tweet->profileImage.'"/>
-                                          </div>
+                                        </div>
                                                 <div class="t-h-c-name">
                                                     <span><a href="'.BASE_URL.$tweet->username.'"></a>'.$tweet->screenName.'</span>
                                                     <span>@'.$tweet->username.'</span>
@@ -61,7 +60,7 @@
                                                     
                                                 </div>'.
                                                 (!empty($tweet->tweetImage) ? 
-                                               ' <!--tweet show head end-->
+                                            ' <!--tweet show head end-->
                                                 <div class="t-show-body">
                                                 <div class="t-s-b-inner">
                                                 <div class="t-s-b-inner-in">
@@ -75,7 +74,7 @@
                                         </div>
                                     </div>
                                 </div>' : '
-                                <div class="t-show-popup">
+                                <div class="t-show-popup" data-tweet = "'.$tweet->tweetID.'">
                                     <div class="t-show-head">
                                     <div class="t-show-img">
                                     <img src="'.$tweet->profileImage.'"/>
@@ -92,7 +91,7 @@
                                         </div>
                                     </div>'.
                                     (!empty($tweet->tweetImage) ? 
-                                   ' <!--tweet show head end-->
+                                ' <!--tweet show head end-->
                                     <div class="t-show-body">
                                     <div class="t-s-b-inner">
                                     <div class="t-s-b-inner-in">
@@ -109,21 +108,21 @@
                                     <ul> 
                                         <li><button><a href="#"><i class="fa fa-share" aria-hidden="true"></i></a></button></li>	
     
-                                        <li>'.((isset($retweet['retweetID']) ? $tweet->tweetID === $retweet['retweetID'] : '') ? 
-                                               '<button class="retweeted" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : 
-                                               '<button class="retweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>').'
-                                      </li>
-    
-                                        <li>'.((isset($likes['likeOn']) ? $likes['likeOn'] === $tweet->tweetID : '') ? 
-                                               '<button class="unlike-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>' : 
-                                               '<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>').'
-                                         </li>
-    
-                                            <li>
-                                            <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                                            <ul> 
-                                              <li><label class="deleteTweet">Delete Tweet</label></li>
-                                            </ul>
+                                            <li>'.((isset($retweet['retweetID']) ? $tweet->tweetID === $retweet['retweetID'] : '') ? 
+                                                '<button class="retweeted" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : 
+                                                '<button class="retweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>').'
+                                        </li>
+        
+                                            <li>'.((isset($likes['likeOn']) ? $likes['likeOn'] === $tweet->tweetID : '') ? 
+                                                '<button class="unlike-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>' : 
+                                                '<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>').'
+                                            </li>
+        
+                                                <li>
+                                                <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                                                <ul> 
+                                                <li><label class="deleteTweet">Delete Tweet</label></li>
+                                                </ul>
                                         </li>
                                     </ul>
                                 </div>
@@ -177,13 +176,15 @@
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
 
+
+
         public function retweet($tweet_id, $user_id, $get_id, $comment){
             $stmt = $this->pdo->prepare("UPDATE `tweets` SET `retweetCount` = `retweetCount`+1 WHERE `tweetID` = :tweet_id AND `tweetBy` = :get_id");
             $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
             $stmt->bindParam(":get_id", $get_id, PDO::PARAM_INT);
             $stmt->execute();
     
-            $stmt = $this->pdo->prepare("INSERT INTO `tweets` (`status`,`tweetBy`,`retweetID`,`retweetBy`,`tweetImage`,`postedOn`,`likesCount`,`retweetCount`,`retweetMsg`) SELECT `status`,`tweetBy`,`tweetID`,:user_id,`tweetImage`,`postedOn`,`likesCount`,`retweetCount`, :retweetMsg FROM `tweets` WHERE `tweetID` = :tweet_id");
+            $stmt = $this->pdo->prepare("INSERT INTO `tweets` (`status`,`tweetBy`,`retweetID`,`retweetBy`,`tweetImage`,`postedOn`,`likesCount` ,`retweetCount` ,`retweetMsg`) SELECT `status`,`tweetBy`,`tweetID`,:user_id,`tweetImage`,`postedOn`,`likesCount`,`retweetCount`, :retweetMsg FROM `tweets` WHERE `tweetID` = :tweet_id");
             $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->bindParam(":retweetMsg", $comment, PDO::PARAM_STR);
             $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
