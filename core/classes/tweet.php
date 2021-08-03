@@ -21,6 +21,7 @@
                         <div class="t-show-wrap">	
                             <div class="t-show-inner">
                                 '.((empty($tweet->retweetMsg) && $tweet->tweetID === (isset($retweet['tweetID'])) || $tweet->retweetID > 0) ? '
+                                <div class="t-show-popup" data-tweet="'.$tweet->tweetID.'">
                                 <div class="t-show-head">
                                 <div class="t-show-banner">
                                     <div class="t-show-banner-inner">
@@ -64,7 +65,7 @@
                                                 <div class="t-show-body">
                                                 <div class="t-s-b-inner">
                                                 <div class="t-s-b-inner-in">
-                                                    <img src="'.$tweet->tweetImage.'" class="imagePopup"/>
+                                                    <img src="'.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'"/>
                                                 </div>
                                                 </div>
                                                 </div>
@@ -73,7 +74,9 @@
                                                 
                                         </div>
                                     </div>
-                                </div>' : '
+                                </div>
+                                </div>
+                                ' : '
                                 <div class="t-show-popup" data-tweet = "'.$tweet->tweetID.'">
                                     <div class="t-show-head">
                                     <div class="t-show-img">
@@ -95,7 +98,7 @@
                                     <div class="t-show-body">
                                     <div class="t-s-b-inner">
                                     <div class="t-s-b-inner-in">
-                                        <img src="'.$tweet->tweetImage.'" class="imagePopup"/>
+                                        <img src="'.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'"/>
                                     </div>
                                     </div>
                                     </div>
