@@ -140,6 +140,24 @@
             }
         }
 
+        public function delete($table , $array){
+            $sql = "DELETE FROM `{$table}`";
+            $where = " WHERE ";
+
+            foreach($array as $name => $value){
+                $sql .= " {$where} `{$name}` = :{$name}";
+                $where = " AND ";
+
+            }
+            if($stmt = $this->pdo->prepare($sql)){
+                foreach($array as $name => $value){
+                    $stmt->bindValue(':'.$name,$value);
+                }
+                $stmt->execute();
+            }
+
+        }
+
         // public function register($email,$screenName,$password){
         //     $stmt = $this->pdo->prepare("INSERT INTO `users` (`email`,`password`,`screenName`,`profileImage`,`profileCover`) VALUES (:email,:password,:screenName,'assets/images/dpi.png','assets/images/dc.png')");
         //     $stmt->bindParam(":email",$email,PDO::PARAM_STR);

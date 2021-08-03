@@ -6,7 +6,7 @@
     if($getFromU->loggedIn() ===false){
 		header('Location:index.php');
 	}
-
+		// $getFromU->delete('comments', array('commentID' => 9));
 		// $getFromU->create('users',array('username' => 'dany','email' => 'dany12@gmail.com','password'=> md5('password')));
 		// $getFromU->update('users',$user_id,array('username' => 'danynew','email' => 'danynew45@gmail.com'));
 
@@ -38,17 +38,17 @@
    This template created by Meralesson.com 
    This template only use for educational purpose 
 -->
-<!DOCTYPE HTML> 
- <html>
-	<head>
-		<title>Tweety</title>
-		  <meta charset="UTF-8" />
-		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
- 	  	  <link rel="stylesheet" href="<?php echo BASE_URL;?>/assets/css/style-complete.css"/> 
-   		  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  	  
-	</head>
-	<!--Helvetica Neue-->
-<body>
+	<!DOCTYPE HTML> 
+	<html>
+		<head>
+			<title>Tweety / home</title>
+			<meta charset="UTF-8" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
+			<link rel="stylesheet" href="<?php echo BASE_URL;?>/assets/css/style-complete.css"/> 
+			<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  	  
+		</head>
+		<!--Helvetica Neue-->
+	<body>
 <div class="wrapper">
 <!-- header wrapper -->
 <div class="header-wrapper">
@@ -155,82 +155,82 @@
 			</div><!-- info inner end -->
 		</div><!-- info box end-->
 
-	<!--==TRENDS==-->
- 	  <!---TRENDS HERE-->
- 	<!--==TRENDS==-->
+		<!--==TRENDS==-->
+		<!---TRENDS HERE-->
+		<!--==TRENDS==-->
 
-	</div><!-- in left wrap-->
-		</div><!-- in left end-->
-		<div class="in-center">
-			<div class="in-center-wrap">
-				<!--TWEET WRAPPER-->
-				<div class="tweet-wrap">
-					<div class="tweet-inner">
-						 <div class="tweet-h-left">
-						 	<div class="tweet-h-img">
-						 	<!-- PROFILE-IMAGE -->
-						 		<img src="<?php echo $user->profileImage; ?>"/>
-						 	</div>
-						 </div>
-						 <div class="tweet-body">
-						 <form method="post" enctype="multipart/form-data">
-							<textarea class="status" name="status" placeholder="Type Something here!" rows="4" cols="50"></textarea>
- 						 	<div class="hash-box">
-						 		<ul>
-  						 		</ul>
-						 	</div>
- 						 </div>
-						 <div class="tweet-footer">
-						 	<div class="t-fo-left">
-						 		<ul>
-						 			<input type="file" name="file" id="file"/>
-						 			<li><label for="file"><i class="fa fa-camera" aria-hidden="true"></i></label>
-						 			<span class="tweet-error"> <?php if(isset($error)){echo $error;}else if(isset($imageError)){echo $imageError;} ?> </span>
-						 			</li>
-						 		</ul>
-						 	</div>
-						 	<div class="t-fo-right">
-						 		<span id="count">140</span>
-						 		<input type="submit" name="tweet" value="tweet"/>
-				 		</form>
-						 	</div>
-						 </div>
+		</div><!-- in left wrap-->
+			</div><!-- in left end-->
+			<div class="in-center">
+				<div class="in-center-wrap">
+					<!--TWEET WRAPPER-->
+					<div class="tweet-wrap">
+						<div class="tweet-inner">
+							<div class="tweet-h-left">
+								<div class="tweet-h-img">
+								<!-- PROFILE-IMAGE -->
+									<img src="<?php echo $user->profileImage; ?>"/>
+								</div>
+							</div>
+							<div class="tweet-body">
+							<form method="post" enctype="multipart/form-data">
+								<textarea class="status" name="status" placeholder="Type Something here!" rows="4" cols="50"></textarea>
+								<div class="hash-box">
+									<ul>
+									</ul>
+								</div>
+							</div>
+							<div class="tweet-footer">
+								<div class="t-fo-left">
+									<ul>
+										<input type="file" name="file" id="file"/>
+										<li><label for="file"><i class="fa fa-camera" aria-hidden="true"></i></label>
+										<span class="tweet-error"> <?php if(isset($error)){echo $error;}else if(isset($imageError)){echo $imageError;} ?> </span>
+										</li>
+									</ul>
+								</div>
+								<div class="t-fo-right">
+									<span id="count">140</span>
+									<input type="submit" name="tweet" value="tweet"/>
+							</form>
+								</div>
+							</div>
+						</div>
+					</div><!--TWEET WRAP END-->
+
+				
+					<!--Tweet SHOW WRAPPER-->
+					<div class="tweets">
+					<?php $getFromT->tweets($user_id); ?>
 					</div>
-				</div><!--TWEET WRAP END-->
+					<!--TWEETS SHOW WRAPPER-->
 
-			
-				<!--Tweet SHOW WRAPPER-->
-				 <div class="tweets">
-				 <?php $getFromT->tweets($user_id); ?>
- 				 </div>
- 				<!--TWEETS SHOW WRAPPER-->
+					<div class="loading-div">
+						<img id="loader" src="assets/images/loading.svg" style="display: none;"/> 
+					</div>
+					<div class="popupTweet"></div>
+					<!--Tweet END WRAPER-->
+					<script type="text/javascript" src="assets/js/like.js"></script>
+					<script type="text/javascript" src="assets/js/retweet.js"></script>
+					<script type="text/javascript" src="assets/js/popuptweets.js"></script>
+				</div><!-- in left wrap-->
+			</div><!-- in center end -->
 
-		    	<div class="loading-div">
-		    		<img id="loader" src="assets/images/loading.svg" style="display: none;"/> 
-		    	</div>
-				<div class="popupTweet"></div>
-				<!--Tweet END WRAPER-->
-				<script type="text/javascript" src="assets/js/like.js"></script>
-				<script type="text/javascript" src="assets/js/retweet.js"></script>
-				<script type="text/javascript" src="assets/js/popuptweets.js"></script>
-			</div><!-- in left wrap-->
-		</div><!-- in center end -->
+			<div class="in-right">
+				<div class="in-right-wrap">
 
-		<div class="in-right">
-			<div class="in-right-wrap">
+				<!--Who To Follow-->
+				<!--WHO_TO_FOLLOW HERE-->
+				<!--Who To Follow-->
 
-		 	<!--Who To Follow-->
-		      <!--WHO_TO_FOLLOW HERE-->
-      		<!--Who To Follow-->
+				</div><!-- in left wrap-->
 
- 			</div><!-- in left wrap-->
+			</div><!-- in right end -->
 
-		</div><!-- in right end -->
+		</div><!--in full wrap end-->
 
-	</div><!--in full wrap end-->
-
-</div><!-- in wrappper ends-->
-</div><!-- inner wrapper ends-->
-</div><!-- ends wrapper -->
-</body>
-</html>
+	</div><!-- in wrappper ends-->
+	</div><!-- inner wrapper ends-->
+	</div><!-- ends wrapper -->
+	</body>
+	</html>
