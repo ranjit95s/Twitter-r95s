@@ -23,7 +23,7 @@
 				}else{
 					$user_id = $getFromU->create('users',array('email'=>$email,'password'=>md5($password),'screenName' => $screenName, 'ProfileImage'=> 'assets/images/dpi.png','profileCover' => 'assets/images/dc.png'));
 					$_SESSION['user_id'] = $user_id;
-					header('Location: includes/signupC.php?step=1');
+					header('Location:'.BASE_URL.'includes/signupC.php?step=1');
 				}
 			}
 

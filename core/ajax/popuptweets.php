@@ -11,7 +11,7 @@
         $comments = $getFromT->comments($tweetID);
         ?> 
         
-                <div class="tweet-show-popup-wrap">
+        <div class="tweet-show-popup-wrap">
         <input type="checkbox" id="tweet-show-popup-wrap">
         <div class="wrap4">
             <label for="tweet-show-popup-wrap">
@@ -20,6 +20,7 @@
                 </div>
             </label>
             <div class="tweet-show-popup-box">
+            <div class="forretweet" style="height:300px; background:black;" > <h1 style="color:white;">for retweet msg show (underConstruction for now)</h1> </div>
             <div class="tweet-show-popup-inner">
                 <div class="tweet-show-popup-head">
                     <div class="tweet-show-popup-head-left">
@@ -83,31 +84,26 @@
                     <div class="tweet-show-popup-footer-menu">
 
                         <ul>
-                            <?php if($getFromU->loggedIn() === true) {
-                                echo ' <li><button><a href="#"><i class="fa fa-share" aria-hidden="true"></i></a></button></li>	
-    
-                                        <li>'.((isset($retweet['retweetID']) ? $tweet->tweetID === $retweet['retweetID'] : '') ? 
-                                            '<button class="retweeted" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : 
-                                            '<button class="retweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>').'
-                                    </li>
-
-                                        <li>'.((isset($likes['likeOn']) ? $likes['likeOn'] === $tweet->tweetID : '') ? 
-                                            '<button class="unlike-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>' : 
-                                            '<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>').'
-                                        </li>
-
-                                            <li>
-                                            <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                                            <ul> 
-                                            <li><label class="deleteTweet">Delete Tweet</label></li>
-                                            </ul>
-                                    </li>';
-                        }else{
-                            ?>
-                            <li><button type="buttton"><i class="fa fa-share" aria-hidden="true"></i></button></li>
-                            <li><button type="button"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">RETWEET-COUNT</span></button></li>
-                            <li><button type="button"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCount">LIKES-COUNT</span></button></button></li>
-                        <?php  }?>
+                        <!-- <?php 
+					echo '<ul> 
+						'.(($getFromU->loggedIn()) ?   '
+							<li><button><i class="fa fa-share" aria-hidden="true"></i></button></li>	
+							<li>'.(((isset($retweet['retweetID'])) ? $tweet->tweetID === $retweet['retweetID'] OR $user_id === $retweet['retweetBy'] : '') ? '<button class="retweeted" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : '<button class="retweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>').'</li>
+							<li>'.(((isset($likes['likeOn'])) ? $likes['likeOn'] == $tweet->tweetID : '') ? '<button class="unlike-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>' : '<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '').'</span></button>').'</li>
+							'.(($tweet->tweetBy === $user_id) ? ' 
+							<li>
+								<a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+								<ul> 
+								<li><label class="deleteTweet" data-tweet="'.$tweet->tweetID.'">Delete Tweet</label></li>
+								</ul>
+							</li>' : '').'
+						' : '
+							<li><button><i class="fa fa-share" aria-hidden="true"></i></button></li>	
+							<li><button><i class="fa fa-retweet" aria-hidden="true"></i></button></li>	
+							<li><button><i class="fa fa-heart-o" aria-hidden="true"></i></button></li>	
+						').'
+						</ul>';
+				?> -->
                         </ul>
 
                     </div>
@@ -140,7 +136,7 @@
                     </div>
                     <div class="t-fo-right">
                         <input type="submit" id="postComment" value="Tweet">
-                        <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/comment.js"></script>
+                      
                     </div>
                 </div>
             </div>
@@ -174,10 +170,14 @@
                                     <ul>
                                         <li><button><i class="fa fa-share" aria-hidden="true"></i></button></li>
                                         <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                        <li>
-                                        <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                                        <ul> 
-                                        <li><label class="deleteTweet">Delete Tweet</label></li>
+                                        '.(($comment->commentBy === $user_id) ?  
+                                        '<li>
+                                            <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                                            <ul> 
+                                              <li><label class="deleteComment" data-tweet="'.$tweet->tweetID.'" data-comment="'.$comment->commentID.'">Delete Tweet</label></li>
+                                            </ul>
+                                        </li>' : '').'
+                                        
                                         </ul>
                                         </li>
                                     </ul>
@@ -191,7 +191,7 @@
                 }
             ?>
             </div>
-
+            <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/comment.js"></script>
         </div>
         <!--tweet-show-popup-box ends-->
         </div>
