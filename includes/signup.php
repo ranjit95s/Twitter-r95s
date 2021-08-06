@@ -3,7 +3,7 @@
 		$screenName = $_POST['screenName'];
 		$password   = $_POST['password'];
 		$email      = $_POST['email'];
-
+		
 		if(empty($screenName) or empty($password) or empty($email)){
 			$error = 'All field are required';
 		}else {

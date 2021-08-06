@@ -70,7 +70,7 @@
 					<div>
 						<input type="submit" name="next" value="Next"/>
 					</div>
-		        </form>
+	</form>
 			</div>
 		</div>
         <?php }?>

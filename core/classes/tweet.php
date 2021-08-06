@@ -163,7 +163,6 @@
             foreach($res as $trend){
                 if($stmt = $this->pdo->prepare($sql)){
                     $stmt->execute(array(':hashtag'=>$trend));
-                
                 }
             }
         }
@@ -231,7 +230,6 @@
             $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
             $stmt->execute();  
-            
         }
 
     }

@@ -24,7 +24,7 @@
                         <!DOCTYPE html>
                         <html>
                         <body>
-                                  This is some &lt;b&gt;bold&lt;/b&gt; text.
+                                This is some &lt;b&gt;bold&lt;/b&gt; text.
                         </body>
                         </html>
             The browser output of the code above will be:
@@ -41,7 +41,7 @@
                         <!DOCTYPE html>
                         <html>
                         <body>
-                                  Without trim:  Hello World! <br>With trim: Hello World!
+                                Without trim:  Hello World! <br>With trim: Hello World!
                         </body>
                         </html>
             The browser output of the code above will be:
@@ -242,8 +242,8 @@
                     if($fileSize <= 209272152){
                         $date = date('Y_m_d-H-i-s');
                         $exts = pathinfo($filename, PATHINFO_EXTENSION);
-                        $random = rand(999,99999999);
-                        $fileRoot = 'users/'.$date.'_'.$random.'_'.$exts;
+                        $random = rand(99,999999);
+                        $fileRoot = 'users/'.$date.'_'.$random.'.'.$exts;
                         move_uploaded_file($fileTem,$fileRoot);
                         return $fileRoot;
                     }else {
@@ -254,8 +254,6 @@
                 $GLOBALS['imageError']="the extenstion is not allowed";
             }
         }
-
-
     }
 
 ?>

@@ -29,7 +29,6 @@
 				}else{	
 					$error = "Type or choose image to tweet";
 				}
-
 			}
 
 	?>
@@ -156,7 +155,9 @@
 			</div><!-- info box end-->
 
 			<!--==TRENDS==-->
+
 			<!---TRENDS HERE-->
+
 			<!--==TRENDS==-->
 
 			</div><!-- in left wrap-->
@@ -197,7 +198,7 @@
 								</div>
 							</div>
 						</div><!--TWEET WRAP END-->
-
+ 
 					
 						<!--Tweet SHOW WRAPPER-->
 						<div class="tweets">
