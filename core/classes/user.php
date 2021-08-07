@@ -244,7 +244,7 @@
                         $exts = pathinfo($filename, PATHINFO_EXTENSION);
                         $random = rand(99,999999);
                         $fileRoot = 'users/'.$date.'_'.$random.'.'.$exts;
-                        move_uploaded_file($fileTem,$fileRoot);
+                        move_uploaded_file($fileTem,$_SERVER['DOCUMENT_ROOT'].'/Twitter-Clone/'.$fileRoot);
                         return $fileRoot;
                     }else {
                         $GLOBALS['imageError']="file size is too large";

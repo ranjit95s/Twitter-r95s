@@ -1,6 +1,6 @@
 <?php echo '<img src="'.$tweet->tweetImage.'" class="imagePopup"/>' ?> 
 
- '.((empty($tweet->retweetMsg) && $tweet->tweetID === (isset($retweet['tweetID'])) || $tweet->retweetID > 0) ? '
+'.((empty($tweet->retweetMsg) && $tweet->tweetID === (isset($retweet['tweetID'])) || $tweet->retweetID > 0) ? '
 
 (((isset($retweet['tweetID'])) ? !empty($tweet->retweetMsg) && $tweet->tweetID === $retweet['tweetID'] or $tweet->retweetID > 0 : '') ?
 

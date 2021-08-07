@@ -43,7 +43,7 @@
 				<title>Tweety / home</title>
 				<meta charset="UTF-8" />
 				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
-				<link rel="stylesheet" href="<?php echo BASE_URL;?>/assets/css/style-complete.css"/> 
+				<link rel="stylesheet" href="<?php echo BASE_URL;?>assets/css/style-complete.css"/> 
 				<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  	  
 			</head>
 			<!--Helvetica Neue-->
@@ -216,6 +216,7 @@
 						<script type="text/javascript" src="assets/js/popuptweets.js"></script>
 						<script type="text/javascript" src="assets/js/delete.js"></script>
 						<script type="text/javascript" src="assets/js/comment.js"></script>
+						<script type="text/javascript" src="assets/js/popupForm.js"></script>
 					</div><!-- in left wrap-->
 				</div><!-- in center end -->
 
