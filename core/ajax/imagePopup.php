@@ -54,7 +54,13 @@
                             <input id="img-popup-menu" type="checkbox"/>
                             <div class="img-popup-footer-menu">
                                 <ul>
-                                <li><label class="deleteTweet" >Delete Tweet</label></li>
+                                '.(($tweet->tweetBy === $user_id) ? ' 
+                                <li>
+                                    <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                                    <ul> 
+                                    <li><label class="deleteTweet" data-tweet="'.$tweet->tweetID.'">Delete Tweet</label></li>
+                                    </ul>
+                                </li>' : '').'
                                 </ul>
                             </div>
                             </li>

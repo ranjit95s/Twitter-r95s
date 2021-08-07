@@ -130,7 +130,7 @@
 									TWEETS
 								</div>
 								<div class="num-body">
-									10
+									<?php $getFromT->countTweets($user_id); ?>
 								</div>
 							</div>
 							<div class="num-box">
@@ -202,7 +202,7 @@
 					
 						<!--Tweet SHOW WRAPPER-->
 						<div class="tweets">
-						<?php $getFromT->tweets($user_id); ?>
+						<?php $getFromT->tweets($user_id,1); ?>
 						</div>
 						<!--TWEETS SHOW WRAPPER-->
 
@@ -217,6 +217,7 @@
 						<script type="text/javascript" src="assets/js/delete.js"></script>
 						<script type="text/javascript" src="assets/js/comment.js"></script>
 						<script type="text/javascript" src="assets/js/popupForm.js"></script>
+						<script type="text/javascript" src="assets/js/fetch.js"></script>
 					</div><!-- in left wrap-->
 				</div><!-- in center end -->
 

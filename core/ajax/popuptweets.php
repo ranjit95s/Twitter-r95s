@@ -84,7 +84,7 @@
                     <div class="tweet-show-popup-footer-menu">
 
                         <ul>
-                        <!-- <?php 
+                        <?php 
 					echo '<ul> 
 						'.(($getFromU->loggedIn()) ?   '
 							<li><button><i class="fa fa-share" aria-hidden="true"></i></button></li>	
@@ -103,7 +103,7 @@
 							<li><button><i class="fa fa-heart-o" aria-hidden="true"></i></button></li>	
 						').'
 						</ul>';
-				?> -->
+				?>
                         </ul>
 
                     </div>

@@ -254,6 +254,31 @@
                 $GLOBALS['imageError']="the extenstion is not allowed";
             }
         }
+        public function timeAgo($datatime){
+            $time    = strtotime($datatime);
+            $current = time();
+            $second  = $current - $time;
+            $minute  = round($second / 60);
+            $hour    = round($second / 3600);
+            $month   = round($second / 2600640);
+
+            if($second <= 60){
+                if($second == 0){
+                    return 'now';
+                }else {
+                    return $second.'s';
+                }
+            } else if ($minute <= 60){
+                return $minute.'m';
+            }else if ($hour <= 24){
+                return $hour.'h';
+            } else if($month <=12){
+                return date('M j' , $time);
+            } else {
+                return date('j M Y',$time);
+            }
+
+        }
     }
 
 ?>
