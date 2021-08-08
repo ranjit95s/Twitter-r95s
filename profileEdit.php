@@ -439,7 +439,7 @@
 								<ul> 
 									<li><button><a href="#"><i class="fa fa-share" aria-hidden="true"></i></a></button></li>	
 
-										<li>'.((isset($retweet['retweetID']) ? $tweet->tweetID === $retweet['retweetID'] : '') ? 
+										<li>'.((isset($retweet['retweetID']) ? $tweet->tweetID === $retweet['retweetID'] OR $user_id == $retweet['retweetBy']: '') ? 
 											'<button class="retweeted" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : 
 											'<button class="retweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>').'
 									</li>
@@ -468,6 +468,14 @@
 	</div>
 	<!-- in left wrap-->
    <div class="popupTweet"></div>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/like.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/retweet.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popuptweets.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/delete.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/comment.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
 
 </div>
 <!-- in center end -->
@@ -495,13 +503,4 @@
 </div>
 <!-- ends wrapper -->
 </body>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/like.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/retweet.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popuptweets.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/delete.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/comment.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
-
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
 </html>

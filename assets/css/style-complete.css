@@ -2187,7 +2187,7 @@ label {
   cursor: pointer;
 }
 
-button.btn.following {
+button .btn .following {
   color: #fff;
   background-color: #1da1f2;
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.05));
@@ -2198,7 +2198,7 @@ button.btn.following {
   border-radius: 4px;
   cursor: pointer;
 }
-button.btn.unfollow {
+button .btn .unfollow {
   color: #fff;
   background-color: #f9331c;
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.05));

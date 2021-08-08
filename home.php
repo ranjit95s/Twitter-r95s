@@ -40,7 +40,7 @@
 		<!DOCTYPE HTML> 
 		<html>
 			<head>
-				<title>Tweety / home</title>
+				<title>Tweety / Home</title>
 				<meta charset="UTF-8" />
 				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
 				<link rel="stylesheet" href="<?php echo BASE_URL;?>assets/css/style-complete.css"/> 
