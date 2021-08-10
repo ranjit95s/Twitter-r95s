@@ -150,7 +150,7 @@
 						TWEETS
 					</div>
 					<div class="n-bottom">
-						<?php $getFromT->countTweets($user_id)?>
+						<?php  $getFromT->countTweets($user_id)?>
 					</div>
 				</a>
 			</li>

@@ -29,14 +29,14 @@
 
     }
 ?>
-
+<!DOCTYPE HTML> 
 <html>
 	<head>
 		<title>Account settings page</title>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  	  
-		<link rel="stylesheet" href="<?php echo BASE_URL;?>/assets/css/style-complete.css"/>
+		<link rel="stylesheet" href="<?php echo BASE_URL;?>assets/css/style-complete.css"/>
 	</head>
 	<!--Helvetica Neue-->
 <body>
@@ -75,16 +75,19 @@
 					</div>
 				</div>
 				</li>
-				<li><label for="pop-up-tweet" class="addTweetBtn">Tweet</label></li>
+				<li><label class="addTweetBtn">Tweet</label></li>
 
 			</ul>
 		</div>
 		<!-- nav right ends-->
  
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
 	</div>
 	<!-- nav ends -->
+		<div class="popupTweet"></div>
 
-<script type="text/javascript" src="assets/js/search.js"></script>
 </div><!-- nav container ends -->
 </div><!-- header wrapper end -->
 	<div class="container-wrap">
@@ -201,6 +204,7 @@
 				</div>
 			</div>	
 		</div><!--RIGHTER ENDS-->
+
 
 	</div>
 	<!--CONTAINER_WRAP ENDS-->

@@ -1,22 +1,22 @@
     $(function(){
         $('.follow-btn').click(function(){
         var followID = $(this).data('follow');
-        //   var profile = $(this).data('profile');
+        var profile = $(this).data('profile');
         $button = $(this);
-    
+       
         if ($button.hasClass('following-btn')) {
-            $.post('http://localhost/Twitter-Clone/core/ajax/follow.php', {unfollow:followID}, function(data){
-            data = JSON.parse (data);
-            
+            $.post('http://localhost/Twitter-Clone/core/ajax/follow.php', {unfollow:followID, profile:profile}, function(data){
+            data = JSON.parse(data);
             $button.removeClass('following-btn');
             $button.removeClass('unfollow-btn');
             $button.html('<i class="fa fa-user-plus"></i>Follow');
             $('.count-following').text(data.following);
             $('.count-followers').text(data.followers);
+            
             });
         }else{
-            $.post('http://localhost/Twitter-Clone/core/ajax/follow.php', {follow:followID}, function(data){
-            data = JSON.parse (data);
+            $.post('http://localhost/Twitter-Clone/core/ajax/follow.php', {follow:followID, profile:profile}, function(data){
+            data = JSON.parse(data);
             $button.removeClass('follow-btn');
             $button.addClass('following-btn');
             $button.text('Following');

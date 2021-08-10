@@ -1,6 +1,6 @@
 <?php
-    if(isset($_GET['username']) === true && empty($_GET['username']) === false){
         include 'core/init.php';
+    if(isset($_GET['username']) === true && empty($_GET['username']) === false){
         
         $username = $getFromU -> checkInput($_GET['username']);
         $profileId = $getFromU -> userIdByUsername($username);
@@ -133,7 +133,7 @@
 	</ul>
 	<div class="edit-button">
 		<span>
-				<?php $getFromF->followBtn($profileId,$user_id);?>
+		<?php echo $getFromF->followBtn($profileId, $user_id, $profileData->user_id); ?>
 		</span>
 	</div>
     </div>
@@ -379,7 +379,8 @@
 	<!--Tweet SHOW WRAPER END-->
 	</div><!-- in left wrap-->
   <div class="popupTweet"></div>
-  <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/like.js"></script>
+
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/like.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/retweet.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popuptweets.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/delete.js"></script>
@@ -388,13 +389,13 @@
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/fetch.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/follow.js"></script>
+
 </div>
 <!-- in center end -->
 
 <div class="in-right">
 	<div class="in-right-wrap">
-		
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/follow.js"></script>
 		<!--==WHO TO FOLLOW==-->
 		<!--who to follow-->
 		<!--==WHO TO FOLLOW==-->

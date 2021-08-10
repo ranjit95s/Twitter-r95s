@@ -41,7 +41,7 @@
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<link rel="stylesheet" href="<?php echo BASE_URL;?>/assets/css/style-complete.css"/>
+		<link rel="stylesheet" href="<?php echo BASE_URL;?>assets/css/style-complete.css"/>
 	</head>
 	<!--Helvetica Neue-->
 <body>
@@ -62,12 +62,12 @@
 		<!-- nav left ends-->
 		<div class="nav-right">
 			<ul>
-				<li><input type="text" placeholder="Search" class="search"/><i class="fa fa-search" aria-hidden="true"></i></li>
-				<div class="nav-right-down-wrap">
-					<ul class="search-result">
-					
-					</ul>
-				</div>
+					<li>
+						<input type="text" placeholder="Search" class="search"/>
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<div class="search-result">			
+						</div>
+					</li>
  				<li class="hover"><label class="drop-label" for="drop-wrap1"><img src="<?php echo BASE_URL.$user->profileImage;?>"/></label>
 				<input type="checkbox" id="drop-wrap1">
 				<div class="drop-wrap">
@@ -80,7 +80,7 @@
 					</div>
 				</div>
 				</li>
-				<li><label for="pop-up-tweet" class="addTweetBtn">Tweet</label></li>
+				<li><label class="addTweetBtn">Tweet</label></li>
 
 			</ul>
 		</div>
@@ -89,9 +89,13 @@
 	</div>
 	<!-- nav ends -->
 
+
 </div><!-- nav container ends -->
+<div class="popupTweet"></div>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
 </div><!-- header wrapper end -->
-<script type="text/javascript" src="assets/js/search.js"></script>
 	<div class="container-wrap">
 
 		<div class="lefter">
@@ -221,6 +225,8 @@
 		</div>	
 	</div>
 	<!--RIGHTER ENDS-->
+
+
 </div>
 <!--CONTAINER_WRAP ENDS-->
 </div>
