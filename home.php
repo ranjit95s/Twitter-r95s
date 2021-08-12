@@ -60,7 +60,7 @@
 				<ul>
 					<li><a href="#"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 					<li><a href="i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-					<li><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+					<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
 				</ul>
 			</div><!-- nav left ends-->
 
@@ -218,6 +218,7 @@
 						<script type="text/javascript" src="assets/js/comment.js"></script>
 						<script type="text/javascript" src="assets/js/popupForm.js"></script>
 						<script type="text/javascript" src="assets/js/fetch.js"></script>
+						<script type="text/javascript" src="assets/js/messages.js"></script>
 					</div><!-- in left wrap-->
 				</div><!-- in center end -->
 

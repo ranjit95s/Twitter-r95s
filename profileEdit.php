@@ -270,7 +270,7 @@
 						<div class="hash-box">
 					 		<ul>
 					 		</ul>
-					 	</div>
+					</div>
 					</div>
 				</div>
 					<div class="profile-extra-info">
@@ -292,14 +292,14 @@
                             echo '
                             <li class="error-li">
                                 <div class="span-pe-error">'. $error .'</div>
-                           </li>
+                        </li>
                         ';
 
                         }
                     ?>
-                  
+                
                 <script type="text/javascript">
-                      $('#save').click(function(){
+                    $('#save').click(function(){
                         $('#editForm').submit();
                     })
                 </script>
@@ -323,7 +323,7 @@
 					</div>
 					<div class="profile-extra-footer-body">
 						<ul>
-						  <!-- <li><img src="#"></li> -->
+						<!-- <li><img src="#"></li> -->
 						</ul>
 					</div>
 				</div>
@@ -467,7 +467,7 @@
 		?>
 	</div>
 	<!-- in left wrap-->
-   <div class="popupTweet"></div>
+<div class="popupTweet"></div>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/like.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/retweet.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popuptweets.js"></script>
@@ -476,31 +476,32 @@
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
 
 </div>
 <!-- in center end -->
 
-<div class="in-right">
-	<div class="in-right-wrap">
-		<!--==WHO TO FOLLOW==-->
-           <!-- HERE -->
-		<!--==WHO TO FOLLOW==-->
-			
-		<!--==TRENDS==-->
- 	 	   <!-- HERE -->
-	 	<!--==TRENDS==-->
+	<div class="in-right">
+		<div class="in-right-wrap">
+			<!--==WHO TO FOLLOW==-->
+			<!-- HERE -->
+			<!--==WHO TO FOLLOW==-->
+				
+			<!--==TRENDS==-->
+			<!-- HERE -->
+			<!--==TRENDS==-->
+		</div>
+		<!-- in left wrap-->
 	</div>
-	<!-- in left wrap-->
-</div>
-<!-- in right end -->
+	<!-- in right end -->
 
-   </div>
-   <!--in full wrap end-->
- 
-  </div>
-  <!-- in wrappper ends-->
+	</div>
+	<!--in full wrap end-->
+	
+	</div>
+	<!-- in wrappper ends-->
 
-</div>
-<!-- ends wrapper -->
-</body>
-</html>
+	</div>
+	<!-- ends wrapper -->
+	</body>
+	</html>

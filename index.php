@@ -17,13 +17,14 @@
 	<head>
 		<title>twitter</title>
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
-		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/style-complete.css"/>
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style-complete.css"/>
 	</head>
 	<!--Helvetica Neue-->
 <body>
 <div class="front-img">
-	<img src="assets/images/background.jpg"></img>
+	<img src="assets/images/back.jpg" alt="background image">
 </div>	
 
 <div class="wrapper">
