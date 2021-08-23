@@ -235,6 +235,7 @@
 			<?php $getFromF->whoToFollow($user_id,$user_id); ?>
 
             <!-- trends -->
+			<?php $getFromT->trends();?>
 </div>
 
 	</div>
@@ -255,10 +256,15 @@
 			</div>
 		<!-- wrap follo inner end-->
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/like.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/retweet.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popuptweets.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/delete.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/follow.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/postMessage.js"></script>
 		</div>
 		<!--FOLLOWING OR FOLLOWER FULL WRAPPER END-->	
 	</div><!--in full wrap end-->

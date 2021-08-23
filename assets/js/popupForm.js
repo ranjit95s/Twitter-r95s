@@ -16,7 +16,7 @@ $(function(){
     });
     $(document).on('submit','#popupForm',function(e){
         e.preventDefault();
-        var  formData = new FormData($(this)[0]);
+        var formData = new FormData($(this)[0]);
         formData.append('file',$('#file')[0].files[0]);
         $.ajax({
             url : "http://localhost/Twitter-Clone/core/ajax/addTweet.php",

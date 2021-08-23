@@ -22,7 +22,9 @@
 						$error = "tweet must be in 140 length";
 					}
 					$getFromU->create('tweets',array('status' => $status,'tweetBy'=>$user_id, 'tweetImage'=> $tweetImage,'postedOn'=> date('Y-m-d H:i:s')));
-					preg_match_all("/#+([a-zA-Z0-9]+)/i",$status,$hashtag);
+					preg_match_all("/#+([a-zA-Z0-9_]+)/i", $status, $hashtag);
+					
+					
 					if(!empty($hashtag)){
 						$getFromT->addTrend($status);
 					}
@@ -42,9 +44,9 @@
 			<head>
 				<title>Tweety / Home</title>
 				<meta charset="UTF-8" />
-				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
-				<link rel="stylesheet" href="<?php echo BASE_URL;?>assets/css/style-complete.css"/> 
-				<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  	  
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
+				<link rel="stylesheet" href="assets/css/style-complete.css"/>
+				<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 	  
 			</head>
 			<!--Helvetica Neue-->
 		<body>
@@ -58,7 +60,7 @@
 			
 			<div class="nav-left">
 				<ul>
-					<li><a href="#"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+					<li><a href="home.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 					<li><a href="i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
 					<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
 				</ul>
@@ -156,7 +158,7 @@
 
 			<!--==TRENDS==-->
 
-			<!---TRENDS HERE-->
+			<?php $getFromT->trends();?>
 
 			<!--==TRENDS==-->
 
@@ -202,7 +204,7 @@
 					
 						<!--Tweet SHOW WRAPPER-->
 						<div class="tweets">
-						<?php $getFromT->tweets($user_id,1); ?>
+						<?php $getFromT->tweets($user_id,10); ?>
 						</div>
 						<!--TWEETS SHOW WRAPPER-->
 
@@ -219,6 +221,7 @@
 						<script type="text/javascript" src="assets/js/popupForm.js"></script>
 						<script type="text/javascript" src="assets/js/fetch.js"></script>
 						<script type="text/javascript" src="assets/js/messages.js"></script>
+						<script type="text/javascript" src="assets/js/postMessage.js"></script>
 					</div><!-- in left wrap-->
 				</div><!-- in center end -->
 

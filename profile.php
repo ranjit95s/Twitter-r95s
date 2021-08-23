@@ -43,7 +43,7 @@
 				<li><a href=" <?php echo BASE_URL;?>home.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 				<?php if($getFromU->loggedIn()===true){?>
 				<li><a href=" <?php echo BASE_URL; ?> i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-				<li><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+				<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
 				 <?php }?>
 			</ul>
 		</div><!-- nav left ends-->
@@ -390,6 +390,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/postMessage.js"></script>
 
 
 </div>
@@ -397,17 +398,18 @@
 
 <div class="in-right">
 	<div class="in-right-wrap">
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/follow.js"></script>
 		<!--==WHO TO FOLLOW==-->
-		<!--who to follow-->
+		<?php $getFromF->whoToFollow($user_id,$profileId); ?>
 		<!--==WHO TO FOLLOW==-->
 		
 		<!--==TRENDS==-->
-		<!--Trends-->
+		<?php $getFromT->trends();?>
 		<!--==TRENDS==-->
 		
 	</div><!-- in right wrap-->
 </div>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/follow.js"></script>
+
 <!-- in right end -->
 
 		</div>
