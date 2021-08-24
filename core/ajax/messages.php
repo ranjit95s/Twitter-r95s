@@ -28,7 +28,7 @@
 	if(isset($_POST['showMessage']) && !empty($_POST['showMessage'])){
 		$user_id = $_SESSION['user_id'];
 		$messages = $getFromM->recentMessages($user_id);
-	
+		$getFromM->messagesViewed($user_id);
 		?>
 		<div class="popup-message-wrap">
 			<input id="popup-message-tweet" type="checkbox" checked="unchecked"/>

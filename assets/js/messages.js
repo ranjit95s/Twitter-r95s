@@ -3,6 +3,7 @@ $(function(){
         var getMessages = 1;
         $.post('http://localhost/Twitter-Clone/core/ajax/messages.php',{showMessage:getMessages},function(data){
             $('.popupTweet').html(data);
+            $('#messages').hide();
         });
     });
 
@@ -67,7 +68,7 @@ $(function(){
 
         $(document).on('click','.deleteMsg',function(){
             var messageID = $(this).data('message');
-            $('.message-del-inner').height('100px');
+            $('.message-del-inner').height('90px');
             $(document).on('click','.cancel',function(){
                 $('.message-del-inner').height('0px');
             });

@@ -265,6 +265,8 @@
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/postMessage.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/notification.js"></script>
+
 		</div>
 		<!--FOLLOWING OR FOLLOWER FULL WRAPPER END-->	
 	</div><!--in full wrap end-->
