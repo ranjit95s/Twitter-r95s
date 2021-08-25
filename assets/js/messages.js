@@ -53,7 +53,7 @@ $(function(){
         autoscroll = true;
 		scrollDown = function(){
 			var chat  = $('#chat')[0];
- 			if(chat !== undefined){
+            if(chat !== undefined){
 				$('#chat').scrollTop(chat.scrollHeight);
 			}
 		}

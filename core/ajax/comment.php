@@ -1,6 +1,7 @@
 <?php 
 	include '../init.php';
- 
+	$getFromU->preventAccess($_SERVER['REQUEST_METHOD'], realpath(__FILE__),realpath($_SERVER['SCRIPT_FILENAME']));
+
 	if(isset($_POST['comment']) && !empty($_POST['comment'])){
 		$comment = $getFromU->checkInput($_POST['comment']);
 		$user_id = $_SESSION['user_id'];

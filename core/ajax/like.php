@@ -1,6 +1,8 @@
 <?php
 
         include '../init.php'; 
+        $getFromU->preventAccess($_SERVER['REQUEST_METHOD'], realpath(__FILE__),realpath($_SERVER['SCRIPT_FILENAME']));
+
         if(isset($_POST['like']) && !empty($_POST['like'])){
             $user_id  = $_SESSION['user_id'];
             $tweet_id = $_POST['like'];

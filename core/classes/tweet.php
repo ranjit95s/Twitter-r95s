@@ -4,6 +4,7 @@
 
         function __construct($pdo){
             $this->pdo = $pdo; 
+            $this->message  = new Message($this->pdo);
         }
 
         public function tweets($user_id,$num){
@@ -171,12 +172,32 @@
             $hash = $checkStmt->fetch(PDO::FETCH_OBJ);
             $count = $checkStmt->rowCount();
 
-            if($count < 0 && $count <= 0){
+            if($count <= 0 && !($count>=0)){
                 $sql = "INSERT INTO `trends` (`hashtag`, `createdOn`) VALUES (:hashtag, CURRENT_TIMESTAMP)";
                 foreach ($result as $trend) {
                     if($stmt = $this->pdo->prepare($sql)){
                         $stmt->execute(array(':hashtag' => $trend));
                     }
+                }
+            }
+        }
+
+        public function addMention($status,$user_id, $tweet_id){
+            if(preg_match_all("/@+([a-zA-Z0-9_]+)/i", $status, $matches)){
+                if($matches){
+                    $result = array_values($matches[1]);
+                }
+                $sql = "SELECT * FROM `users` WHERE `username` = :mention";
+                foreach ($result as $trend) {
+                    if($stmt = $this->pdo->prepare($sql)){
+                        $stmt->execute(array(':mention' => $trend));
+                        $data = $stmt->fetch(PDO::FETCH_OBJ);
+                    }
+                }
+    
+                if($data->user_id != $user_id){
+                    //This fixed PHP 7 error for non static methods
+                    $this->message->sendNotification($data->user_id, $user_id, $tweet_id, 'mention');
                 }
             }
         }
@@ -212,6 +233,8 @@
             $stmt->bindParam(":retweetMsg", $comment, PDO::PARAM_STR);
             $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
             $stmt->execute();
+            $this->message->sendNotification($get_id, $user_id, $tweet_id, 'retweet');
+
         }
 
         public function checkRetweet($tweet_id,$user_id){
@@ -228,6 +251,9 @@
             $stmt->execute();
     
             $this->create('likes', array('likeBy' => $user_id, 'likeOn' => $tweet_id));
+            if($get_id != $user_id){
+                $this->message->sendNotification($get_id, $user_id, $tweet_id, 'like');
+            }
         }
         public function likes($user_id, $tweet_id){
             $stmt = $this->pdo->prepare("SELECT * FROM `likes` WHERE `likeBy` = :user_id AND `likeOn` = :tweet_id");

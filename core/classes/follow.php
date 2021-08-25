@@ -5,6 +5,7 @@
         protected $tweet;
         function __construct($pdo){
             $this->pdo = $pdo; 
+            $this->message = new Message($this->pdo);
             $this->tweet   = new tweet($this->pdo);
         }
 
@@ -47,6 +48,8 @@
             $stmt->execute(array("user_id" => $user_id,"profileID" => $profileID));
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             echo json_encode($data);
+            $this->message->sendNotification($followID, $user_id, $user_id, 'follow');
+
             //This fixed php 7 error
             // $this->message->sendNotification($followID, $user_id, $user_id, 'follow');
     

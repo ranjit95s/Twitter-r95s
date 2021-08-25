@@ -1,5 +1,7 @@
 <?php 
 	include '../init.php';
+	$getFromU->preventAccess($_SERVER['REQUEST_METHOD'], realpath(__FILE__),realpath($_SERVER['SCRIPT_FILENAME']));
+
 	if(isset($_POST['search']) && !empty($_POST['search'])){
 		$user_id = $_SESSION['user_id'];
 		$search  = $getFromU->checkInput($_POST['search']);

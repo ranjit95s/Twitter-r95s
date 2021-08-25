@@ -1,4 +1,7 @@
-
+<?php 
+	include '../init.php';
+	$getFromU->preventAccess($_SERVER['REQUEST_METHOD'], realpath(__FILE__),realpath($_SERVER['SCRIPT_FILENAME']));
+?>
     <!-- POPUP TWEET-FORM WRAP -->
     <div class="popup-tweet-wrap">
             <div class="wrap">

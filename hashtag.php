@@ -3,18 +3,19 @@
     include 'core/init.php';
     if(isset($_GET['hashtag']) && !empty($_GET['hashtag'])){
         $hashtag = $getFromU->checkInput($_GET['hashtag']);
-        $user_id = $_SESSION['user_id'];
+        $user_id = @$_SESSION['user_id'];
         $user     = $getFromU->userData($user_id);
         $tweets = $getFromT->getTweetsByHash($hashtag);
 		$accounts = $getFromT->getUsersByHash($hashtag);
-
+		$notify = $getFromM->getNotificationCount($user_id);
+		$notification  = $getFromM->notification($user_id);
     }else {
         header('Location:'.BASE_URL.'index.php');
     }
 
 ?>
 
-!doctype html>
+!DOCTYPE html>
 <html>
 	<head>
 		<title><?php echo '#'.$hashtag;?> / Tweety</title>
@@ -36,8 +37,8 @@
 			<ul>
 				<li><a href=" <?php echo BASE_URL;?>home.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 				<?php if($getFromU->loggedIn()===true){?>
-				<li><a href=" <?php echo BASE_URL; ?> i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-				<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+					<li><a href="<?php echo BASE_URL;?>i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notifications<span id="notificaiton"><?php if($notify->totalN > 0){echo '<span class="span-i">'.$notify->totalN.'</span>';}?></span></a></li>
+					<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages<span id="messages"><?php if($notify->totalM > 0){echo '<span class="span-i">'.$notify->totalM.'</span>';}?></span></li>
 				 <?php }?>
 			</ul>
 		</div><!-- nav left ends-->

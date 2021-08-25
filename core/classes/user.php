@@ -60,6 +60,12 @@
             return $var;
         }
 
+        public function preventAccess($request,$currentFile,$currently){
+            if($request == "GET" && $currentFile == $currently){
+                header('Location: '.BASE_URL.'index.php');
+            }
+        }
+
         public function login($email,$password){
             // statement call database and prepare for query execution 
             // select user_id from users table(users database) where email value is in :email field( ':' says email field )

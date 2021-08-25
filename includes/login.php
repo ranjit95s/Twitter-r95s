@@ -1,4 +1,7 @@
 <?php
+    if($_SERVER['REQUEST_METHOD'] == "GET" && realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])){
+        header('Location: ../index.php');
+    }
     // if form submitted (POST) and form isnt empty
     if(isset($_POST['login']) && !empty($_POST['login'])) {
         // getting email and password from fields [fields name are 'email' & 'password']

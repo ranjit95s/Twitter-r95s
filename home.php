@@ -22,13 +22,14 @@
 					if(strlen($status)>140){
 						$error = "tweet must be in 140 length";
 					}
-					$getFromU->create('tweets',array('status' => $status,'tweetBy'=>$user_id, 'tweetImage'=> $tweetImage,'postedOn'=> date('Y-m-d H:i:s')));
+					$tweet_id = $getFromU->create('tweets',array('status' => $status,'tweetBy'=>$user_id, 'tweetImage'=> $tweetImage,'postedOn'=> date('Y-m-d H:i:s')));
 					preg_match_all("/#+([a-zA-Z0-9_]+)/i", $status, $hashtag);
 					
 					
 					if(!empty($hashtag)){
 						$getFromT->addTrend($status);
 					}
+					$getFromT->addMention($status,$user_id,$tweet_id);
 				}else{	
 					$error = "Type or choose image to tweet";
 				}
@@ -60,11 +61,11 @@
 		<div class="nav">
 			
 			<div class="nav-left">
-				<ul>
-					<li><a href="home.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-					<li><a href="i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification <span id="notification"> <?php if($notify->totalN > 0){echo '<span class="span-i"> '.$notify->totalN.'</span>';} ?></span> </a></li>
-					<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages <span id="messages"> <?php if($notify->totalM > 0){echo '<span class="span-i"> '.$notify->totalM.'</span>';} ?></span></li>
-				</ul>
+			<ul>
+				<li><a href="home.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+				<li><a href="i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notifications<span id="notificaiton"><?php if($notify->totalN > 0){echo '<span class="span-i">'.$notify->totalN.'</span>';}?></span></a></li>
+				<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages<span id="messages"><?php if($notify->totalM > 0){echo '<span class="span-i">'.$notify->totalM.'</span>';}?></span></li>
+			</ul>
 			</div><!-- nav left ends-->
 
 			<div class="nav-right">
