@@ -30,18 +30,20 @@
 ?>
 
 <div class="login-div">
-<form method="post"> 
-	<ul>
-		<li>
-		  <input type="text" name="email" placeholder="Please enter your Email here"/>
-		</li>
-		<li>
-		  <input type="password" name="password" placeholder="password"/><input type="submit" name="login" value="Log in"/>
-		</li>
-		<li>
-		  <input type="checkbox" Value="Remember me">Remember me
-        </li>
-	</ul>
+							<h3>Log in to Tweety</h3>
+							<form method="post">
+								<ul style="text-align:center;">
+									<li>
+										<input type="text" name="email" id="emailVal" placeholder="Please enter your Email here" />
+									</li>
+									<li>
+										<input type="password" name="password" id="passVal" placeholder="password" />
+									</li>
+
+									<li><input type="submit" name="login" value="Log in" /></li>
+									<br>
+									<li style="font-weight: 700;"> Don’t have an account? <span id="not-acc" style="color: #2424ce; cursor: pointer;"> Sign up </span> </li>
+								</ul>
     <?php 
 
     if(isset($error)){

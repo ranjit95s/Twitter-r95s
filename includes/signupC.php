@@ -1,8 +1,8 @@
 <?php
 
-    if($_SERVER['REQUEST_METHOD'] == "GET" && realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])){
-        header('Location: ../index.php');
-    }
+    // if($_SERVER['REQUEST_METHOD'] == "GET" && realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])){
+    //     header('Location: ../index.php');
+    // }
     include '../core/init.php';
     $user_id = $_SESSION['user_id'];
     $user    = $getFromU->userData($user_id);
@@ -11,29 +11,32 @@
 
         if(isset($_POST['next'])){
             $username = $getFromU->checkInput($_POST['username']);
-                if(!empty($username)){
-                    if(strlen($username) > 20){
-                        $error = "Username must be between in 2-20 characters";
-                    }else if($getFromU->checkUsername($username) ===true){
-                        $error = "Username is already teken";
-                    }else {
-                        $getFromU->update('users',$user_id,array('username'=>$username));
-                        header('Location: signupC.php?step=2');
-                    }
-
-            }else { 
-                $error = "please enter your username to choose";
+            
+                if (!empty($username)) {
+                if(strlen($username) > 20){
+                    $error = "Username must be between in 6-20 characters";
+                }else if(!preg_match('/^[a-zA-Z0-9]{4,}$/', $username)){
+                    $error = 'Username must be longer than 4 alphanumeric characters without any spaces or special character';
+                } else if($getFromU->checkUsername($username) === true){
+                    $error = "Username is already taken!";
+                }else{
+                    $getFromU->update('users', $user_id, array('username' => $username));
+                    header('Location: signupC.php?step=2');
+                }
+                }else{
+                $error = "Please enter your username to choose";
+                }
             }
-        }
 
         ?>
         <!doctype html>
 <html>
-	<head>
-		<title>twitter</title>
+		<title>Tweety</title>
 		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/> 
 		<link rel="stylesheet" href="../assets/css/style-complete.css"/>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  	  
 	</head>
 	<!--Helvetica Neue-->
 <body>
@@ -57,13 +60,13 @@
 	<div class="main-container">
 		<!-- step wrapper-->
         <?php if($_GET['step'] == 1) {?>
- 		<div class="step-wrapper">
+            <div class="step-wrapper">
 		    <div class="step-container">
 				<form method="post">
 					<h2>Choose a Username</h2>
 					<h4>Don't worry, you can always change it later.</h4>
 					<div>
-						<input type="text" name="username" placeholder="Username"/>
+						<input type="text" id="usernameValidation" name="username" placeholder="Username"/>
 					</div>
 					<div>
 						<ul>

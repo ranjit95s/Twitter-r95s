@@ -15,12 +15,14 @@
 -->
 <html>
 	<head>
-		<title>twitter</title>
+		<title>Welcome to Tweety</title>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" />
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style-complete.css"/>
-	</head>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  	  
+
+</head>
 	<!--Helvetica Neue-->
 <body>
 <div class="front-img">
@@ -37,7 +39,7 @@
 			
 			<div class="nav-left">
 				<ul>
-					<li><i class="fa fa-twitter" aria-hidden="true"></i><a href="#">Home</a></li>
+					<li><i class="fa fa-twitter" aria-hidden="true"></i><a href="index.php">Home</a></li>
 					<li><a href="#">About</a></li>
 				</ul>
 			</div><!-- nav left ends-->
@@ -91,4 +93,44 @@
 </div><!-- inner wrapper ends-->
 </div><!-- ends wrapper -->
 </body>
+<script>
+	$(function(){
+		$('#not-acc').click(function(){
+			var loginForm = $('.login-wrapper').hide();
+			var signUpForm = $('.signup-wrapper').show();
+
+			var emailVal = $('#emailVal').val('');
+			var passVal = $('#passVal').val('');
+		});
+		$('#have-acc').click(function(){
+			var loginForm = $('.login-wrapper').show();
+			var signUpForm = $('.signup-wrapper').hide();
+
+			var sFullnameVal = $('#sFullnameVal').val('');
+			var sEmailVal = $('#sEmailVal').val('');
+			var sPassVal = $('#sPassVal').val('');
+			var sCPassVal = $('#sCPassVal').val('');	
+			var getsbtn = $('#checkPass').show();
+			var getbtn = $('#clickSignUp').hide();
+		});
+
+		$('#checkPass').on('click',function(){
+			var getPass = $('#sPassVal').val();
+			var getCPass = $('#sCPassVal').val();
+			if( !getPass.length <= 0 && !getCPass.length <= 0){
+				if(getPass != getCPass){
+					alert("PASSWORD AND CONFIRM PASSWORD DIDN'T MATCH");
+					var getbtn = $('#clickSignUp').hide();
+					var getPassV = $('#sPassVal').val('');
+				var getCPassV = $('#sCPassVal').val('');
+				}else {
+					var getbtn = $('#clickSignUp').show();
+					var getsbtn = $('#checkPass').hide();
+				}
+			}else {
+				alert("PASSWORD AND CONFIRM PASSWORD FILED CAN'T BE EMPTY");
+			}
+		})
+	})
+</script>
 </html>

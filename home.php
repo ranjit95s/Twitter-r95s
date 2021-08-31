@@ -100,7 +100,6 @@
 	</div><!-- header wrapper end -->
 		<script type="text/javascript" src="assets/js/search.js"></script>
 		<script type="text/javascript" src="assets/js/hashtag.js"></script>
-		
 	<!---Inner wrapper-->
 	<div class="inner-wrapper">
 	<div class="in-wrapper">

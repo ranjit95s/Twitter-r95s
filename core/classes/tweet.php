@@ -165,19 +165,10 @@
             if($matches){
                 $result = array_values($matches[1]);
             }
-
-            $checkStmt = $this->pdo->prepare("SELECT `trendID` FROM `trends` WHERE `hashtag` =:hashtag");
-            $checkStmt->bindParam(":hashtag", $hashtag, PDO::PARAM_STR);
-            $checkStmt->execute(); 
-            $hash = $checkStmt->fetch(PDO::FETCH_OBJ);
-            $count = $checkStmt->rowCount();
-
-            if($count <= 0 && !($count>=0)){
-                $sql = "INSERT INTO `trends` (`hashtag`, `createdOn`) VALUES (:hashtag, CURRENT_TIMESTAMP)";
-                foreach ($result as $trend) {
-                    if($stmt = $this->pdo->prepare($sql)){
-                        $stmt->execute(array(':hashtag' => $trend));
-                    }
+            $sql = "INSERT INTO `trends` (`hashtag`, `createdOn`) VALUES (:hashtag, CURRENT_TIMESTAMP) ON DUPLICATE KEY UPDATE `freqCheck` = `freqCheck` + 1 ";
+            foreach ($result as $trend) {
+                if($stmt = $this->pdo->prepare($sql)){
+                    $stmt->execute(array(':hashtag' => $trend));
                 }
             }
         }
@@ -234,7 +225,6 @@
             $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
             $stmt->execute();
             $this->message->sendNotification($get_id, $user_id, $tweet_id, 'retweet');
-
         }
 
         public function checkRetweet($tweet_id,$user_id){
