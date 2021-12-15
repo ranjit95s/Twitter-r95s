@@ -24,7 +24,8 @@
 				if($getFromU->checkEmail($email) === true){
 					$error = 'Email is already in use';
 				}else{
-					$user_id = $getFromU->create('users',array('email'=>$email,'password'=>md5($password),'screenName' => $screenName, 'ProfileImage'=> 'assets/images/dpi.png','profileCover' => 'assets/images/dc.png'));
+					$date = date('Y-m-d H:i:s');
+					$user_id = $getFromU->create('users',array('email'=>$email,'password'=>md5($password),'screenName' => $screenName, 'ProfileImage'=> 'assets/images/dpi.png','profileCover' => 'assets/images/dc.png','country' => 'India','joinedOn' => $date));
 					$_SESSION['user_id'] = $user_id;
 					header('Location:includes/signupC.php?step=1');
 				}
@@ -37,33 +38,43 @@
 <form method="post">
 							<div class="signup-div">
 								<h3>Sign up </h3>
-								<ul style="text-align:center;">
-									<li>
-										<input type="text" name="screenName" id="sFullnameVal" placeholder="Full Name" />
-									</li>
-									<li>
-										<input type="email" name="email" id="sEmailVal" placeholder="Email" />
-									</li>
-									<li>
-										<input type="password" name="password" id="sPassVal" placeholder="Password" />
-									</li>
-									<li>
-										<input type="password" name="Cpassword" id="sCPassVal" placeholder="Confirm Password" />
-									</li>
-									<li>
-										<input type="button"  id="checkPass" name="" Value="Verify Password">
-									</li>
-									<li>
-										<input type="submit" id="clickSignUp" name="signup" Value="Signup for Tweety">
-									</li>
-									<br>
-									<li style="font-weight: 700;"> Already have an account? <span id="have-acc" style="color: #2424ce; cursor: pointer;"> Log in </span> </li>
-								</ul>
-	<?php if(isset($error)){
+								<?php if(isset($error)){
 		echo '<li class="error-li">
 		<div class="span-fp-error">' .$error. '</div>
 	   </li> ';
 	} ?>
+								<ul style="text-align:center;">
+									<li>
+										<input type="text" name="screenName" id="sFullnameVal" required placeholder="Full Name" autocomplete="off" />
+										<br>
+										<span class="onchange0" id="onName"> name require </span>
+									</li>
+									<br>
+									<li>
+										<input type="email" name="email" id="sEmailVal" required placeholder="Email" autocomplete="on"  />
+										<br>
+										<span class="onchange0" id="onEmail"> email require </span>
+									</li>
+									<br>
+									<li>
+										<input type="password" name="password" id="sPassVal" required placeholder="Password" autocomplete="off"/>
+										<br>
+										<span class="onchange0" id="onPass"> password require </span>
+									</li>
+									<br>
+									<li>
+										<input type="password" name="Cpassword" required id="sCPassVal" placeholder="Confirm Password" autocomplete="off"/>
+										<br>
+										<span class="onchange0" id="onCPass"> doesn't match with password </span>
+									</li>
+									<br>
+									<li>
+										<input type="submit" id="clickSignUp" name="signup" Value="Signup for Tweety">
+									</li>
+									<br>
+									<li style="font-weight: 700; color:var( --primary-text-color);"> Already have an account? <span id="have-acc" style="color: var( --primary-theme-color); cursor: pointer;"> Log in </span> </li>
+								</ul>
+
 
 	
 </div>

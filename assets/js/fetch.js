@@ -6,10 +6,11 @@ $(function(){
         if($(document).height() <= (win.height() + win.scrollTop())){
             offset += 10;
             $('#loader').show();
-            $.post('http://localhost/Twitter-Clone/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
+            $.post('http://localhost/Twitter-Clone-pre/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
                 $('.tweets').html(data);
                 $('#loader').hide();
             });
         }
     });
+    
 });

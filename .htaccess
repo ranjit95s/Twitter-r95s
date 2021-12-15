@@ -4,7 +4,20 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^([a-zA-Z0-9_-]+)/?$ profile.php?username=$1
 RewriteRule ^hashtag/([a-zA-Z0-9_-]+)/?$ hashtag.php?hashtag=$1
+
+RewriteRule ^search/([^/]+)/?$ search.php?search=$1 [L,QSA]
+
+RewriteRule ^([a-zA-Z0-9_-]+)/status/([0-9]+)?$ tweets.php?username=$1&tweetID=$2 [L,QSA]
+
 RewriteRule ^settings/account/?$ account.php
 RewriteRule ^settings/password/?$ password.php
 RewriteRule ^([a-zA-Z0-9_-]+)/(following|followers)?$ $2.php?username=$1 [QSA]
 RewriteRule ^i/notifications/?$ notification.php
+
+
+
+ErrorDocument 404 /home.php
+ErrorDocument 500 /home.php
+ErrorDocument 403 /home.php
+ErrorDocument 400 /home.php
+ErrorDocument 401 /home.php

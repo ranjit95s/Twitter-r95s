@@ -5,7 +5,7 @@
         $button = $(this);
        
         if ($button.hasClass('following-btn')) {
-            $.post('http://localhost/Twitter-Clone/core/ajax/follow.php', {unfollow:followID, profile:profile}, function(data){
+            $.post('http://localhost/Twitter-Clone-pre/core/ajax/follow.php', {unfollow:followID, profile:profile}, function(data){
             data = JSON.parse(data);
             $button.removeClass('following-btn');
             $button.removeClass('unfollow-btn');
@@ -15,7 +15,7 @@
             
             });
         }else{
-            $.post('http://localhost/Twitter-Clone/core/ajax/follow.php', {follow:followID, profile:profile}, function(data){
+            $.post('http://localhost/Twitter-Clone-pre/core/ajax/follow.php', {follow:followID, profile:profile}, function(data){
             data = JSON.parse(data);
             $button.removeClass('follow-btn');
             $button.addClass('following-btn');

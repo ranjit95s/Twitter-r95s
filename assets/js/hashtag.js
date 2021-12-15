@@ -3,12 +3,13 @@ $(function () {
     $(document).on('keyup','.status',function() {
             var content = $.trim($(this).val());
             var text = content.match(regex);
-            var max = 140;
+            var max = 300;
             if(text != null){
-                var dataString = 'hashtag='+text;
+                var dataString = 'hashtag='+text+'&links=false';
+                
                 $.ajax({
                     type: "POST",
-                    url : "http://localhost/Twitter-Clone/core/ajax/getHashtag.php",
+                    url : "http://localhost/Twitter-Clone-pre/core/ajax/getHashtag.php",
                     data : dataString,
                     catch : false,
                     success : function (data) {
@@ -31,10 +32,10 @@ $(function () {
                 $('.hash-box li').hide();
             }
             $('#count').text(max - content.length);
-            if(content.length === max || content.length > 140){
+            if(content.length == max || content.length > 300){
                 $('#count').css('color','#f00');
             }else{
-                $('#count').css('color','#000');
+                $('#count').css('color','#ffffff');
             }
     })
 })

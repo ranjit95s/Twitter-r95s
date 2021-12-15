@@ -5,7 +5,7 @@
     <!-- POPUP TWEET-FORM WRAP -->
     <div class="popup-tweet-wrap">
             <div class="wrap">
-            
+
             <div class="popwrap-inner">
                 <div class="popwrap-header">
                     <div class="popwrap-h-left">
@@ -16,28 +16,36 @@
                     </span>
                 </div>
                 <div class="popwrap-full">
+               
                 <form id="popupForm" method="POST" enctype="multipart/form-data">
                     <div class="popwrap-body">
-                    <textarea class="status" name="status" maxlength="141" placeholder="Type Something here!" rows="4" cols="50"></textarea>
-                        <div class="hash-box">
-                            <ul>
+                    <textarea class="status" name="status" maxlength="300" placeholder="Type Something here!" rows="5" cols="50"></textarea>
+                    <div class="hash-box">
+                        <ul>
                             </ul>
-                        </div>
+                    </div>
+                    </div>
+                    <div id="selected-img">
+                   <button style="display:none;" id="uniq">Remove</button>
+                        <!-- <h3>SELECT IMAGE</h3> -->
+                        <img id="popup-tweet-image-select" src="#" onerror="this.style.display='none'" />
                     </div>
                     <div class="popwrap-footer">
                         <div class="t-fo-left">
                             <ul>
-                                <input type="file" name="file" id="file">
-                                <li><label for="file"><i class="fa fa-camera" aria-hidden="true"></i></label></li>
+                                <input type="file" name="files" id="files" class="filecha">
+                                <li><label for="files"><i class="fa fa-camera" aria-hidden="true" ></i> <span style="font-size: 15px;" id="filenameP">  </span> </label></li>
                             </ul>
                         </div>
                         <div class="t-fo-right">
-                            <span id="count">140</span>
-                            <input type="submit"  id="post" name="addTweet" value="tweet"/>
+                            <span id="count">300</span>
+                            <input type="submit"  id="post" name="addTweet" value="Tweet"/>
                         </div>
                     </form>
+                    
                     </div>
                 </div>
+					
             </div>
         </div>
     </div>

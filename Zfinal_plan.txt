@@ -1,0 +1,10 @@
+ 🍑  🍑  🍑  🍑  🍑  🍑  🍑  🍑  🍑  🍑 frontend_work START 🍑  🍑  🍑  🍑  🍑  🍑  🍑  🍑  🍑  🍑 
+
+
+[+] fix centeric for all pages
+[+] color fix in search result
+[+] isset property in info 
+[+] padding follow/unfollow - edit btn 0-*-0 / remove alert
+[+] popup retweet responsive [+] images in retweet and image popup
+[+] 
+

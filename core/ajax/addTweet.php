@@ -12,10 +12,10 @@
             if(!empty($_FILES['file']['name'][0])){
                 $tweetImage = $getFromU->uploadImage($_FILES['file']);
             }
-            if(strlen($status)>140){
-                $error = "tweet must be in 140 length";
+            if(strlen($status)>300){
+                $error = "tweet must be in 280 length";
             }
-            $tweet_id = $getFromU->create('tweets',array('status' => $status,'tweetBy'=>$user_id, 'tweetImage'=> $tweetImage,'postedOn'=> date('Y-m-d H:i:s')));
+            $tweet_id = $getFromU->create('tweets',array('status' => $status,'tweetBy'=>$user_id ,'tweetOwner'=>$user_id, 'tweetImage'=> $tweetImage,'postedOn'=> date('Y-m-d H:i:s')));
             preg_match_all("/#+([a-zA-Z0-9]+)/i",$status,$hashtag);
             if(!empty($hashtag)){
                 $getFromT->addTrend($status);

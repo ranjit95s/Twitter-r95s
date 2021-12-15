@@ -1,0 +1,118 @@
+/* 
+
+background color
+border color
+text color
+@secondary-text-color
+
+
+*/
+
+:root {
+    /* light-mode */
+    --primary-background-color:#ffffff;
+    --secondary-background-color:#000000;
+    --bg-text-color:#ffffff;
+
+    --primary-border-color:#d3d3d3;
+
+    --primary-text-color:#000000;
+    --secondary-text-color:#3a3a3a;
+
+    --primary-bg-hover:#e6e6e6;
+    --secondary-bg-hover:#c2c2c2;
+
+    --primary-theme-color:#1d9bf0;
+    --primary-theme-colorh:#1583cc;
+    
+    --pro-convert: 30, 156, 241;
+
+    
+}
+
+.light-mode{
+    --primary-background-color:#ffffff;
+    --secondary-background-color:#000000;
+    --bg-text-color:#ffffff;
+
+    --primary-border-color:#d3d3d3;
+
+    --primary-text-color:#000000;
+    --secondary-text-color:#3a3a3a;
+
+    --primary-bg-hover:#e6e6e6;
+    --secondary-bg-hover:#c2c2c2;
+
+    --primary-theme-color:#1d9bf0;
+    --primary-theme-colorh:#1583cc;
+
+
+    --pro-convert: 30, 156, 241;
+  
+}
+
+.dark-mode{
+    --primary-background-color:#000000;
+    --secondary-background-color:#000000;
+    --bg-text-color:#ffffff;
+
+    --primary-border-color:#2f3336;
+
+    --primary-text-color:#ffffff;
+    --secondary-text-color:#8899a6;
+
+    --primary-bg-hover: rgb(8 8 8);
+    --secondary-bg-hover:rgb(20 20 20);
+
+    --primary-theme-color:#1d9bf0;
+    --primary-theme-colorh:#1583cc;
+
+    --pro-convert: 30, 156, 241;
+
+}
+
+.dim-mode{
+    --primary-background-color:#15202b;
+    --secondary-background-color:#000000;
+    --bg-text-color:#ffffff;
+    
+    --primary-border-color:#38444d;
+
+    --primary-text-color:#ffffff;
+    --secondary-text-color:#8899a6;
+
+    --primary-bg-hover:#141d25;
+    --secondary-bg-hover:#0e171f;
+
+    --primary-theme-color:#1e9cf1;
+    --primary-theme-colorh:#1583cc;
+
+    --pro-convert: 30, 156, 241;
+
+}
+
+.Blue {
+    --theme-color:#1d9bf0;
+    --theme-color-hover:#1583cc;
+}
+.Yellow{
+    --theme-color:#ffd500;
+    --theme-color-hover:#dfba01;
+}
+.Pink{
+    --theme-color:#f91880;
+    --theme-color-hover:#da1571;
+}
+.Purple{
+    --theme-color:#7856ff;
+    --theme-color-hover:#6548d8;
+}
+.Orange{
+    --theme-color:#ff7a00;
+    --theme-color-hover:#dd6b00;
+}
+.Green{
+    --theme-color:#00ba7c;
+    --theme-color-hover:#00a06b;
+}
+

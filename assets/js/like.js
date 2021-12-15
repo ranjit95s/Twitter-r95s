@@ -1,12 +1,20 @@
-$(function(){
-	$(document).on('click','.like-btn', function(){
+$(document).ready(function() {
+	
+	$(function(){
+		// $().myfunction(1, null);
+		
+	});
+
+	$(document).on('click','.like-btn', function(e){
+		e.preventDefault();
+			e.stopPropagation();
  		var tweet_id  = $(this).data('tweet');
 		var user_id   = $(this).data('user');
 		var counter   = $(this).find('.likesCounter');
 		var count     = counter.text();
 		var button    = $(this);
-
-		$.post('http://localhost/Twitter-Clone/core/ajax/like.php', {like:tweet_id, user_id:user_id}, function(){
+		
+		$.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {like:tweet_id, user_id:user_id}, function(){
  			counter.show();
  			button.addClass('unlike-btn');
 			button.removeClass('like-btn');
@@ -14,17 +22,23 @@ $(function(){
 			counter.text(count);
 			button.find('.fa-heart-o').addClass('fa-heart');
 			button.find('.fa-heart').removeClass('fa-heart-o');
-		}); 
+		});
+		$.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {tweet_id:tweet_id}, function(data){
+			$('.likesCountt').html(data);
+			console.log('hit')
+		});
 	});
 
-	$(document).on('click','.unlike-btn', function(){
+	$(document).on('click','.unlike-btn', function(e){
+		e.preventDefault();
+			e.stopPropagation();
  		var tweet_id  = $(this).data('tweet');
 		var user_id   = $(this).data('user');
 		var counter   = $(this).find('.likesCounter');
 		var count     = counter.text();
 		var button    = $(this);
 
-		$.post('http://localhost/Twitter-Clone/core/ajax/like.php', {unlike:tweet_id, user_id:user_id}, function(){
+		$.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {unlike:tweet_id, user_id:user_id}, function(){
  			counter.show();
  			button.addClass('like-btn');
 			button.removeClass('unlike-btn');
@@ -38,5 +52,9 @@ $(function(){
 			button.find('.fa-heart').addClass('fa-heart-o');
 			button.find('.fa-heart-o').removeClass('fa-heart');
 		}); 
+		$.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {tweet_id:tweet_id}, function(data){
+			$('.likesCountt').html(data);
+			console.log('hit')
+		});
 	});
 });

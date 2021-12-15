@@ -22,6 +22,20 @@
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style-complete.css"/>
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  	  
 
+	<style>
+	.onchange0 {
+		display: none;
+		color: #ff2d2d;
+    float: left;
+    text-transform: capitalize;
+    font-weight: 600;
+    padding: 5px;
+    background: antiquewhite;
+    width: 100%;
+    text-align: start;
+	}
+	</style>
+
 </head>
 	<!--Helvetica Neue-->
 <body>
@@ -31,31 +45,6 @@
 
 <div class="wrapper">
 <!-- header wrapper -->
-<div class="header-wrapper">
-	
-	<div class="nav-container">
-		<!-- Nav -->
-		<div class="nav">
-			
-			<div class="nav-left">
-				<ul>
-					<li><i class="fa fa-twitter" aria-hidden="true"></i><a href="index.php">Home</a></li>
-					<li><a href="#">About</a></li>
-				</ul>
-			</div><!-- nav left ends-->
-
-			<div class="nav-right">
-				<ul>
-					<li><a href="#">Language</a></li>
-				</ul>
-			</div><!-- nav right ends-->
-
-		</div><!-- nav ends -->
-
-	</div><!-- nav container ends -->
-
-</div><!-- header wrapper end -->
-	
 <!---Inner wrapper-->
 <div class="inner-wrapper">
 	<!-- main container -->
@@ -98,39 +87,60 @@
 		$('#not-acc').click(function(){
 			var loginForm = $('.login-wrapper').hide();
 			var signUpForm = $('.signup-wrapper').show();
-
 			var emailVal = $('#emailVal').val('');
 			var passVal = $('#passVal').val('');
 		});
 		$('#have-acc').click(function(){
 			var loginForm = $('.login-wrapper').show();
 			var signUpForm = $('.signup-wrapper').hide();
-
+			var onEvery = $('.onChange0').css({"display":"none"});
 			var sFullnameVal = $('#sFullnameVal').val('');
 			var sEmailVal = $('#sEmailVal').val('');
 			var sPassVal = $('#sPassVal').val('');
 			var sCPassVal = $('#sCPassVal').val('');	
 			var getsbtn = $('#checkPass').show();
-			var getbtn = $('#clickSignUp').hide();
+			// var getbtn = $('#clickSignUp').hide();
 		});
 
-		$('#checkPass').on('click',function(){
-			var getPass = $('#sPassVal').val();
-			var getCPass = $('#sCPassVal').val();
-			if( !getPass.length <= 0 && !getCPass.length <= 0){
-				if(getPass != getCPass){
-					alert("PASSWORD AND CONFIRM PASSWORD DIDN'T MATCH");
-					var getbtn = $('#clickSignUp').hide();
-					var getPassV = $('#sPassVal').val('');
-				var getCPassV = $('#sCPassVal').val('');
-				}else {
-					var getbtn = $('#clickSignUp').show();
-					var getsbtn = $('#checkPass').hide();
+		$('#not-acc').click(function(){
+			
+			$(sFullnameVal).keyup(function(){
+				if(sFullnameVal.value.length > 0){
+					var onName = $('#onName').css({"display":"none"});
+					console.log("none")
+				}else if(sFullnameVal.value.length == 0) {
+					var onName = $('#onName').css({"display":"block"});
+					console.log("none not")
 				}
-			}else {
-				alert("PASSWORD AND CONFIRM PASSWORD FILED CAN'T BE EMPTY");
-			}
+			})
+
+			$(sEmailVal).keyup(function(){
+				if(sEmailVal.value.length > 0){
+					var onEmail = $('#onEmail').css({"display":"none"});
+					console.log("none")
+				}else if(sEmailVal.value.length == 0) {
+					var onEmail = $('#onEmail').css({"display":"block"});
+					console.log("none not")
+				}
+			})
+
+			function checkPasswordMatch() {
+				var sPassVal1 = $('#sPassVal').val();
+			var sCPassVal2 = $('#sCPassVal').val();
+
+    if (sPassVal1 != sCPassVal2)
+	var onName = $('#onCPass').css({"display":"block"});
+    else
+	var onName = $('#onCPass').css({"display":"none"});
+}
+
+$(document).ready(function () {
+   $("#sPassVal, #sCPassVal").keyup(checkPasswordMatch);
+});
+
+
 		})
+
 	})
 </script>
 </html>

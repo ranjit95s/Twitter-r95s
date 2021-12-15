@@ -9,7 +9,7 @@
 		$tweet   = $getFromT->getPopupTweet($tweetID);
 		$user    = $getFromU->userData($user_id);
 		$likes   = $getFromT->likes($user_id, $tweetID);
-		$retweet = $getFromT->checkRetweet($tweetID,$user_id);
+		// $retweet = $getFromT->checkRetweet($tweetID,$user_id);
         $comments = $getFromT->comments($tweetID);
         ?> 
         
@@ -22,7 +22,7 @@
                 </div>
             </label>
             <div class="tweet-show-popup-box">
-            <div class="forretweet" style="height:300px; background:black;" > <h1 style="color:white;">for retweet msg show (underConstruction for now)</h1> </div>
+            <div class="forretweet" style="height:300px; background:black;" > <h1 style="color:var( --primary-text-color);">for retweet msg show (underConstruction for now)</h1> </div>
             <div class="tweet-show-popup-inner">
                 <div class="tweet-show-popup-head">
                     <div class="tweet-show-popup-head-left">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="tweet-show-popup-head-right">
-                        <button class="f-btn"><i class="fa fa-user-plus"></i> Follow </button>
+                      <?php echo $getFromF->followBtn($tweet->user_id,$user_id,$tweetID); ?>
                     </div>
                 </div>
                 <div class="tweet-show-popup-tweet-wrap">
@@ -199,9 +199,118 @@
         <!--tweet-show-popup-box ends-->
         </div>
         </div>
+        <?php 
+    }
+
+    if(isset($_POST['showLikesUsers']) && !empty($_POST['showLikesUsers'])){
+
+        $tweetID = $_POST['showLikesUsers'];
+		$user_id = @$_SESSION['user_id'];
+
+        $userLists = $getFromT->likedUserOntweets($tweetID);
+
+         
+            
+            
+         echo '
+         <div class="wrap">
+         <div class="outer-abs">
+                <div class="inner">
+                    <div class="upper">
+                        <div class="closed"> <i class="fa fa-close"></i> </div>
+                        <div class="title"> <span class="by-iougi"> Liked by </span> </div>
+                    </div>';
+                    if(empty($userLists)){echo '<div class="emptyBox" style="    color: #9d9e9f;
+                        display: flex;
+                        position: relative;
+                        font-size:1.6rem;
+                        padding: 15px;
+                        top: 50px;
+                        font-weight: 600;"> <div class="center-box"> <span> Nothing to see here — yet </span> </div> </div>';}
+                    foreach($userLists as $userList){ 
+                    echo '
+                    <div class="flex"> 
+                    <div class="imageFollow"> 
+                    <a href="'.BASE_URL.$userList->username.'">
+                    <img src="'.BASE_URL.$userList->profileImage.'"/>
+                    </a>
+                    </div>
+                    <div class="followInfo">
+                        <div class="info-follow">
+                        <div class="name-username">
+                        <h3> <a href="'.BASE_URL.$userList->username.'">'.$userList->screenName.'</a> </h3>
+                        <h4> <a href="'.BASE_URL.$userList->username.'">@'.$userList->username.'</a> </h4>
+                        </div>
+                        <div class="followBtn"> '.$getFromF->followBtn($userList->user_id,$user_id,$user_id).'  </div>
+                    </div>
+                    <div class="bioFollow"> '.$getFromT->getTweetLinks($userList->bio).' </div>
+                    </div>
+                    
+                    </div>
+                    '; }
+
+               echo' </div>
+            </div>
+         </div>
+         ';
+            
+            
+       
+
+    }
+
+    if(isset($_POST['showRetweetUsers']) && !empty($_POST['showRetweetUsers'])){
+
+        $tweetID = $_POST['showRetweetUsers'];
+		$user_id = @$_SESSION['user_id'];
+
+        $userLists = $getFromT->retweetUserOntweets($tweetID);
 
         
-        <?php 
+
+        echo ' 
+        <div class="wrap">
+        <div class="outer-abs">
+        <div class="inner">
+            <div class="upper">
+                <div class="closed"> <i class="fa fa-close"></i> </div>
+                <div class="title"> <span class="by-iougi"> Retweet by </span> </div>
+            </div>';
+
+            if(empty($userLists)){echo '<div class="emptyBox" style="    color: #9d9e9f;
+                display: flex;
+                position: relative;
+                font-size:1.6rem;
+                padding: 15px;
+                top: 50px;
+                font-weight: 600;"> <div class="center-box"> <span> Nothing to see here — yet </span> </div> </div>';}
+            foreach($userLists as $userList){ 
+            echo '
+            <div class="flex"> 
+            <div class="imageFollow"> 
+            <a href="'.BASE_URL.$userList->username.'">
+            <img src="'.BASE_URL.$userList->profileImage.'"/>
+            </a>
+            </div>
+            <div class="followInfo">
+                <div class="info-follow">
+                <div class="name-username">
+                <h3> <a href="'.BASE_URL.$userList->username.'">'.$userList->screenName.'</a> </h3>
+                <h4> <a href="'.BASE_URL.$userList->username.'">@'.$userList->username.'</a> </h4>
+                </div>
+                <div class="followBtn"> '.$getFromF->followBtn($userList->user_id,$user_id,$user_id).'  </div>
+            </div>
+            <div class="bioFollow"> '.$getFromT->getTweetLinks($userList->bio).' </div>
+            </div>
+            
+            </div>
+            '; }
+
+       echo' </div>
+    </div>
+        </div>
+        ';
+
     }
 
 ?>

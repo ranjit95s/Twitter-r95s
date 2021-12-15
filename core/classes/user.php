@@ -94,7 +94,7 @@
         }
 
         public  function search($search){
-            $stmt = $this->pdo->prepare("SELECT `user_id`, `username`,`screenName`,`profileImage`,`profileCover` FROM `users` WHERE `username` LIKE ? OR `screenName` LIKE ?");
+            $stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE `username` LIKE ? OR `screenName` LIKE ? LIMIT 10");
             $stmt->bindValue(1,$search.'%',PDO::PARAM_STR);
             $stmt->bindValue(2,$search.'%',PDO::PARAM_STR);
             $stmt->execute();
@@ -105,7 +105,6 @@
             $stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE `user_id` = :user_id ");
             $stmt ->bindParam(":user_id",$user_id,PDO::PARAM_INT);
             $stmt->execute();
-
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
 
@@ -177,6 +176,7 @@
 
         public function loggedIn(){
             return (isset($_SESSION['user_id'])) ? true : false;
+            
         }
 
         public function logout(){
@@ -214,7 +214,8 @@
 
         public function checkPassword($password){
             $stmt = $this->pdo->prepare("SELECT `password` FROM `users` WHERE `password` = :password");
-            $stmt->bindParam(":password",md5($password),PDO::PARAM_STR);
+            $sabka_sath = md5($password);
+            $stmt->bindParam(":password",$sabka_sath,PDO::PARAM_STR);
             $stmt->execute();
 
             $count = $stmt->rowCount();
@@ -250,7 +251,7 @@
                         $exts = pathinfo($filename, PATHINFO_EXTENSION);
                         $random = rand(99,999999);
                         $fileRoot = 'users/'.$date.'_'.$random.'.'.$exts;
-                        move_uploaded_file($fileTem,$_SERVER['DOCUMENT_ROOT'].'/Twitter-Clone/'.$fileRoot);
+                        move_uploaded_file($fileTem,$_SERVER['DOCUMENT_ROOT'].'/Twitter-Clone-pre/'.$fileRoot);
                         return $fileRoot;
                     }else {
                         $GLOBALS['imageError']="file size is too large";

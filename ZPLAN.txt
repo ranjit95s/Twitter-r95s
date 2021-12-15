@@ -4,4 +4,11 @@
 
 (((isset($retweet['tweetID'])) ? !empty($tweet->retweetMsg) && $tweet->tweetID === $retweet['tweetID'] or $tweet->retweetID > 0 : '') ?
 
+******************************* WORK TO DO *******************************
+1}
+
+data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"
+
+2}
+
 

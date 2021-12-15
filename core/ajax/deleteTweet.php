@@ -4,7 +4,18 @@
     if(isset($_POST['deleteTweet']) && !empty($_POST['deleteTweet'])){
         $tweet_id = $_POST['deleteTweet'];
         $user_id = $_SESSION['user_id'];
-        $getFromT->delete('tweets',array('tweetID' => $tweet_id,'tweetBy'=>$user_id));
+        $getFromT->delete('tweets',array('tweetID' => $tweet_id,'tweetOwner'=>$user_id ));
+        
+    }
+
+    if(isset($_POST['deleteTweetWithRef']) && !empty($_POST['deleteTweetWithRef'])){
+        $tweet_id = $_POST['deleteTweetWithRef'];
+        $user_id = $_SESSION['user_id'];
+        $tweetRef = $_POST['re'];
+        $tweetRefTo = $_POST['ret'];
+        $getFromT->delete('tweets',array('tweetID' => $tweet_id,'tweetOwner'=>$user_id ));
+        $getFromT->deleteCount($tweet_id,$tweetRef,$tweetRefTo);
+        
     }
 
     if(isset($_POST['showPopup']) && !empty($_POST['showPopup'])){
@@ -14,7 +25,7 @@
         ?>
 
     <div class="retweet-popup">
-    <div class="wrap5">
+    <div class="wrap">
         <div class="retweet-popup-body-wrap">
         <div class="retweet-popup-heading">
             <h3>Are you sure you want to delete this Tweet?</h3>

@@ -15,5 +15,5 @@
     $getFromT = new Tweet($pdo);
     $getFromM = new Message($pdo);
 
-    define("BASE_URL" , "http://localhost/Twitter-Clone/");
+    define("BASE_URL" , "http://localhost/Twitter-Clone-pre/");
 ?>

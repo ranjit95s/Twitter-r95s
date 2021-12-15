@@ -33,7 +33,7 @@
                     }
                 }else{
                     //edit button
-                    return "<button class='f-btn' onclick=location.href='".BASE_URL."profileEdit.php'>Edit Profile</button>";
+                    return "<button class='f-btn' id='edit-from-follow' >Edit Profile</button>";
                 }
             }else{
                 return "<button class='f-btn' onclick=location.href='".BASE_URL."index.php'><i class='fa fa-user-plus'></i>Follow</button>";
@@ -80,32 +80,28 @@
             $stmt->execute();
             $followings = $stmt->fetchAll(PDO::FETCH_OBJ);
             foreach ($followings as $following) {
-                echo '<div class="follow-unfollow-box">
-                        <div class="follow-unfollow-inner">
-                            <div class="follow-background">
-                                <img src="'.BASE_URL.$following->profileCover.'"/>
-                            </div>
-                            <div class="follow-person-button-img">
-                                <div class="follow-person-img"> 
-                                <img src="'.BASE_URL.$following->profileImage.'"/>
-                                </div>
-                                <div class="follow-person-button">
-                                    '.$this->followBtn($following->user_id, $user_id, $followID).'
-                                </div>
-                            </div>
-                            <div class="follow-person-bio">
-                                <div class="follow-person-name">
-                                    <a href="'.BASE_URL.$following->username.'">'.$following->screenName.'</a>
-                                </div>
-                                <div class="follow-person-tname">
-                                    <a href="'.BASE_URL.$following->username.'">@'.$following->username.'</a>
-                                </div>
-                                <div class="follow-person-dis">
-                                    '.$this->tweet->getTweetLinks($following->bio).'
-                                </div>
-                            </div>
+                echo '
+
+                    <div class="flex"> 
+                    <div class="imageFollow"> 
+                    <a href="'.BASE_URL.$following->username.'">
+                    <img src="'.BASE_URL.$following->profileImage.'"/>
+                    </a>
+                    </div>
+                    <div class="followInfo">
+                        <div class="info-follow">
+                        <div class="name-username">
+                        <h3> <a href="'.BASE_URL.$following->username.'">'.$following->screenName.'</a> </h3>
+                        <h4> <a href="'.BASE_URL.$following->username.'">@'.$following->username.'</a> </h4>
                         </div>
-                    </div>';
+                        <div class="followBtn"> '.$this->followBtn($following->user_id,$user_id,$profileID).'  </div>
+                    </div>
+                    <div class="bioFollow"> '.$this->tweet->getTweetLinks($following->bio).' </div>
+                    </div>
+                    
+                    </div>
+
+                        ';
             }
         }
     
@@ -115,31 +111,24 @@
             $stmt->execute();
             $followings = $stmt->fetchAll(PDO::FETCH_OBJ);
             foreach ($followings as $following) {
-                echo '<div class="follow-unfollow-box">
-                        <div class="follow-unfollow-inner">
-                            <div class="follow-background">
-                                <img src="'.BASE_URL.$following->profileCover.'"/>
-                            </div>
-                            <div class="follow-person-button-img">
-                                <div class="follow-person-img"> 
-                                <img src="'.BASE_URL.$following->profileImage.'"/>
-                                </div>
-                                <div class="follow-person-button">
-                                    '.$this->followBtn($following->user_id, $user_id, $followID).'
-                                </div>
-                            </div>
-                            <div class="follow-person-bio">
-                                <div class="follow-person-name">
-                                    <a href="'.BASE_URL.$following->username.'">'.$following->screenName.'</a>
-                                </div>
-                                <div class="follow-person-tname">
-                                    <a href="'.BASE_URL.$following->username.'">@'.$following->username.'</a>
-                                </div>
-                                <div class="follow-person-dis">
-                                    '.$this->tweet->getTweetLinks($following->bio).'
-                                </div>
-                            </div>
+                echo '
+                <div class="flex"> 
+                    <div class="imageFollow"> 
+                    <a href="'.BASE_URL.$following->username.'">
+                        <img src="'.BASE_URL.$following->profileImage.'"/>
+                    </a>
+                    </div>
+                    <div class="followInfo">
+                        <div class="info-follow">
+                        <div class="name-username">
+                        <h3> <a href="'.BASE_URL.$following->username.'">'.$following->screenName.'</a> </h3>
+                        <h4> <a href="'.BASE_URL.$following->username.'">@'.$following->username.'</a> </h4>
                         </div>
+                        <div class="followBtn"> '.$this->followBtn($following->user_id,$user_id,$profileID).'  </div>
+                    </div>
+                    <div class="bioFollow"> '.$this->tweet->getTweetLinks($following->bio).' </div>
+                    </div>
+                    
                     </div>';
             }
         }
@@ -151,23 +140,30 @@
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-            echo '<div class="follow-wrap"><div class="follow-inner"><div class="follow-title"><h3>Who to follow</h3></div>';
-
+            echo '<div class="follow-wrap">
+                    <div class="follow-inner">
+                    <div class="follow-title">
+                    <h3>Who to follow</h3>
+                    </div>';
             foreach($data as $user){
                 echo '<div class="follow-body">
                         <div class="follow-img">
+                        <a href="'.BASE_URL.$user->username.'">
                         <img src="'.BASE_URL.$user->profileImage.'"/>
+                        </a>
                         </div>
                         <div class="follow-content">
-                            <div class="fo-co-head">
-                                <a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a> <span>@'.$user->username.'</span>
+                            <div class="fo-co-head ellipsis">
+                                <a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a> </br> <span>@'.$user->username.'</span>
                             </div>
-                            <!-- FOLLOW BUTTON -->
-                            '.$this->followBtn($user->user_id,$user_id,$profileID).'
+                            <div class="w-t-f-f-btn"> <!-- FOLLOW BUTTON -->
+                            '.$this->followBtn($user->user_id,$user_id,$profileID).' 
+                            </div>
                         </div>
+
+
                     </div>';
             }
-
             echo '</div></div>';
 
         }

@@ -8,6 +8,13 @@
             $tweet_id = $_POST['like'];
             $get_id   = $_POST['user_id'];
             $getFromT->addLike($user_id, $tweet_id, $get_id);
+            $getFromT->fetchLikes($tweet_id);
+
+        }
+        
+        if(isset($_POST['tweet_id']) && !empty($_POST['tweet_id'])){
+            $tweet_id = $_POST['tweet_id'];
+            $getFromT->fetchLikes($tweet_id);
         }
 
         if(isset($_POST['unlike']) && !empty($_POST['unlike'])){
@@ -16,10 +23,7 @@
             $get_id   = $_POST['user_id'];
             $getFromT->unLike($user_id, $tweet_id, $get_id);
         }
+
+     
         
         ?>
-<<<<<<< HEAD
-?>
-
-=======
->>>>>>> c8d5ec77a17a0d07c3451ef82257281ad42194ff
