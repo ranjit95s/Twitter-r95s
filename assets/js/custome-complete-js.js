@@ -7,8 +7,12 @@ $(document).ready(function () {
       window.history.replaceState( null, null, window.location.href );
     }
 
-
     var s = $(".in-right");
+    var top = ($('.in-right').offset() || { "top": NaN }).top;
+    if (isNaN(top)){
+     console.log('undefined');
+    //  $().myfunction("No such a element found", null);
+  }else {
     var pos = s.offset().top+s.height(); //offset that you need is actually the div's top offset + it's height
     $(window).scroll(function() {
         var windowpos = $(window).scrollTop(); //current scroll position of the window
@@ -16,6 +20,8 @@ $(document).ready(function () {
         if (windowpos+windowheight>pos) s.addClass('stick'); //Currently visible part of the window > greater than div offset + div height, add class
         else s.removeClass('stick');
     });
+  }
+
 
     $('.show-nav-home ul li a img').click(function () {
       var pro = $('.respo-info');
@@ -77,6 +83,11 @@ $(document).ready(function () {
       // console.log(filename.name);
       $('#filenameR').html(filename.name);
     });
+    $(document).on('change', '#filec', function () {
+      var filename = $('#filec')[0].files[0];
+      console.log(filename.name);
+      $('#filenamec').text(filename.name);
+    });
 
     var current = location.pathname;
 		current = current.substring(current.lastIndexOf('/'));
@@ -101,10 +112,8 @@ $(document).ready(function () {
 				$this.addClass('active');
 			}
 			// console.log($this[0]);
-			
-
-      
 		});
+
 
     $(document).on('click','.colorPicks',function(e){
 		
@@ -233,6 +242,8 @@ $(document).ready(function () {
         $("#dark").prop('checked', true);
       }
     });
+
+ 
   
   
     $(document).on('click','.displayAdjust',function(e){
@@ -274,10 +285,6 @@ $(document).ready(function () {
 
   });
 });
-
-
-
-
 
 (function ($) {
 

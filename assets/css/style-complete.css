@@ -258,6 +258,19 @@
             position: relative;
             top: 2px;
         }
+
+        .replying-to {
+            padding: 5px 0px;
+            font-weight: 500;
+            font-size: small;
+            color: var(--secondary-text-color);
+        }
+
+        .replying-to a {
+            font-weight: 600;
+            color: var(--primary-theme-color);
+            text-decoration: none;
+        }
         
         .nav .drop-wrap {
             position: absolute;
@@ -649,6 +662,8 @@
     color:  var(--primary-theme-color) !important;
     font-weight:700 !important;
 }
+
+
         .step-container {
             color: var(--primary-text-color);
         }
@@ -845,6 +860,12 @@
             color: rgb(48, 48, 48);
             font-weight: 700;
             font-size:1.1rem;
+        }
+
+        .tweet-body textarea:focus::placeholder {
+            color: var(--primary-theme-color);
+            /* font-weight: 700; */
+            /* font-size:1.1rem; */
         }
         
         .tweet-footer {
@@ -1195,7 +1216,7 @@
         .flex-icons ul li button.retweet>.fa-share,
         .flex-icons ul li button.retweeted>.fa-retweet,
         .tweet-show-popup-footer-menu ul li button.retweeted,
-        .img-popup-tweet-menu-inner>ul>li>button.retweeted , .countforFromManipulative ul li button.retweeted {
+        .img-popup-tweet-menu-inner>ul>li>button.retweeted , .countforFromManipulative ul li button.retweeted  {
             color: skyblue;
         }
         .flex-icons ul li:hover>.fa-heart-o   {
@@ -2007,11 +2028,14 @@
         .main-msg-footer-inner ul {
             overflow: hidden;
             width: 100%;
+            display: flex;
             padding: 10px;
+            align-items: center;
+            justify-content: flex-start;
         }
         
         .main-msg-footer-inner ul li:nth-child(1) {
-            width: 69%;
+            width: 65%;
         }
         
         .main-msg-footer-inner ul li:nth-child(2) {
@@ -2024,7 +2048,8 @@
         }
         
         .main-msg-footer-inner ul li {
-            float: left;
+                /* float: left; */
+    margin: 0;
         }
         
         .main-msg-footer-inner ul li .fa-camera {
@@ -2034,27 +2059,31 @@
         }
         
         .main-msg-footer-inner ul li input[type="submit"] {
-            padding: 7px 10px;
+            padding: 10px 20px;
             background: var(--primary-theme-color);
             background: linear-gradient( to bottom, var(--primary-theme-color) 0%,var(--primary-theme-colorh) 100%);
             filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#8fc800', endColorstr='#8fc800', GradientType=0);
             border: 2px solid #8fc800;
             color: #fff;
             font-weight: bold;
-            border-radius: 15px;
+            border-radius: 30px;
             cursor: pointer;
         }
         
         .main-msg-footer-inner textarea {
             width: 100%;
-            height: 21px;
+            height: fit-content;
             background: var(--primary-background-color);
-            padding: 8px 2px;
-            border-radius: 20px;
+            padding: 8px 5px;
+            border-radius: 10px;
             outline: none;
             resize: none;
-            border: 2px solid var(--primary-theme-color);
+            /* border: 2px solid var(--primary-theme-color); */
             color: var(--primary-text-color);
+        }
+
+        .main-msg-footer-inner textarea:focus{
+            border: 2px solid var(--primary-theme-color);
         }
         
         .main-msg-footer-inner input[type="file"] {
@@ -2824,7 +2853,12 @@
             cursor: pointer;
             background: var(--primary-theme-color);
         }
-        
+        .count-following{
+            font-weight: 700;
+        }
+        .count-followers{
+            font-weight: 700;
+        }
         .unfollow-btn {
             padding: 5px 15px;
             color: var(--bg-text-color);
@@ -3550,6 +3584,13 @@
         .hash-menu-inner ul li:hover {
             box-shadow: inset 0px -4px 0px 0px var(--primary-theme-color);
         }
+
+        .followActive {
+            box-shadow: inset 0px -4px 0px 0px var(--primary-theme-color) !important;
+            border: 1px solid transparent;
+        }
+
+     
         
         .hash-menu-inner ul li a {
             text-decoration: none;
@@ -4605,41 +4646,62 @@
         
         .notification-inner {
             width: 95%;
-            float: right;
+            /* float: right; */
+        }
+
+        .flexFix {
+            color: var( --primary-text-color);
+            display: flex;
+            /* margin: 0; */
+            /* padding: 5px 5px; */
+            margin: 0 auto;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            /* border-bottom: 1px solid var( --primary-border-color); */
+            width: 100%;
+            /* align-items: center; */
         }
         
         .notification-header {
             overflow: auto;
-            margin-top: 10px;
+            /* margin-top: 10px; */
         }
         
         .notification-img {
-            margin-top: 5px;
-            float: left;
+            margin: 0px;
+            margin-top: 10px;
+
+    /* float: left; */
+    margin-right: 15px;
+        }
+
+        .tweetFlex {
+            margin: 0;
+            width: 100%;
         }
         
         .notification-img span.heart-logo {
-            border-radius: 15px;
+            border-radius: 50%;
             background: red;
-            color: var( --primary-text-color);
+            color: var(--bg-text-color);
             font-size: 18px;
-            padding: 5px;
+            padding: 10px 10px 7px 10px;
         }
         
         .notification-img span.follow-logo {
-            border-radius: 15px;
+            border-radius: 50%;
             background: var(--primary-theme-color);
-            color: var( --primary-text-color);
+            color: var(--bg-text-color);
             font-size: 18px;
-            padding: 5px;
+            padding: 10px 13px;
         }
         
         .notification-img span.retweet-logo {
-            border-radius: 15px;
-            background: #00ff5e;
-            color: var( --primary-text-color);
+            border-radius: 50%;
+            background: var(--primary-theme-color);
+            color: var(--bg-text-color);
             font-size: 18px;
-            padding: 5px;
+            padding: 7px 7px;
         }
         
         .notification-name {
@@ -4656,14 +4718,14 @@
         }
         
         .notification-name div {
-            float: left;
+            /* float: left; */
             margin-left: 5px;
         }
         
         .notification-name div img {
-            width: 30px;
-            height: 30px;
-            border-radius: 4px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
         
         .notification-name div:first-child a {
@@ -4686,8 +4748,9 @@
         .notification-tweet {
             width: 96%;
             font-size: 14px;
-            float: right;
-            margin-top: 1px;
+            /* float: right; */
+            margin-left: 0;
+            margin-top: 5px;
             position: relative;
             color: var( --primary-text-color);
         }
@@ -4708,7 +4771,7 @@
         }
         
         .notification-footer {
-            width: 95%;
+            width: 100%;
             overflow: auto;
             margin-top: 3px;
         }
@@ -4770,14 +4833,16 @@
         .deletedTweetExi {
             margin-top: 5px;
             padding: 15px;
-            background:  var(--primary-background-color);
+            background:  var(--primary-bg-hover);
             border-radius: 20px;
+            border: 1px solid  var(--primary-theme-color);
         }
 
         .inner-info-deleted {
+            font-weight: 700;
                 /* padding: 5px 0; */
     font-size: 1rem;
-    color: #d1d1d1;
+    color: var(--primary-theme-color);
         }
 
         /* tweetDELETED */
@@ -4885,7 +4950,7 @@
             margin: 15px 25px;
             margin-bottom: 10px !important;
             padding: 10px;
-            margin-top: 12px;
+            /* margin-top: 12px; */
             position: relative;
             border-radius: 2.6rem;
             width: fit-content;
@@ -5143,7 +5208,7 @@
             font-size: 1.2rem;
             padding-bottom: 10px;
             /* border: 5px solid red; */
-            border-bottom: 5px solid var(--primary-theme-color);
+            /* border-bottom: 5px solid var(--primary-theme-color); */
         }
         
         .scroller .scoller-ul li a {
@@ -6293,6 +6358,13 @@
                     margin-top: 10px;
                 }
 
+                .react-retweet-like ul li button{
+                    border: none;
+                    background: none;
+                    color: var(--primary-text-color);
+                    cursor: pointer;
+                }
+
                 .swi67h a {
                     color:var(--primary-theme-color);
                     text-decoration:none;
@@ -6342,6 +6414,16 @@
         }
         .flex-icons ul li button i {
             margin-right: 5px;
+        }
+
+        .cimageContainer {
+            height: 220px !important;
+            width: 100% !important;
+            /* background-color: blue; */
+        }
+
+        .cimageContainer img {
+            object-fit: cover !important;
         }
 
         .imageContainer {

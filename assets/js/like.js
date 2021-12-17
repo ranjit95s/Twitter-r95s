@@ -23,11 +23,24 @@ $(document).ready(function() {
 			button.find('.fa-heart-o').addClass('fa-heart');
 			button.find('.fa-heart').removeClass('fa-heart-o');
 		});
+
+		
+		// $.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {tweet_id:tweet_id}, function(data){
+		// 	$('.likesCountt').html(data);
+		// 	console.log('hit')
+		// });
+	});
+
+	$(document).on('click','.countforFromManipulative .like-btn', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		var tweet_id  = $(this).data('tweet');
 		$.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {tweet_id:tweet_id}, function(data){
 			$('.likesCountt').html(data);
 			console.log('hit')
 		});
 	});
+
 
 	$(document).on('click','.unlike-btn', function(e){
 		e.preventDefault();
@@ -52,6 +65,15 @@ $(document).ready(function() {
 			button.find('.fa-heart').addClass('fa-heart-o');
 			button.find('.fa-heart-o').removeClass('fa-heart');
 		}); 
+		// $.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {tweet_id:tweet_id}, function(data){
+		// 	$('.likesCountt').html(data);
+		// 	console.log('hit')
+		// });
+	});
+	$(document).on('click','.countforFromManipulative .unlike-btn', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		var tweet_id  = $(this).data('tweet');
 		$.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {tweet_id:tweet_id}, function(data){
 			$('.likesCountt').html(data);
 			console.log('hit')

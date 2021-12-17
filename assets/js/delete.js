@@ -30,7 +30,9 @@ $(function(){
 		var tweet_id = $(this).data('tweet');
 		var tweetRef = $(this).data('re');
 		var tweetRefTo = $(this).data('ret');
-		console.log(tweetRef + ' id and user ' + tweetRefTo);
+
+		console.log(tweetRefTo);
+		console.log(tweet_id + ' id and user ' + tweetRefTo);
 		$.post('http://localhost/Twitter-Clone-pre/core/ajax/deleteTweet.php', {showPopup:tweet_id},function(data){
 			$('.popupTweet').html(data);
 			$('.close-retweet-popup,.cancel-it').click(function(){
@@ -41,7 +43,7 @@ $(function(){
 					$.post('http://localhost/Twitter-Clone-pre/core/ajax/deleteTweet.php',{deleteTweetWithRef:tweet_id,re:tweetRef,ret:tweetRefTo},function(){
 						$('.retweet-popup').hide();
 						
-						window.setTimeout(function(){location.reload()},2505)
+						window.setTimeout(function(){location.reload()})
 						
 					});
 				});
@@ -50,7 +52,7 @@ $(function(){
 					$.post('http://localhost/Twitter-Clone-pre/core/ajax/deleteTweet.php',{deleteTweet:tweet_id},function(){
 						$('.retweet-popup').hide();
 					
-						window.setTimeout(function(){location.reload()},2505)
+						window.setTimeout(function(){location.reload()})
 						
 					});
 				});

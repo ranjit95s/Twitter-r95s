@@ -508,11 +508,12 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 																<h5> Replying to <span> @'.$userTstatus->username.' </span> </h5>
 															</div>
 															<div class="getCom">
-																<textarea id="commentFields" data-user="'.$userTstatus->username.'" data-tweet="'.$userTstatus->tweetID.'" placeholder="Tweet your reply" name="comment" cols="15"
+																<textarea id="commentFields" data-ttweet="'.$userTstatus->tweetBy.'" data-user="'.$userTstatus->username.'" data-tweet="'.$userTstatus->tweetID.'" placeholder="Tweet your reply" name="comment" cols="15"
 																	rows="2"></textarea>
 															</div>
 															<div class="icons-comm">
-																<label for=""> <i class="fa fa-camera"></i> </label>
+															<input type="file" name="filec" id="filec" class="filec" hidden/>
+																<label for="filec"> <i class="fa fa-camera"></i>  <span style="font-size: 15px;" id="filenamec">  </span>  </label>
 																<button  id="postComments"  type="submit"> Reply </button>
 															</div>
 														</div>
@@ -536,6 +537,12 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 								';
 								echo '<div class="replySection" id="replySection">';
 								foreach($comments as $comment){
+
+									$likes = $getFromT->likes($user_id, $comment->tweetID);
+									$retweet = $getFromT->checkRetweet($comment->tweetID, $user_id);
+									// $retweets = $getFromT->checkRetweeTUser($comment->tweetID);
+									$comments = $getFromT->comments($tweetID);
+
 									echo'<div class="replyuser">
 										<div class="flex-box-y">
 											<div class="img-reply-u">
@@ -552,15 +559,15 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 															text-decoration: none;">@'.$comment->username.'</a> </h4>
 													</div>
 													<div class="user-t-r-s" style="            color:var(--secondary-text-color);">
-														<h4> • 		'.$getFromT->timeAgo(($comment->commentAt)).' </h4>
+														<h4> • 		'.$getFromT->timeAgo(($comment->postedOn)).' </h4>
 													</div>
-													'.(($comment->commentBy === $user_id) ? '
+													'.(($comment->tweetOwner === $user_id) ? '
 										
-													<div class="delete-op" data-tweet="'.$comment->commentID.'" > <i class="fa fa-ellipsis-v ellipsiss"></i> 
-													<div class="d-t-b-u" id="d-t-b-u'.$comment->commentID.'">
+													<div class="delete-op" data-tweet="'.$comment->tweetID.'" > <i class="fa fa-ellipsis-v ellipsiss"></i> 
+													<div class="d-t-b-u" id="d-t-b-u'.$comment->tweetID.'">
 													<div class="prop">
-													<label class="deleteComment" data-tweet="'.$tweetID.'" data-comment="'.$comment->commentID.'">Delete Tweet</label>
-												   <i class="fa fa-close closes closes'.$comment->commentID.'"></i>
+													<label class="deleteTweet" data-tweet="'.$comment->tweetID.'" data-re="'.$comment->tweetRef.'" data-ret="'.$comment->tweetRefTo.'">Delete Tweet</label>
+												   <i class="fa fa-close closes closes'.$comment->tweetID.'"></i>
 													</div>
 													</div>
 													</div>
@@ -570,15 +577,54 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 													<h4> Replying To <span>@'.$userTstatus->username.'</span> </h4>
 												</div>
 												<div class="status-reply5">
-												'.$getFromT->getTweetLinks($comment->comment).'
+												'.$getFromT->getTweetLinks($comment->status).'
 												</div>
-												<div class="react-retweet-like">
+												<div class="commentImage">
+												'.(!empty($comment->tweetImage) ? 
+												'<!--tweet show head end-->
+												<div class="cimageContainer imageContainer">
+												<div class="imageProposal">
+													<div class="imageContains">
+														<img src="'.BASE_URL.$comment->tweetImage.'" class="imagePopup" data-tweet="'.$comment->tweetID.'" alt="">
+													</div>
+												</div>
+											</div>
+													<!--tweet show body end-->
+													' : '' ).'
+												</div>
+												<div class="react-retweet-like flex-icons">
+
+
 												<ul>
-												<li> <i class="fa fa-comment-o"></i> </li>
-												<li> <i class="fa fa-retweet"></i> </li>
-												<li> <i class="fa fa-heart-o"></i> </li>
-												<li> <i class="fa fa-share"></i> </li>
-											</ul>
+												'.(($getFromT->loggedIn() ===true) ? '
+													<li> <i class="fa fa-comment"></i> <span> '.$getFromT->countComments($comment->tweetID).' </span> </li>
+													<li> '.((isset($retweet['retweet_tweetID']) ? $comment->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
+													'<button id="retweet-options'.$comment->tweetID.'" class="retweeted retweet-options"  data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($comment->retweetCount > 0) ? $comment->retweetCount : '').'</span></button>' : 
+													'<button class="retweet-options" id="retweet-options'.$comment->tweetID.'"  data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($comment->retweetCount > 0) ? $comment->retweetCount : '').'</span></button>').'
+													<div class="op" id="op'.$comment->tweetID.'">
+													<ul> 
+													'.((isset($retweet['retweet_tweetID']) ? $comment->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
+													'<li class="justUndoCloneTweet" data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetOwner.'" style="cursor:pointer;  border-right:1px solid;">Undo Rwtweet</li> ' : 
+													'<li class="justCloneTweet" data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetOwner.'" style="cursor:pointer;  border-right:1px solid var( --primary-border-color);">Retweet</li> ').'
+													
+													<li class="retweet" style="cursor:pointer" data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetBy.'">Quote Tweet</li> 
+													<i title="close" style="color:var( --primary-text-color)" class="fa fa-close close'.$comment->tweetID.'"></i>
+														</ul>
+													</div>
+													</li>
+													<li> '.((isset($likes['likeOn']) ? $likes['likeOn'] === $comment->tweetID : '') ? 
+													'<button class="unlike-btn" data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetOwner.'"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($comment->likesCount > 0) ? $comment->likesCount : '' ).'</span></button>' : 
+													'<button class="like-btn" data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetOwner.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($comment->likesCount > 0) ? $comment->likesCount : '' ).'</span></button>').' 
+													</li>
+													<li> <i class="fa fa-bookmark-o"></i> </li>
+													' : '<li><button><i class="fa fa-comment"></i> <span> 485 </span></button></li>
+														<li><button><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($comment->retweetCount > 0) ? $comment->retweetCount : '').'</span></button></li>	
+														<li><button><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($comment->likesCount > 0) ? $comment->likesCount : '' ).'</span></button></li>
+														<li> <i class="fa fa-bookmark"></i> </li>').'
+	
+												</ul>
+
+
 												</div>
 											</div>
 										</div>

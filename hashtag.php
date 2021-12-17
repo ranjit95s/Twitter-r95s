@@ -70,10 +70,21 @@ if (isset($_GET['hashtag']) && !empty($_GET['hashtag'])) {
 							<div class="hash-menu" >
 								<div class="hash-menu-inner">
 									<ul>
-										<li><a href="<?php echo BASE_URL . 'hashtag/' . $hashtag; ?>">Top</a></li>
-										<li><a href="<?php echo BASE_URL . 'hashtag/' . $hashtag . '?f=latest'; ?>">Latest</a></li>
-										<li><a href="<?php echo BASE_URL . 'hashtag/' . $hashtag . '?f=users'; ?>">Accounts</a></li>
-										<li><a href="<?php echo BASE_URL . 'hashtag/' . $hashtag . '?f=photos'; ?>">Photos</a></li>
+												<?php
+												function active($currect_page){
+													// echo $currect_page;
+												$url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+												$url = end($url_array);  
+
+												if($currect_page == $url){
+													echo 'followActive'; //class name in css 
+												} 
+												}
+												?>
+										<li class="<?php active($hashtag);?>" ><a href="<?php echo BASE_URL . 'hashtag/' . $hashtag; ?>">Top</a></li>
+										<li class="<?php active($hashtag.'?f=latest');?>"><a href="<?php echo BASE_URL . 'hashtag/' . $hashtag . '?f=latest'; ?>">Latest</a></li>
+										<li class="<?php active($hashtag.'?f=users');?>"><a href="<?php echo BASE_URL . 'hashtag/' . $hashtag . '?f=users'; ?>">Accounts</a></li>
+										<li class="<?php active($hashtag.'?f=photos');?>"><a href="<?php echo BASE_URL . 'hashtag/' . $hashtag . '?f=photos'; ?>">Photos</a></li>
 									</ul>
 								</div>
 							</div>

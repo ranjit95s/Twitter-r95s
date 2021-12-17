@@ -15,22 +15,23 @@
 
             // UPDATED Q -               select * from ( select t.* from tweets as t where tweetOwner = 7 union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy = 7) union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy = (select receiver from follow where sender = 7)) union select t.* from tweets as t where t.tweetOwner in (select receiver from follow where sender = 7)) a order by postedOn desc;
 
-            // LATEST UPDATED Q - select * from ( select t.* from tweets as t where tweetOwner = 1 union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy =1) union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet as vt where vt.retweet_userID != 1 and retweet_userIDBy = (select receiver from follow where sender = 1 and receiver != vt.retweet_userID)) union select t.* from tweets as t where t.tweetOwner in (select receiver from follow where sender = 1)) a order by postedOn desc;
+            // v1 UPDATED Q - select * from ( select t.* from tweets as t where tweetOwner = 1 union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy =1) union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet as vt where vt.retweet_userID != 1 and retweet_userIDBy = (select receiver from follow where sender = 1 and receiver != vt.retweet_userID)) union select t.* from tweets as t where t.tweetOwner in (select receiver from follow where sender = 1)) a order by postedOn desc;
 
-            // NEW LATEST UPDATED Q - SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = 1
+            // v2 UPDATED Q - SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = 1 UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` = 1 ) UNION SELECT t.* from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL OR rt.`retweet_userIDBy` = (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) A ORDER BY `tweetID` DESC
+
+            // NEW v3 UPDATED O - SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = 1 AND `commentTrue` = 0
                
-            //    UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` = 1 ) 
-               
-            //    UNION SELECT t.* from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL OR rt.`retweet_userIDBy` = (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) 
-            
-            //    UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) A ORDER BY `tweetID` DESC
+        //  UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` = 1 )
+              
+        //  UNION SELECT t.* from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL AND rt.`retweet_userIDBy` IN (SELECT `receiver` FROM `follow` WHERE `receiver` IS NOT NULL AND `sender` = 1))              
+ 
+        //  UNION SELECT t.* FROM `tweets` AS t WHERE t.`commentTrue` = 0 AND t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) A ORDER BY `tweetID` DESC
 
 
-
-            $stmt = $this->pdo->prepare("SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = :user_id 
-                                            UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` AS rt WHERE rt.`retweet_userIDBy` =:user_id) 
-                                            UNION SELECT t.* from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL OR rt.`retweet_userIDBy` = (SELECT `receiver` FROM `follow` WHERE `sender` =:user_id)) 
-                                            UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = :user_id)) A ORDER BY `tweetID` DESC");
+            $stmt = $this->pdo->prepare("SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = :user_id AND `commentTrue` = 0 
+            UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` AS rt WHERE rt.`retweet_userIDBy` =:user_id) 
+            UNION SELECT t.* from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL AND rt.`retweet_userIDBy` IN (SELECT `receiver` FROM `follow` WHERE `receiver` IS NOT NULL AND `sender` =:user_id)) 
+            UNION SELECT t.* FROM `tweets` AS t WHERE t.`commentTrue` = 0 AND t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = :user_id)) A ORDER BY `tweetID` DESC");
             $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);                                                                                                                         
             $stmt->bindParam(":num", $num, PDO::PARAM_INT);
             $stmt->execute();
@@ -51,11 +52,22 @@
 								$us = $product->retweet_tweetID;
                                 $su = $product->retweet_userIDBy;
 							}
-                
-                $userRefS = $this->getUserTweetsByID($tweet->tweetRef,$tweet->tweetRefTo);
-                $userOwnerTweet = $this->getUserTweetsOwnerByID($tweet->tweetID , $tweet->tweetOwner);
-                $userRefD = $this->userData($tweet->tweetRefTo);
-        
+                if($tweet->tweetRef != 0 && $tweet->tweetRefTo != 0){
+                    $userRefS = $this->getUserTweetsByID($tweet->tweetRef,$tweet->tweetRefTo);
+                    $userOwnerTweet = $this->getUserTweetsOwnerByID($tweet->tweetID , $tweet->tweetOwner);
+                    $userRefD = $this->userData($tweet->tweetRefTo);
+                }
+
+                $commentTrue = false;
+                $commentTrueRef = false;
+               if($tweet->commentTrue == 1){
+                $commentTrue = true;
+               }
+               if($userRefS[0]->commentTrue == 1){
+                $commentTrueRef = true;
+               }
+
+               
                 echo '
                 <div class="all-tweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$user->username.'">
                 <div class="container">
@@ -119,6 +131,12 @@
                                         <h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$this->timeAgo(($userOwnerTweet[0]->postedOn)).'</h4>
                                     </div>
                                 </div>
+                                
+                               
+                                '.(($commentTrue == true) ? 
+                                '<div class="replying-to"> <span> Replying to <a href="#"> @'.$this->userData($tweet->comment_userID)->username.' </a> </span> </div>
+                                    ' : '' ).' 
+                               
                                 <div class="status">
                                     <div class="s-in">
                                         <div class="sto">
@@ -180,6 +198,9 @@
                                                         <h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$this->timeAgo(($userRefS[0]->postedOn)).'</h4>
                                                     </div>
                                                 </div>
+                                                '.(($commentTrueRef == true) ? 
+                                                '<div class="replying-to"> <span> Replying to <a href="#"> @'.$this->userData($userRefS[0]->comment_userID)->username.' </a> </span> </div>
+                                                    ' : '' ).' 
                                                 <div class="ref-status">
                                                     <h6>'.$this->getTweetLinks($userRefS[0]->status).'</h6>
                                                     </div>
@@ -427,7 +448,7 @@
         }
 
         public function comments($tweet_id){
-            $stmt = $this->pdo->prepare("SELECT * FROM `comments` LEFT JOIN `users` ON `commentBy` = `user_id` WHERE `commentOn` = :tweet_id");
+            $stmt = $this->pdo->prepare("SELECT * FROM `tweets` as t LEFT JOIN `users` ON `tweetOwner` = `user_id` WHERE `commentTrue` != 0 AND `comment_tweetID` = :tweet_id");
             $stmt->bindParam(":tweet_id",$tweet_id,PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);

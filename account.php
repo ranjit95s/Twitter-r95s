@@ -45,7 +45,7 @@
 
     </head>
 	<!--Helvetica Neue-->
-<body>
+<body style="    min-height: 110vh;">
 <div class="wrapper">
 <?php 
                 include 'includes/entities/side-pro-link.php';
@@ -121,7 +121,18 @@
 				</div>
 			</div>	
 		</div><!--RIGHTER ENDS-->
-
+		
+		<div class="popupTweet"></div>
+		
+		<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/custome-complete-js.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/delete.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/postMessage.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/notification.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/like.js"></script>
 
 	</div>
 	<!--CONTAINER_WRAP ENDS-->
@@ -131,14 +142,6 @@
                 include 'includes/entities/bottom-nav.php';
             ?>
 </body>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/custome-complete-js.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/delete.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/postMessage.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/notification.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/like.js"></script>
+
 </html>
 

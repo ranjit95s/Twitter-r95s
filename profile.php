@@ -209,9 +209,22 @@ if (isset($_GET['username']) === true && empty($_GET['username']) === false) {
 								</div>
 								<div class="scroller">
 									<ul class="scoller-ul">
-										<li> <a href="<?php echo BASE_URL . $profileData->username; ?>"> <span><?php $getFromT->countTweets($profileData->user_id); ?></span> Tweets </a> </li>
-										<li> <a href="<?php echo BASE_URL . $profileData->username; ?>?media"> Media </a> </li>
-										<li> <a href="<?php echo BASE_URL . $profileData->username; ?>?likes"> <span><?php $getFromT->countLikes($profileId); ?></span> Likes </a> </li>
+												<?php
+												function active($currect_page){
+													// echo $currect_page;
+												$url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+												$url = end($url_array);  
+											
+												if($currect_page == $url){
+													echo 'followActive activeText'; //class name in css 
+												
+												} 
+												}
+												?>
+										<li class="<?php active($profileData->username);?>"> <a class="" href="<?php echo BASE_URL . $profileData->username; ?>"> <span><?php $getFromT->countTweets($profileData->user_id); ?></span> Tweets </a> </li>
+										<li class="<?php active($profileData->username.'?with_replies');?>"> <a href="<?php echo BASE_URL . $profileData->username; ?>?with_replies"> Tweets & replies </a> </li>
+										<li class="<?php active($profileData->username.'?media');?>"> <a href="<?php echo BASE_URL . $profileData->username; ?>?media"> Media </a> </li>
+										<li class="<?php active($profileData->username.'?likes');?>"> <a href="<?php echo BASE_URL . $profileData->username; ?>?likes"> <span><?php $getFromT->countLikes($profileId); ?></span> Likes </a> </li>
 									</ul>
 								</div>
 							</div><!-- info inner end -->
@@ -451,7 +464,7 @@ if (isset($_GET['username']) === true && empty($_GET['username']) === false) {
 							<?php
 								$tweets = $getFromT->getUserTweetsByLiked($profileId);
 
-								if(empty($tweets)){echo '<div class="emptyBox" style="    color: var( --seondary-background-color);
+								if(empty($tweets)){echo '<div class="emptyBox" style="    color: var( --primary-theme-color);
 									display: flex;
 									position: relative;
 									font-size: 1.6rem;

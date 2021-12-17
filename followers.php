@@ -53,7 +53,7 @@
 							<div class="hash-menu">
 								<div class="hash-menu-inner hash-menu-inner-pro">
 									<ul>
-										<li><a href="<?php echo BASE_URL.$profileData->username; ?>/followers">Followers</a></li>
+										<li class="followActive"><a href="<?php echo BASE_URL.$profileData->username; ?>/followers" >Followers</a></li>
 										<li><a href="<?php echo BASE_URL.$profileData->username; ?>/following">Following</a></li>
 									</ul>
 								</div>

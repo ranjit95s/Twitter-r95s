@@ -84,7 +84,8 @@
                             <div class="notification-inner">
                                 <div class="notification-header">
                                     
-                                    <div class="notification-img">
+                                <div class="flexFix">
+                                <div class="notification-img">
                                         <span class="follow-logo">
                                             <i class="fa fa-child" aria-hidden="true"></i>
                                         </span>
@@ -93,11 +94,14 @@
                                         <div>
                                             <img src="<?php echo BASE_URL.$data->profileImage;?>"/>
                                         </div>
-                                    
-                                    </div>
                                     <div class="notification-tweet"> 
                                     <a href="<?php echo BASE_URL.$data->username;?>" class="notifi-name"><?php echo $data->screenName;?></a><span> Followed you <span><?php echo $getFromU->timeAgo($data->time);?></span>               
                                     </div>
+                                    </div>
+
+                                </div>
+                                   
+                                  
                                 
                                 </div>
                                 
@@ -114,21 +118,23 @@
                             <div class="notification-wrapper">
                             <div class="notification-inner">
                                 <div class="notification-header">
-                                    <div class="notification-img">
-                                        <span class="heart-logo">
-                                            <i class="fa fa-heart" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
+                                    <div class="flexFix">
+                                        <div class="notification-img">
+                                            <span class="heart-logo">
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+
+                                    <div class="tweetFlex">
                                     <div class="notification-name">
                                         <div>
                                             <img src="<?php echo BASE_URL.$data->profileImage;?>"/>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="notification-tweet"> 
-								<a href="<?php echo BASE_URL.$data->username;?>" class="notifi-name"><?php echo $data->screenName;?></a><span> liked your <?php if($data->tweetBy === $user_id){echo 'Tweet';}else{echo 'Retweet';}?> <span><?php echo $getFromU->timeAgo($data->time);?></span>
-                                </div>
-                                <div class="notification-footer">
+                                    <div class="notification-tweet"> 
+                                    <a href="<?php echo BASE_URL.$data->username;?>" class="notifi-name"><?php echo $data->screenName;?></a><span> liked your <?php if($data->tweetBy === $user_id){echo 'Tweet';}else{echo 'Retweet';}?> <span><?php echo $getFromU->timeAgo($data->time);?></span>
+                                    </div>
+                                    <div class="notification-footer">
                                     <div class="noti-footer-inner">
 									<div class="noti-footer-inner-left">
 											<div class="t-h-c-name">
@@ -148,6 +154,15 @@
 
                                     </div><!--END NOTIFICATION-inner-->
                                 </div>
+
+                                    </div>
+
+                                    </div>
+                                   
+                                   
+                                </div>
+                               
+                             
                             </div>
                             </div>
                             <!--NOTIFICATION WRAPPER END--> 
@@ -159,41 +174,166 @@
 			<div class="notification-wrapper">
 				<div class="notification-inner">
 					<div class="notification-header">
-						<div class="notification-img">
+
+                    <div class="flexFix">
+                    <div class="notification-img">
 							<span class="retweet-logo">
 								<i class="fa fa-retweet" aria-hidden="true"></i>
 							</span>
-						</div>
-						<div class="notification-name">
-                                        <div>
-                                            <img src="<?php echo BASE_URL.$data->profileImage;?>"/>
-                                        </div>
-                                    </div>
-					<div class="notification-tweet"> 
+					</div>
+
+                    <div class="tweetFlex">
+                    <div class="notification-name">
+                        <div>
+                            <img src="<?php echo BASE_URL.$data->profileImage;?>"/>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-tweet"> 
 						<a href="<?php echo BASE_URL.$data->username;?>" class="notifi-name"><?php echo $data->screenName;?></a><span> retweet your <?php if($data->tweetBy === $user_id){echo 'Tweet';}else{echo 'Retweet';}?> <span><?php echo $getFromU->timeAgo($data->time);?></span>
 					</div>
 					<div class="notification-footer">
 						<div class="noti-footer-inner">
 
-						<div class="noti-footer-inner-left">
-								<div class="t-h-c-name">
-									<span><a href="<?php echo BASE_URL.$user->username;?>"><?php echo $user->screenName;?></a></span>
-									<span>@<?php echo $user->username;?></span>
-									<span><?php echo $getFromU->timeAgo($data->postedOn);?></span>
-								</div>
-								<div class="noti-footer-inner-right-text">		
-									<?php echo $getFromT->getTweetLinks($data->status)?>
-								</div>
-							</div>
+                        <?php 
+			$tweet = $data;
+			$likes        = $getFromT->likes($user_id, $tweet->tweetID);
+			$userRef = $getFromU->userData($tweet->tweetRefTo);
+			$retweet      = $getFromT->checkRetweet($tweet->tweetID, $user_id);
+    			echo '
+				'.($getFromT->checkTweetExistence($tweet->tweetID) ? '
+				<div class="all-tweet-inner">
+				<div class="container">
+                <div class="tweet-outer">
+                    <div class="tweet-inner">
 
-						 
-							<?php if(!empty($data->tweetImage)) :?>
-							<div class="noti-footer-inner-right">
-								<img src="<?php echo BASE_URL.$data->tweetImage;?>"/>	
-							</div>
-							<?php endif;?> 
+        
+                        <!-- flex-out S -->
+                        <div class="flex-out">
+                            <div class="img-user">
+                                <div class="img-inner">
+                                <img src="'.BASE_URL.$user->profileImage.'"/>
+                                </div>
+                            </div>
+        
+        
+                            <!-- sc-ur-status S -->
+                            <div class="sc-ur-status">
+                                <div class="header">
+                                    
+                                '.(($tweet->tweetOwner === $user_id) ? '
+                                    
+                                    <div class="delete-op" data-tweet="'.$tweet->tweetID.'" > <i class="fa fa-ellipsis-v ellipsiss"></i> 
+                                    <div class="d-t-b-u" id="d-t-b-u'.$tweet->tweetID.'">
+                                    <div class="prop">
+                                   <label class="deleteTweet" data-tweet="'.$tweet->tweetID.'" data-re="'.$tweet->tweetRef.'" data-ret="'.$tweet->tweetRefTo.'"> <span>Delete Tweet</span>  </label>
+                                   <i class="fa fa-close closes closes'.$tweet->tweetID.'"></i>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    ' : '').'
+                                    
+                                    <div class="text-warpper" style="margin: 0;
+                                    display: flex;
+                                    margin-right: 5px;
+                                    flex-direction: row;
+                                    line-height: 15px;
+                                    
+                                    overflow: hidden;
+                                    min-width: 5vw;
+                                    white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    max-width: 55vw;
+                                    ">
+                                    <div class="useru">
+                                        <h4> <a style="color: var( --primary-text-color); font-weight: 800; text-decoration:none;" href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a></h4>
+                                    </div>
+                                    <div class="useru">
+                                        <h4 style="color: var( --secondary-text-color); font-weight: 500;">  <a style="color: var( --secondary-text-color); font-weight: 500; text-decoration:none;" href="'.BASE_URL.$user->username.'">@'.$user->username.'</a> </h4>
+                                    </div>
+                                    </div>
+                                    <div class="useru">
+                                        <h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$getFromT->timeAgo(($tweet->postedOn)).'</h4>
+                                    </div>
+                                </div>
+                                <div class="status">
+                                    <div class="s-in">
+                                        <div class="sto">
+                                        '.$getFromT->getTweetLinks($tweet->status).'
+                                        </div>
+                                    </div>
+                                </div>
 
-						</div><!--END NOTIFICATION-inner-->
+                                '.(!empty($tweet->tweetImage) ? 
+                                '<!--tweet show head end-->
+                                <div class="imageContainer">
+                                <div class="imageProposal">
+                                    <div class="imageContains">
+                                        <img src="'.BASE_URL.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                                    <!--tweet show body end-->
+                                    ' : '' ).'
+
+                                   
+        
+                                <!-- bottom S -->
+                                <div class="bottom">
+                                    <div class="icons-head">
+                                        <div class="flex-icons">
+                                            <ul>
+                                            '.(($getFromT->loggedIn() ===true) ? '
+                                                <li> <i class="fa fa-comment"></i> <span> '.$getFromT->countComments($tweet->tweetID).' </span> </li>
+                                                <li> '.((isset($retweet['retweet_tweetID']) ? $tweet->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
+                                                '<button id="retweet-options'.$tweet->tweetID.'" class="retweeted retweet-options"  data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : 
+                                                '<button class="retweet-options" id="retweet-options'.$tweet->tweetID.'"  data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>').'
+                                                <div class="op" id="op'.$tweet->tweetID.'">
+												<ul> 
+                                                '.((isset($retweet['retweet_tweetID']) ? $tweet->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
+                                                '<li class="justUndoCloneTweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'" style="cursor:pointer;  border-right:1px solid;">Undo Rwtweet</li> ' : 
+                                                '<li class="justCloneTweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'" style="cursor:pointer;  border-right:1px solid;">Retweet</li> ').'
+                                                
+                                                <li class="retweet" style="cursor:pointer" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'">Quote Tweet</li> 
+												<i title="close" style="color:var( --primary-text-color)" class="fa fa-close close'.$tweet->tweetID.'"></i>
+													</ul>
+												</div>
+                                                </li>
+                                                <li> '.((isset($likes['likeOn']) ? $likes['likeOn'] === $tweet->tweetID : '') ? 
+                                                '<button class="unlike-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>' : 
+                                                '<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>').' 
+                                                </li>
+                                                <li> <i class="fa fa-share"></i> </li>
+                                                ' : '<li><button><i class="fa fa-comment"></i> <span> '.$getFromT->countComments($tweet->tweetID).' </span></button></li>
+                                                    <li><button><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button></li>	
+                                                    <li><button><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button></li>
+                                                    <li> <i class="fa fa-share"></i> </li>').'
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+												
+                                </div>
+                                <!-- bottom E -->
+                            </div>
+                            <!-- sc-ur-status E -->
+        
+                        </div>
+                        <!-- flex-out E -->
+                    </div>
+                </div>
+            </div>
+			</div> ' : '' ).' ';		 
+			?> 
+
+						</div>
+                    </div> 
+
+                    </div>
+						
+					
+				<!--END NOTIFICATION-inner-->
 					</div>
 					</div>
 				</div>
