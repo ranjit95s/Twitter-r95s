@@ -281,6 +281,26 @@ $(document).ready(function () {
       var base = "http://localhost/Twitter-Clone-pre/";
       window.location.href= base + user_id + '/status/' + tweet_id;
     });
+
+    $(document).on('click', '.userTweet-flex', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+  
+      var tweet_id  = $(this).data('tweet');
+      var user_id   = $(this).data('user');
+      var base = "http://localhost/Twitter-Clone-pre/";
+      window.location.href= base + user_id + '/status/' + tweet_id;
+    });
+
+    $(document).on('click', '.replyuser', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+  
+      var tweet_id  = $(this).data('tweet');
+      var user_id   = $(this).data('user');
+      var base = "http://localhost/Twitter-Clone-pre/";
+      window.location.href= base + user_id + '/status/' + tweet_id;
+    });
   
 
   });

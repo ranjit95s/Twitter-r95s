@@ -12,3 +12,36 @@ data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"
 2}
 
 
+'.( $hasConnection->tweetRef > 0 && (!empty($hasConnection->tweetRef))?'
+												'.($hasConnection->tweetRef > 0 && $getFromT->checkTweetExistence($hasConnection->tweetRef) ? '
+												<div class="refenceTweet" data-tweet="'.$hasConnection->tweetRef.'" data-user="'.$hasConnection->username.'">
+													<div class="retrvieRef">
+														<div class="r-t-u-flex">
+															<div class="imagefor78ref">
+																<img src="'.BASE_URL.$replyconuref->profileImage.'" alt="">
+															</div>
+															<div class="nameref44e">
+																<h4> <a style="color:var( --primary-text-color);" href="'.BASE_URL.$replyconuref->username.'"> '.$replyconuref->screenName.' </a> </h4>
+															</div>
+															<div class="nameref44e">
+																<h4> <a href="#" style="color: var( --secondary-text-color); font-weight: 500;"> @'.$replyconuref->username.' </a>
+																</h4>
+															</div>
+															<div class="nameref44e" >
+																<h4 style="color: var( --primary-text-color); font-weight: 500;"> • '.$getFromT->timeAgo(($replycontref[0]->postedOn)).' </h4>
+															</div>
+														</div>
+														<div class="ref-status-t">
+															<div class="status-reftt-t">
+															'.$getFromT->getTweetLinks($replycontref[0]->status).'
+															</div>
+														</div>
+													</div>
+													'.(!empty($replycontref[0]->tweetImage) ?'
+													<div class="image-ref-status-tweet-img">
+														<img style="cursor:pointer;" src="'.BASE_URL.$replycontref[0]->tweetImage.'" class="imagePopup" data-tweet="'.$replycontref[0]->tweetID.'">
+													</div>
+													' : '' ).'
+												</div>
+												' : '<div class="deletedTweetExi"> <div class="inner-info-deleted"> This Tweet is unavailable. </div> </div>' ).'
+												' : '' ).'

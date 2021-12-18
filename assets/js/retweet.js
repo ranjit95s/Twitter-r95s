@@ -59,11 +59,7 @@ $(function(){
 		
 		e.preventDefault();
         var formData = new FormData($(this)[0]);
-		// formData.append('do', 2);
         formData.append('file', $('#filesImage')[0].files[0]);
-        // formData.append('tweet_id',tweet_id);
-        // formData.append('user_id', user_id);
-		// var formdatas = 'comment='+comment+'&image='+formData+'&tweet_id='+tweet_id+'&user_id='+user_id;
         $.ajax({
             url: "http://localhost/Twitter-Clone-pre/core/ajax/cus.php",
             type: "POST",

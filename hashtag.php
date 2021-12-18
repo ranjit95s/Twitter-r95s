@@ -259,6 +259,9 @@ if (isset($_GET['hashtag']) && !empty($_GET['hashtag'])) {
 														<h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$getFromT->timeAgo(($userOwnerTweet[0]->postedOn)).'</h4>
 													</div>
 												</div>
+												'.(($userOwnerTweet[0]->commentTrue == 1) ? 
+													'<div class="replying-to"> <span> Replying to <a href="#"> @'.$getFromT->userData($userOwnerTweet[0]->comment_userID)->username.' </a> </span> </div>
+														' : '' ).'
 												<div class="status">
 													<div class="s-in">
 														<div class="sto">
@@ -318,6 +321,9 @@ if (isset($_GET['hashtag']) && !empty($_GET['hashtag'])) {
 																		<h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$getFromT->timeAgo(($userRefS[0]->postedOn)).'</h4>
 																	</div>
 																</div>
+																'.(($userRefS[0]->commentTrue == 1) ? 
+																'<div class="replying-to"> <span> Replying to <a href="#"> @'.$getFromT->userData($userRefS[0]->comment_userID)->username.' </a> </span> </div>
+																	' : '' ).'
 																<div class="ref-status">
 																	<h6>'.$getFromT->getTweetLinks($userRefS[0]->status).'</h6>
 																	</div>
@@ -474,6 +480,9 @@ if (isset($_GET['hashtag']) && !empty($_GET['hashtag'])) {
 														<h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$getFromT->timeAgo(($userOwnerTweet[0]->postedOn)).'</h4>
 													</div>
 												</div>
+												'.(($userOwnerTweet[0]->commentTrue == 1) ? 
+													'<div class="replying-to"> <span> Replying to <a href="#"> @'.$getFromT->userData($userOwnerTweet[0]->comment_userID)->username.' </a> </span> </div>
+														' : '' ).'
 												<div class="status">
 													<div class="s-in">
 														<div class="sto">
@@ -533,6 +542,9 @@ if (isset($_GET['hashtag']) && !empty($_GET['hashtag'])) {
 																		<h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$getFromT->timeAgo(($userRefS[0]->postedOn)).'</h4>
 																	</div>
 																</div>
+																'.(($userRefS[0]->commentTrue == 1) ? 
+																'<div class="replying-to"> <span> Replying to <a href="#"> @'.$getFromT->userData($userRefS[0]->comment_userID)->username.' </a> </span> </div>
+																	' : '' ).'
 																<div class="ref-status">
 																	<h6>'.$getFromT->getTweetLinks($userRefS[0]->status).'</h6>
 																	</div>

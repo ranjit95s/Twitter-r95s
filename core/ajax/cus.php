@@ -14,16 +14,6 @@
             if(!empty($_FILES['filesImage']['name'][0])){
                 $tweetImage = $getFromU->uploadImage($_FILES['file']);
             }
-
-            // echo $tweetImage + 'hahahahahahhahahahahahhaha';
-            // if(strlen($status)>300){
-            //     $error = "tweet must be in 280 length";
-            // }
-            // $tweet_id = $getFromU->create('tweets',array('status' => $status,'tweetBy'=>$user_id ,'tweetOwner'=>$user_id, 'tweetImage'=> $tweetImage,'postedOn'=> date('Y-m-d H:i:s')));
-            // preg_match_all("/#+([a-zA-Z0-9]+)/i",$status,$hashtag);
-            // if(!empty($hashtag)){
-            //     $getFromT->addTrend($status);
-            // }
             $getFromT->retweet($tweet_id, $user_id, $get_id, $status,$tweetImage);
             $result['success'] = "Your Tweet has been posted";
             echo json_encode($result);

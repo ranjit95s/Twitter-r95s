@@ -52,20 +52,25 @@
 								$us = $product->retweet_tweetID;
                                 $su = $product->retweet_userIDBy;
 							}
+
+                            $commentTrue = false;
+                            $commentTrueRef = false;
+                            $userOwnerTweet = $this->getUserTweetsOwnerByID($tweet->tweetID , $tweet->tweetOwner);
                 if($tweet->tweetRef != 0 && $tweet->tweetRefTo != 0){
                     $userRefS = $this->getUserTweetsByID($tweet->tweetRef,$tweet->tweetRefTo);
-                    $userOwnerTweet = $this->getUserTweetsOwnerByID($tweet->tweetID , $tweet->tweetOwner);
                     $userRefD = $this->userData($tweet->tweetRefTo);
+
+                    if($userRefS[0]->commentTrue == 1){
+                        $commentTrueRef = true;
+                       }
                 }
 
-                $commentTrue = false;
-                $commentTrueRef = false;
+
+
                if($tweet->commentTrue == 1){
                 $commentTrue = true;
                }
-               if($userRefS[0]->commentTrue == 1){
-                $commentTrueRef = true;
-               }
+              
 
                
                 echo '
@@ -157,9 +162,7 @@
                                     <!--tweet show body end-->
                                     ' : '' ).'
 
-                                    '.( $tweet->tweetRef > 0 && (!empty($tweet->tweetRef))?'
-
-
+                            '.( $tweet->tweetRef > 0 && (!empty($tweet->tweetRef))?'
                             '.($tweet->tweetRef > 0 && $this->checkTweetExistence($tweet->tweetRef) ? '
                                 <div class="refenceTweet" data-tweet="'.$tweet->tweetRef.'" data-user="'.$userRefD->username.'">
                                 
@@ -301,7 +304,18 @@
             // select * from ( select t.* from tweets as t where tweetOwner = 7 union select t.* from tweets as t where t.tweetID in (select retweet_tweetID from retweet where retweet_userIDBy = 7)) a order by postedOn desc
             
 
-            $stmt = $this->pdo->prepare("SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = :user_id UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` WHERE `retweet_userIDBy` =:user_id)) A ORDER BY `postedOn` DESC");
+            $stmt = $this->pdo->prepare("SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = :user_id AND `commentTrue` = 0 UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` WHERE `retweet_userIDBy` =:user_id)) A ORDER BY `postedOn` DESC");
+            $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+
+        public function getUserTweetsWithReplies($user_id){
+
+            // select * from ( select t.* from tweets as t where tweetOwner = 7 union select t.* from tweets as t where t.tweetID in (select retweet_tweetID from retweet where retweet_userIDBy = 7)) a order by postedOn desc
+            
+
+            $stmt = $this->pdo->prepare("SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = :user_id  UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` WHERE `retweet_userIDBy` =:user_id)) A ORDER BY `postedOn` DESC");
             $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -446,6 +460,16 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
+        public function getPopupTweetRef($tweet_id){
+            $stmt = $this->pdo->prepare("SELECT * FROM `tweets`,`users` WHERE `tweetID` IN (SELECT `comment_tweetID` FROM `tweets` as rt WHERE rt.`tweetID` = :tweet_id) AND `tweetOwner` = `user_id`");
+            $stmt->bindParam(":tweet_id",$tweet_id,PDO::PARAM_INT);
+            $stmt->execute();
+            $res = $stmt->fetch(PDO::FETCH_OBJ);
+         
+            return $res;
+
+
+        }
 
         public function comments($tweet_id){
             $stmt = $this->pdo->prepare("SELECT * FROM `tweets` as t LEFT JOIN `users` ON `tweetOwner` = `user_id` WHERE `commentTrue` != 0 AND `comment_tweetID` = :tweet_id");
@@ -488,7 +512,7 @@
             $stmt->execute();
 
             $stmts = $this->create('retweet', array('retweet_tweetID' => $tweet_id, 'retweet_userID' => $tweet_id_user_id , 'retweet_userIDBy' => $user_id , 'postedOn'=> date('Y-m-d H:i:s')));
-            var_dump($stmts);
+            // var_dump($stmts);
             if($tweet_id_user_id != $user_id){
                 $this->message->sendNotification($tweet_id_user_id, $user_id, $tweet_id, 'retweet');
             }
