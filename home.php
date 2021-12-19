@@ -138,7 +138,7 @@
 						<div class="popupTweet"></div>
 
 <div class="alert hide">
-         <span class="fa fa-exclamation-circle"></span>
+         <span id="iconSign" class="fa "></span>
          <span class="msgs"> SAMPLE TEXT </span>
          <div class="close-btn">
             <span class="fa fa-times"></span>
@@ -176,9 +176,7 @@
 								</div>
 							</section>
 					<!--Who To Follow-->
-					<!--WHO_TO_FOLLOW HERE-->
-					<?php $getFromF->whoToFollow($user_id,$user_id); ?>
-					<!--Who To Follow-->
+
 
 <!--==TRENDS==-->
 		<div class="trend-wrapper">
@@ -191,6 +189,10 @@
 					</div><!--TREND INNER END-->
             </div><!--TRENDS WRAPPER ENDS-->
 <!--==TRENDS==-->
+
+					<!--WHO_TO_FOLLOW HERE-->
+					<?php $getFromF->whoToFollow($user_id,$user_id); ?>
+					<!--Who To Follow-->
 
 
 					</div><!-- in left wrap-->

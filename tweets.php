@@ -671,25 +671,29 @@ echo '
 						
 												<div class="input-comment-t">
 													<div class="comment-t">
-						
-														<div class="image-com">
-															<img src="'.BASE_URL.$user->profileImage.'" alt="img">
-														</div>
-														<div class="inputFiled">
+													<div class="image-com">
+													<img src="'.BASE_URL.$user->profileImage.'" alt="img">
+													</div>
+													<div class="inputFiled">
+													<form id="commentPost" method="POST" enctype="multipart/form-data" style="    margin: 0;
+													width: 100%;">
 															<div class="hidden-replyTo">
 																<h5> Replying to <span> @'.$userTstatus->username.' </span> </h5>
 															</div>
 															<div class="getCom">
-																<textarea id="commentFields" data-ttweet="'.$userTstatus->tweetBy.'" data-user="'.$userTstatus->username.'" data-tweet="'.$userTstatus->tweetID.'" placeholder="Tweet your reply" name="comment" cols="15"
+																<textarea name="comment" id="commentFields" data-ttweet="'.$userTstatus->tweetBy.'" data-user="'.$userTstatus->username.'" data-tweet="'.$userTstatus->tweetID.'" placeholder="Tweet your reply" name="comment" cols="15"
 																	rows="2"></textarea>
+																	<input type="text" value="'.$userTstatus->tweetID.'" name="tweet_id" hidden>
+																	<input type="text" value="'.$userTstatus->username.'" name="user" hidden>
+																	<input type="text" value="'.$userTstatus->tweetBy.'" name="ttweet" hidden>
 															</div>
 															<div class="icons-comm">
 															<input type="file" name="filec" id="filec" class="filec" hidden/>
 																<label for="filec"> <i class="fa fa-camera"></i>  <span style="font-size: 15px;" id="filenamec">  </span>  </label>
 																<button  id="postComments"  type="submit"> Reply </button>
 															</div>
+															</form>
 														</div>
-						
 						
 													</div>
 												</div>
@@ -752,15 +756,15 @@ echo '
 												'.$getFromT->getTweetLinks($comment->status).'
 												</div>
 												<div class="commentImage">
-												'.(!empty($comment->tweetImage) ? 
-												'<!--tweet show head end-->
-												<div class="cimageContainer imageContainer">
-												<div class="imageProposal">
+													'.(!empty($comment->tweetImage) ? 
+													'<!--tweet show head end-->
+													<div class="cimageContainer imageContainer">
+													<div class="imageProposal">
 													<div class="imageContains">
 														<img src="'.BASE_URL.$comment->tweetImage.'" class="imagePopup" data-tweet="'.$comment->tweetID.'" alt="">
 													</div>
-												</div>
-											</div>
+													</div>
+													</div>
 													<!--tweet show body end-->
 													' : '' ).'
 												</div>
@@ -825,6 +829,13 @@ echo '
 						<i class="fa fa-leaf"></i>
 					</div>
 					<div class="popupTweet"></div>
+					<div class="alert hide">
+							<span id="iconSign" class="fa "></span>
+							<span class="msgs"> SAMPLE TEXT </span>
+							<div class="close-btn">
+								<span class="fa fa-times"></span>
+							</div>
+					</div>
 
 					<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/custome-complete-js.js"></script>
 					<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/like.js"></script>
@@ -859,9 +870,8 @@ echo '
 								</ul>
 							</div>
 						</section>
-						<!--==WHO TO FOLLOW==-->
-						<?php $getFromF->whoToFollow($user_id, $profileId); ?>
-						<!--==WHO TO FOLLOW==-->
+
+
 
 						<!--==TRENDS==-->
 						<div class="trend-wrapper">
@@ -876,6 +886,12 @@ echo '
 						</div>
 						<!--TRENDS WRAPPER ENDS-->
 						<!--==TRENDS==-->
+
+						<?php if (!(strpos($_SERVER['REQUEST_URI'], '?retweet_with_comments'))) :?>
+						<!--==WHO TO FOLLOW==-->
+						<?php $getFromF->Relevantpeople($user_id, $profileId , $userTstatus->status); ?>
+						<!--==WHO TO FOLLOW==-->
+						<?php endif; ?>
 
 					</div><!-- in right wrap-->
 				</div>

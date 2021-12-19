@@ -168,6 +168,87 @@
 
         }
 
+        public function Relevantpeople($user_id,$profileID,$status){
+
+            $user = $this->userData($profileID);
+
+  
+ 
+
+
+   
+
+
+
+            if(preg_match_all("/@+([a-zA-Z0-9_]+)/i", $status, $matches)){
+                if($matches){
+                    $result = array_values($matches[1]);
+                }
+                $sql = "SELECT * FROM `users` WHERE `username` != :profileID AND `username` = :mention";
+                echo '<div class="follow-wrap">
+                <div class="follow-inner">
+                <div class="follow-title">
+                <h3>Relevant People</h3>
+                </div>';
+                foreach ($result as $i => $trend) {
+                    if($stmt = $this->pdo->prepare($sql) ){
+                        $stmt->execute(array(':mention' => $trend , ':profileID' => $user->username));
+                        $data = $stmt->fetch(PDO::FETCH_OBJ);
+
+                        
+                            if($data && $data->username != $user->username){
+                                echo '<div class="follow-body">
+                                <div class="follow-img">
+                                <a href="'.BASE_URL.$data->username.'">
+                                <img src="'.BASE_URL.$data->profileImage.'"/>
+                                </a>
+                                </div>
+                                <div class="follow-content">
+                                    <div class="fo-co-head ellipsis">
+                                        <a href="'.BASE_URL.$data->username.'">'.$data->screenName.'</a> </br> <span>@'.$data->username.'</span>
+                                    </div>
+                                    <div class="w-t-f-f-btn"> <!-- FOLLOW BUTTON -->
+                                    '.$this->followBtn($data->user_id,$user_id,$profileID).' 
+                                    </div>
+                                </div>
+                            </div>';
+
+                            }
+                     
+
+                   
+
+                    }
+                }
+                echo '</div></div>';
+   
+            }else{
+                echo '<div class="follow-wrap">
+                <div class="follow-inner">
+                <div class="follow-title">
+                <h3>Relevant People</h3>
+                </div>';
+                echo '<div class="follow-body">
+                <div class="follow-img">
+                <a href="'.BASE_URL.$user->username.'">
+                <img src="'.BASE_URL.$user->profileImage.'"/>
+                </a>
+                </div>
+                <div class="follow-content">
+                    <div class="fo-co-head ellipsis">
+                        <a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a> </br> <span>@'.$user->username.'</span>
+                    </div>
+                    <div class="w-t-f-f-btn"> <!-- FOLLOW BUTTON -->
+                    '.$this->followBtn($user->user_id,$user_id,$profileID).' 
+                    </div>
+                </div>
+            </div>';
+            echo '</div></div>';
+            }
+
+
+        }
+
     }
 
 ?>

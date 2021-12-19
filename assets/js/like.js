@@ -24,6 +24,8 @@ $(document).ready(function() {
 			button.find('.fa-heart').removeClass('fa-heart-o');
 		});
 
+		// $().myfunction("THANK U FOR LIKING !!!", "like");
+
 		
 		// $.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {tweet_id:tweet_id}, function(data){
 		// 	$('.likesCountt').html(data);

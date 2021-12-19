@@ -381,15 +381,68 @@
             width: 99%;
             height: 100%;
         } */
+
+        #profile-dev {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 0;
+            width: 93%;
+            /* bottom: 0; */
+            position: absolute;
+            left:1rem;
+            bottom: 4rem;
+        }
+        .npx-img {
+            margin:0;
+            margin-right: 5px;
+        }
+        .profile-dev-info {
+            width: 100% !important;
+            margin:0;
+        }
+        
+        .padding-profile {
+            margin: 0;
+            width: 95%;
+            display: flex;
+            padding: 5px;
+            align-items: center;
+            /* border: 1px solid; */
+            border-radius: 30px;
+            transition:0.1s ease-in; 
+        }
+
+        .padding-profile:hover{
+             border: 1px solid var(--primary-theme-color);
+             background:var( --secondary-bg-hover);
+        }
+
+        .iconTwitter > i:hover {
+            border: 1px solid var(--primary-theme-color);
+            background:var( --primary-bg-hover);
+            border-radius: 50%;  
+            margin-bottom: -2px !important;
+        }
+
+        .info-pd  {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary-text-color);
+        }
         
         .in-left {
             width: 22%;
             /* min-height: 1000px; */
             float: left;
+            height: 100%;
             position: fixed;
             /* margin-right: 5px; */
             /* margin-left: 5px; */
         }
+        .dev-nav , .dev-nav ul {
+            height: 100%;
+        } 
         
         .in-center {
             width: 47%;
@@ -603,7 +656,7 @@
         
         .trend-wrapper {
             width: 100%;
-    float: left;
+    /* float: left; */
     background: var(--primary-bg-hover);
     /* margin: 10px 0px; */
     border-radius: 15px;
@@ -2733,7 +2786,7 @@
 
         /* ------------- */
         .alert{
-            background: rgb(var(--pro-convert), 0.6);
+            background: rgb(var(--pro-convert), 0.85);
             padding: 20px 40px;
             min-width: 420px;
             position: fixed;
@@ -2784,13 +2837,13 @@
               transform: translateX(100%);
             }
           }
-          .alert .fa-exclamation-circle{
+          .alert #iconSign{
             position: absolute;
             left: 20px;
             top: 50%;
             transform: translateY(-50%);
             color: var( --bg-text-color);
-            font-size: 30px;
+            font-size: 20px;
           }
           .alert .msgs{
             padding: 0 20px;
@@ -4942,13 +4995,15 @@
             align-items: center;
             margin: 0;
             flex-direction: column;
+            height: 100%;
             /* text-align: start; */
+            position: relative;
         }
         
         .dev-nav-drop li {
             font-size: 1.25rem;
             font-weight: 500;
-            margin: 15px 25px;
+            margin: 0px 25px;
             margin-bottom: 10px !important;
             padding: 10px;
             /* margin-top: 12px; */
@@ -4980,15 +5035,12 @@
             cursor: pointer;
         }
         
-        .npx-img {
-            margin-top: 5px;
-            margin-left: 5px;
-        }
         
         .npx-img img {
-            width: 3.5rem;
-            height: 3.5rem;
+            width: 2.7rem;
+            height: 2.7rem;
             margin-left: 8px;
+            /* margin-top: 5px; */
             border-radius: 50%;
         }
         
@@ -6640,6 +6692,9 @@
             .follow-pro-center {
                 height: 39.5rem;
             }
+            .profile-dev-info {
+                display:none;
+            }
             /* .more-setting-hidden-i {
                 left: 65px;
                 bottom: 15px;
@@ -6683,10 +6738,7 @@
             .step-wrapper {
                 width: 75%;
             }
-            #profile-dev {
-                display: block !important;
-                margin-top: 10px;
-            }
+
             .dev-nav-drop {
                 margin-top: 0px;
                 margin-left: 2px;

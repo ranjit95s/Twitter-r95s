@@ -25,12 +25,17 @@ $(function() {
             success: function(data) {
                 result = JSON.parse(data);
                 console.log(result);
+                $().myfunction(result.success, "like");
             },
             cache: false,
             contentType: false,
             processData: false
         });
         $('.popup-tweet-wrap').hide();
-        var selector = $('#tweety-msg').css({"display":"block"}).text("Your Tweet is adding");
+        var offset = 10;
+        $.post('http://localhost/Twitter-Clone-pre/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
+                $('.tweets').html(data);
+            });
+            
     });
 });

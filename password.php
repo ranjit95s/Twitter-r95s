@@ -144,6 +144,13 @@
 	<!--RIGHTER ENDS-->
 
 </div>
+<div class="alert hide">
+         <span id="iconSign" class="fa "></span>
+         <span class="msgs"> SAMPLE TEXT </span>
+         <div class="close-btn">
+            <span class="fa fa-times"></span>
+         </div>
+</div>
 <!--CONTAINER_WRAP ENDS-->
 </div>
 <?php 

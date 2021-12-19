@@ -131,21 +131,32 @@
 								<div class="dev-li">
 								<a href="<?php echo BASE_URL;?>home.php">
 								<div class="iconTwitter" style="
-								        /* display: flex; */
+								            /* display: flex; */
     color: #1d9bf0;
     margin: 0;
     /* width: 65%; */
-    margin-top: 15px;
-    margin-bottom: 0px;
-    margin-left: 35px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 25px;
     font-size: 1.4rem;
-								"> <i class="fa fa-twitter" style="color: #1d9bf0;"></i> </div> </a> </div>
+								"> <i class="fa fa-twitter" style="   color: #1d9bf0;
+    padding: 10px;"></i> </div> </a> </div>
 							<?php if($getFromU->loggedIn()===true){?>
-									<div class="dev-li" id="profile-dev" style="display: none;">
+									<div class="dev-li" id="profile-dev">
+										<div class="padding-profile">
+
+										
 										<div class="npx-img">
 											<a href="home.php">
 												<img src="<?php echo BASE_URL.$user->profileImage; ?>" />
 											</a>
+										</div>
+										<div class="profile-dev-info ellipsis">
+											<div class="info-pd "> <?php echo $user->screenName; ?> </div>
+											<div class="info-pd" style=" font-size: 15px;
+            font-weight: 500;
+            color: var(--secondary-text-color);"> @<?php echo $user->username; ?> </div>
+										</div>
 										</div>
 									</div>
 									<?php }?>

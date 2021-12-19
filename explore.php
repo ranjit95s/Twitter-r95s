@@ -328,6 +328,13 @@ $NewsData = json_decode($res);
 								<i class="fa fa-leaf"></i>
 							</div>
 							<div class="popupTweet"></div>
+							<div class="alert hide">
+									<span id="iconSign" class="fa "></span>
+									<span class="msgs"> SAMPLE TEXT </span>
+									<div class="close-btn">
+										<span class="fa fa-times"></span>
+									</div>
+							</div>
 							<!--Tweet END WRAPER-->
 							<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/custome-complete-js.js"></script>
 							<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/like.js"></script>

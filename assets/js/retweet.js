@@ -74,16 +74,6 @@ $(function(){
 		
         });
         $('.popup-tweet-wrap').hide();
-        // var selector = $('#tweety-msg').css({"display":"block"}).text("Your Tweet is adding");
-
-
-	    // $.post('http://localhost/Twitter-Clone-pre/core/ajax/retweet.php', {retweet:tweet_id,user_id:user_id,comment:comment}, function(){
-	    // 	$('.retweet-popup').hide();
-		// 	var op = $('#op' + tweet_id).css('display','none')
-	    // 	$count++;
-	    // 	$counter.text($count);
-	    // 	// $button.removeClass('retweet-options').addClass('retweeted');
-	    // });
 
 		$.post('http://localhost/Twitter-Clone-pre/core/ajax/retweet.php', {retweetQuote:tweet_id}, function(data){
 			$('.qouteTweett').html(data);

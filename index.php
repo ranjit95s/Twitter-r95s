@@ -74,7 +74,13 @@
             ?>
 			</div>
 			<!-- SIGN UP wrapper end -->
-
+			<div class="alert hide">
+					<span id="iconSign" class="fa "></span>
+					<span class="msgs"> SAMPLE TEXT </span>
+					<div class="close-btn">
+						<span class="fa fa-times"></span>
+					</div>
+			</div>
 		</div><!-- content right ends -->
 
 	</div><!-- main container end -->

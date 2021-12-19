@@ -633,13 +633,17 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 		
 			<?php endif; ?>
 			<div class="popupTweet"></div>
+			<div class="alert hide">
+					<span id="iconSign" class="fa "></span>
+					<span class="msgs"> SAMPLE TEXT </span>
+					<div class="close-btn">
+						<span class="fa fa-times"></span>
+					</div>
+			</div>
 			</div>
 			</div>
 			<div class="in-right">
 				<div class="in-right-wrap">
-					<!--==WHO TO FOLLOW==-->
-					<?php $getFromF->whoToFollow($user_id, $user_id); ?>
-					<!--==WHO TO FOLLOW==-->
 					<!--==TRENDS==-->
 					<div class="trend-wrapper">
 						<div class="trend-inner">
@@ -653,6 +657,9 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 					</div>
 					<!--TRENDS WRAPPER ENDS-->
 					<!--==TRENDS==-->
+					<!--==WHO TO FOLLOW==-->
+					<?php $getFromF->whoToFollow($user_id, $user_id); ?>
+					<!--==WHO TO FOLLOW==-->
 
 
 				</div><!-- in right wrap-->

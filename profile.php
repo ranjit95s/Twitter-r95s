@@ -1160,6 +1160,13 @@ if (isset($_GET['username']) === true && empty($_GET['username']) === false) {
 						<i class="fa fa-leaf"></i>
 					</div>
 					<div class="popupTweet"></div>
+					<div class="alert hide">
+							<span id="iconSign" class="fa "></span>
+							<span class="msgs"> SAMPLE TEXT </span>
+							<div class="close-btn">
+								<span class="fa fa-times"></span>
+							</div>
+					</div>
 
 					<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/custome-complete-js.js"></script>
 					<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/like.js"></script>
@@ -1194,9 +1201,7 @@ if (isset($_GET['username']) === true && empty($_GET['username']) === false) {
 								</ul>
 							</div>
 						</section>
-						<!--==WHO TO FOLLOW==-->
-						<?php $getFromF->whoToFollow($user_id, $profileId); ?>
-						<!--==WHO TO FOLLOW==-->
+
 
 						<!--==TRENDS==-->
 						<div class="trend-wrapper">
@@ -1211,6 +1216,9 @@ if (isset($_GET['username']) === true && empty($_GET['username']) === false) {
 						</div>
 						<!--TRENDS WRAPPER ENDS-->
 						<!--==TRENDS==-->
+						<!--==WHO TO FOLLOW==-->
+												<?php $getFromF->whoToFollow($user_id, $profileId); ?>
+						<!--==WHO TO FOLLOW==-->
 
 					</div><!-- in right wrap-->
 				</div>

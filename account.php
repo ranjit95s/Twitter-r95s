@@ -123,6 +123,13 @@
 		</div><!--RIGHTER ENDS-->
 		
 		<div class="popupTweet"></div>
+	<div class="alert hide">
+			<span id="iconSign" class="fa "></span>
+			<span class="msgs"> SAMPLE TEXT </span>
+			<div class="close-btn">
+				<span class="fa fa-times"></span>
+			</div>
+	</div>
 		
 		<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/custome-complete-js.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>

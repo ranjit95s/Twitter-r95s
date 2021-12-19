@@ -541,6 +541,13 @@
 						</div>
 						<div class="clear_fix" style="display:none; height:55px; width:100%;"></div>
 						<div class="popupTweet"></div>
+                        <div class="alert hide">
+                                <span id="iconSign" class="fa "></span>
+                                <span class="msgs"> SAMPLE TEXT </span>
+                                <div class="close-btn">
+                                    <span class="fa fa-times"></span>
+                                </div>
+                        </div>
 						<!--Tweet END WRAPER-->
 						<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/custome-complete-js.js"></script>
 						<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/like.js"></script>
@@ -573,10 +580,7 @@
 									</ul>
 								</div>
 							</section>
-					<!--Who To Follow-->
-					<!--WHO_TO_FOLLOW HERE-->
-					<?php $getFromF->whoToFollow($user_id,$user_id); ?>
-					<!--Who To Follow-->
+
 
 		<!--==TRENDS==-->
 		<div class="trend-wrapper">
@@ -589,6 +593,10 @@
 					</div><!--TREND INNER END-->
             </div><!--TRENDS WRAPPER ENDS-->
 				<!--==TRENDS==-->
+                					<!--Who To Follow-->
+					<!--WHO_TO_FOLLOW HERE-->
+					<?php $getFromF->whoToFollow($user_id,$user_id); ?>
+					<!--Who To Follow-->
 
 
 					</div><!-- in left wrap-->

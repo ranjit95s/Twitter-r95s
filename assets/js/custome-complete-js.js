@@ -310,9 +310,35 @@ $(document).ready(function () {
 
   $.fn.myfunction = function ($notifyMsg, $success) {
 
+    var iconSign = $('#iconSign');
+
+    var like = 'fa-heart';
+    var retweetj = 'fa-heart';
+    var retweetq = 'fa-heart';
+    var commentp = 'fa-heart';
+    var deletetc = 'fa-angellist';
+    var followed = 'fa-smile-o';
+    var unfollowed = 'fa-meh-o';
+
     if ($success != null) {
+      if($success == 'like'){
+        iconSign.addClass(like);
+      }else if($success == retweetj){
+
+      }else if($success == retweetq){
+
+      }else if($success == commentp){
+        
+      }else if($success == deletetc){
+        
+      }else if($success == followed){
+        
+      }else if($success == unfollowed){
+        
+      }
       console.log($success);
     }
+
 
     $('.alert').addClass("show");
     $('.alert').removeClass("hide");
