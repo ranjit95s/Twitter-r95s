@@ -68,21 +68,26 @@ $(document).ready(function () {
     });
 
 
-    $(document).on('change', '#file', function () {
-      var filename = $('#file')[0].files[0];
-      // console.log(filename.name);
-      $('#filename').text(filename.name);
-    });
     $(document).on('change', '#files', function () {
       var filename = $('#files')[0].files[0];
       // console.log(filename.name);
       $('#filenameP').html(filename.name);
     });
+    $(document).on('change', '#files', function () {
+      var filename = $('#files')[0].files[0];
+      // console.log(filename.name);
+      $('#filename').text(filename.name);
+      $('#filenameP').html(filename.name);
+    });
+
+
     $(document).on('change', '#filesImage', function () {
       var filename = $('#filesImage')[0].files[0];
       // console.log(filename.name);
       $('#filenameR').html(filename.name);
     });
+
+
     $(document).on('change', '#filec', function () {
       var filename = $('#filec')[0].files[0];
       console.log(filename.name);
@@ -221,13 +226,6 @@ $(document).ready(function () {
           lightmode();
         }
   
-        // $(document).on('change','input:radio[name="userSelectBG"]',function(e){
-        // 		if ($(this).is(':checked')) {
-        // 			// append goes here
-        // 			alert('yes');
-        // 		}
-        // 	});
-  
     $(document).on('change','.backback',function(e){
       // e.stopPropagation();
       var dataColor = $(this).data('color');
@@ -257,6 +255,71 @@ $(document).ready(function () {
           });
       $('.more-setting-shown').hide();
     });
+
+   
+
+    $(document).on('click','#req-for-verify-form',function(e){
+      var dataColor = "req-for-verify";
+      
+    
+        $.post('http://localhost/Twitter-Clone-pre/core/ajax/display.php', {showpopupforVerify:dataColor}, function(data){
+                $('.popupTweet').html(data);
+                $('.donePick').click(function(){
+                    $('.wrap').hide();
+                });
+            });
+        $('.more-setting-shown').hide();
+     
+    });
+
+    $(document).on('change','#process',function(){
+      var optionSelected = $("option:selected", this);
+      var valueSelected = this.value;
+      var example = $('#example');
+      $('#lableProces').text(valueSelected)
+      if(valueSelected == 'Voter ID'){
+        example.text('Example, ABE1234566');
+      }else {
+        example.text('Example, 3675 9834 6015');
+      }
+
+ 
+    });
+
+    $(document).on('click','#processSubmit',function(){
+      value = $("#processID").val(); 
+      var user_id   = $(this).data('user');
+      processSelection = $("#process").val(); 
+      console.log(processSelection + ' ' + value );
+    if(processSelection == 'Voter ID'){
+      var regex = /^([a-zA-Z]){3}([0-9]){7}?$/g;
+      if (!regex.test(value)) {
+        $('#processFail').text('(Invalid Voter ID Number)');
+        $('#processForm')[0].reset();
+      } else {
+       
+        console.log(user_id);
+        $().myfunction("Form validated! Check status after sometime", "like");
+        $('.wrap').hide();
+        $.post('http://localhost/Twitter-Clone-pre/core/ajax/display.php', {verifyUser:user_id}, function(){
+          console.log('posted');
+        });
+      }
+      }else if(processSelection == 'Adharcard'){
+        var regex = /^\d{4}\s\d{4}\s\d{4}$/g;
+        if (!regex.test(value)) {
+          $('#processFail').text('(Invalid Adharcard ID Number)');
+          $('#processForm')[0].reset();
+        } else {
+          var user_id   = $('#processSubmit').data('user');
+          $().myfunction("Form validated! Check status after sometime", "like");
+          $('.wrap').hide();
+          $.post('http://localhost/Twitter-Clone-pre/core/ajax/display.php', {verifyUser:user_id}, function(){
+            console.log('posted');
+          });
+        }
+      }
+    })
 
     $(document).on('click','.all-tweet', function(e){
       var tweet_id  = $(this).data('tweet');
@@ -348,7 +411,7 @@ $(document).ready(function () {
     setTimeout(function () {
       $('.alert').removeClass("show");
       $('.alert').addClass("hide");
-    }, 5000);
+    }, 2500);
   };
 
   $('.close-btn').click(function () {

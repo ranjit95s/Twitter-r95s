@@ -52,8 +52,8 @@
 			<h3>Retweet this to followers?</h3>
 			<span><button class="close-retweet-popup"><i class="fa fa-times" aria-hidden="true"></i></button></span>
 		</div>
-		<div class="giveItDamnHei" style="min-height: 20vh;
-    overflow-y: scroll; overflow-x:hidden;">
+		<div class="giveItDamnHei" style="min-height: 5vh;
+    overflow-y: scroll; overflow-x:hidden; max-height: 70vh;">
 		<div class="retweet-popup-input">
 			<div class="retweet-popup-input-inner">
 			<img class="user-w-retweet" src="<?php echo BASE_URL.$user->profileImage?>"/>
@@ -69,11 +69,11 @@
 					 </div>
 					 <div class="retweet-popup-comment-right-wrap">
 						 <div class="retweet-popup-comment-headline">
-						 	<a><?php echo $tweet->screenName;?> </a><span> · ‏<?php echo $getFromT->timeAgo($tweet->postedOn);?></span> <br> <span>@<?php echo $tweet->username;?> </span>
+						 	<a><?php echo $tweet->screenName;  if($tweet->statusVerify != 0) {echo ' <i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>';}?> </a><span> · ‏<?php echo $getFromT->timeAgo($tweet->postedOn);?></span> <br> <span>@<?php echo $tweet->username;?> </span>
 						 </div>
 						 
 						 <div class="retweet-popup-comment-body">
-						 	<?php echo $tweet->status;?>
+						 	<?php echo $getFromT->getTweetLinks($tweet->status);?>
 							
 							<?php if (!empty($tweet->tweetImage)) { 
 							echo '<div class="retweet-popup-comment-body-image" style="width: 100%;

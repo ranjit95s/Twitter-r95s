@@ -7,6 +7,8 @@
 
 
 <!-- popup Profile Edit Form Start -->
+<div class="wrap">
+
 
     <div class="popupEditForm">
     <div class="pef-head">
@@ -70,7 +72,7 @@
                 <form id="editForm" method="post" enctype="multipart/Form-data">	
                     <ul>
                         <li> <input autocomplete="off" type="text" name="screenName" placeholder="Your Name" value="<?php echo $user->screenName; ?>" > </li>
-                        <li> <textarea name="bio" id="" cols="30" rows="5" style="width: 100%;
+                        <li> <textarea placeholder="Bio" name="bio" id="" cols="30" rows="5" style="width: 100%;
     border-radius: 5px;
     font-size: 1.5rem;
     background: var( --primary-background-color);
@@ -92,6 +94,7 @@
                     });
                 </script>
                 
+    </div>
     </div>
 
 <!-- popup Profile Edit Form Start -->

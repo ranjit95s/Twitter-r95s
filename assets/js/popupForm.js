@@ -1,4 +1,9 @@
 $(function() {
+
+    // $("#homeTweet").submit(function(e){
+    //     e.preventDefault();
+    // });
+
     $(document).on('click', '.addTweetBtn', function() {
         $('.status').removeClass().addClass('status-removed');
         $('.hash-box').removeClass().addClass('hash-removed');
@@ -17,7 +22,7 @@ $(function() {
     $(document).on('submit', '#popupForm', function(e) {
         e.preventDefault();
         var formData = new FormData($(this)[0]);
-        formData.append('file', $('#file')[0].files[0]);
+        formData.append('file', $('#files')[0].files[0]);
         $.ajax({
             url: "http://localhost/Twitter-Clone-pre/core/ajax/addTweet.php",
             type: "POST",
@@ -31,8 +36,9 @@ $(function() {
             contentType: false,
             processData: false
         });
+        $("#popupForm")[0].reset();
         $('.popup-tweet-wrap').hide();
-        var offset = 10;
+        var offset = 11;
         $.post('http://localhost/Twitter-Clone-pre/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
                 $('.tweets').html(data);
             });

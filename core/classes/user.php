@@ -107,6 +107,12 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
+        public function verifyUser($user_id){
+            $stmt = $this->pdo->prepare("UPDATE `users` SET `statusVerify` = 1 WHERE `user_id` =:user_id");
+            $stmt ->bindParam(":user_id",$user_id,PDO::PARAM_INT);
+            $stmt->execute();
+            var_dump($stmt);
+        }
 
         public function create($table,$field = array()){
             $columns = implode(',',array_keys($field));

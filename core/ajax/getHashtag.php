@@ -39,7 +39,7 @@
                         </div>
                         <div class="nav-right-down-right">
                             <div class="nav-right-down-right-headline">
-                                <a>'.$mention->screenName.'</a><span class="getValue">@'.$mention->username.'</span>
+                                <a>'.$mention->screenName.' '.(($mention->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a><span class="getValue">@'.$mention->username.'</span>
                             </div>
                         </div>
                     </div></li>

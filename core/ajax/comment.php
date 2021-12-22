@@ -29,7 +29,7 @@
 						<div class="non-flex">
 							<div class="flex-user-info-tweet">
 								<div class="user-t-r-s">
-									<h4> <a href="'.BASE_URL.$comment->username.'"> '.$comment->screenName.' </a> </h4>
+									<h4> <a href="'.BASE_URL.$comment->username.'"> '.$comment->screenName.' '.(($comment->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a> </h4>
 								</div>
 								<div class="user-t-r-s">
 									<h4> <a href="$" style="            color: rgb(173, 173, 173);

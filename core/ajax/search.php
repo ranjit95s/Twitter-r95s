@@ -19,7 +19,7 @@
                         </div>
                         <div class="nav-right-down-right">
                             <div class="nav-right-down-right-headline">
-                                <a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a><br><span>@'.$user->username.'</span>
+                                <a href="'.BASE_URL.$user->username.'">'.$user->screenName.' '.(($user->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').' </a><br><span>@'.$user->username.'</span>
                             </div>
                             <div class="nav-right-down-right-body">
                             

@@ -162,7 +162,7 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 											max-width: 30vw;
 											">
 													<div class="useru">
-													<h4> <a style="color: var( --primary-text-color); font-weight: 800; text-decoration:none;" href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a></h4>
+													<h4> <a style="color: var( --primary-text-color); font-weight: 800; text-decoration:none;" href="'.BASE_URL.$user->username.'">'.$user->screenName.' '.(($user->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a></h4>
 												</div>
 												<div class="useru">
 													<h4 style="color: grey; font-weight: 500;">  <a style="color: grey; font-weight: 500; text-decoration:none;" href="'.BASE_URL.$user->username.'">@'.$user->username.'</a> </h4>
@@ -172,6 +172,7 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 															<h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$getFromT->timeAgo(($userOwnerTweet[0]->postedOn)).'</h4>
 														</div>
 													</div>
+													
 													<div class="status">
 														<div class="s-in">
 															<div class="sto">
@@ -222,7 +223,7 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 											max-width: 30vw;
 											">
 																		<div class="userd">
-																			<h4 style="color: var( --primary-text-color); font-weight: 800;"> <a style="color: var( --primary-text-color); font-weight: 800; text-decoration:none;" href="'.BASE_URL.$userRefD->username.'">'.$userRefD->screenName.'</a></h4>
+																			<h4 style="color: var( --primary-text-color); font-weight: 800;"> <a style="color: var( --primary-text-color); font-weight: 800; text-decoration:none;" href="'.BASE_URL.$userRefD->username.'">'.$userRefD->screenName.' '.(($userRefD->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a></h4>
 																		</div>
 																		<div class="userd">
 																			<h4 style="color: var( --secondary-text-color); font-weight: 500;"> <a style="color: var( --secondary-text-color); font-weight: 500; text-decoration:none;" href="'.BASE_URL.$userRefD->username.'">@'.$userRefD->username.'</a></h4>
@@ -233,6 +234,9 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 																			<h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$getFromT->timeAgo(($userRefS[0]->postedOn)).'</h4>
 																		</div>
 																	</div>
+																	'.(($userRefS[0]->commentTrue == 1) ? 
+													'<div class="replying-to"> <span> Replying to <a href="#"> @'.$getFromT->userData($userRefS[0]->comment_userID)->username.' </a> </span> </div>
+														' : '' ).'
 																	<div class="ref-status">
 																		<h6>'.$getFromT->getTweetLinks($userRefS[0]->status).'</h6>
 																		</div>
@@ -250,7 +254,7 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 													
 														
 														</div>
-														' : '<div class="deletedTweetExi"> <div class="inner-info-deleted"> This Tweet is unavailable. </div> </div>' ).'
+														' : '<div style="margin-bottom:15px;" class="deletedTweetExi"> <div class="inner-info-deleted"> This Tweet is unavailable. </div> </div>' ).'
 														' : '' ).'
 							
 													<!-- bottom S -->
@@ -259,7 +263,7 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 															<div class="flex-icons">
 																<ul>
 																'.(($getFromU->loggedIn() ===true) ? '
-																	<li> <i class="fa fa-comment"></i> <span> '.$getFromT->countComments($tweet->tweetID).' </span> </li>
+																	<li> <i class="fa fa-comment-o"></i> <span> '.$getFromT->countComments($tweet->tweetID).' </span> </li>
 																	
 																	<li> '.((isset($retweet['retweet_tweetID']) ? $tweet->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
 																	'<button id="retweet-options'.$tweet->tweetID.'" class="retweeted retweet-options" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : 
@@ -280,11 +284,11 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 																	'<button class="unlike-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>' : 
 																	'<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>').' </li>
 																	
-																	<li> <i class="fa fa-share"></i> </li>
-																	' : '<li><button><i class="fa fa-comment"></i> <span> '.$getFromT->countComments($tweet->tweetID).' </span></button></li>
+																	<li> <i class="fa fa-bookmark-o"></i> </li>
+																	' : '<li><button><i class="fa fa-comment-o"></i> <span> '.$getFromT->countComments($tweet->tweetID).' </span></button></li>
 																		<li><button><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button></li>	
 																		<li><button><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button></li>
-																		<li> <i class="fa fa-share"></i> </li>').'
+																		<li> <i class="fa fa-bookmark-o"></i> </li>').'
 		
 																</ul>
 															</div>
@@ -333,32 +337,37 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 								$booleanConnection = false;
 								$booleanConnectionRef1 = false;
 								$booleanConnectionRef2 = false;
-								
+							
 								
 								
 								if($userTstatus->commentTrue != 0 && $userTstatus->comment_tweetID != 0 && $userTstatus->comment_userID != 0){
-									$hasConnection = $getFromT->getPopupTweetRef($userTstatus->tweetID);
 
-								$retweets1 = $getFromT->checkRetweeTUser($hasConnection->tweetID);
-								$us1 = 'Undefined';
-								foreach($retweets1 as $product){
-									$userTr1 = $getFromT->userData($product->retweet_userIDBy);
-									$us1 = $product->retweet_tweetID;
-									$su1 = $product->retweet_userIDBy;
-									// print_r($userTr1->username);
-								}
+									
+									
+									$hasConnection = $getFromT->getPopupTweetRef($userTstatus->tweetID);
+									if($getFromT->checkTweetExistence($userTstatus->comment_tweetID) == true){
+
+									$retweets1 = $getFromT->checkRetweeTUser($hasConnection->tweetID);
+									$us1 = 'Undefined';
+									foreach($retweets1 as $product){
+										$userTr1 = $getFromT->userData($product->retweet_userIDBy);
+										$us1 = $product->retweet_tweetID;
+										$su1 = $product->retweet_userIDBy;
+										// print_r($userTr1->username);
+									}
 									
 									if($hasConnection->comment_tweetID != 0){
 										$booleanConnectionRef1 = true;
 									}
 									$booleanConnection = true;
 									
-									if ($hasConnection->tweetRef) {
+									if ($hasConnection->tweetRef != 0) {
 										$hasConnectionRef = $getFromT->getPopupTweet($hasConnection->tweetRef);
-										if($hasConnectionRef->comment_tweetID != 0){
+										if( $getFromT->checkTweetExistence($hasConnection->tweetRef) && $hasConnectionRef->comment_tweetID != 0){
 											$booleanConnectionRef2 = true;
 										}
-									}									
+									}
+								}									
 								}
 								
 								
@@ -402,13 +411,15 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 									<!-- innnerr-inner -->
 									<div class="inner-usero">';
 
+									if(($getFromT->checkTweetExistence($userTstatus->comment_tweetID))){
+
 									if($userTstatus->commentTrue != 0 && $userTstatus->comment_tweetID != 0 && $userTstatus->comment_userID != 0){
 										$likes = $getFromT->likes($user_id, $hasConnection->tweetID);
 										$retweet = $getFromT->checkRetweet($hasConnection->tweetID, $user_id);
 										$retweets = $getFromT->checkRetweeTUser($hasConnection->tweetID);
 										$comments = $getFromT->comments($tweetID);
-echo '
-
+			echo '
+			'.($userTstatus->comment_tweetID > 0 && $getFromT->checkTweetExistence($userTstatus->comment_tweetID) ? '
 								<div class="userTweet-flex userTweet" data-tweet="'.$hasConnection->tweetID.'" data-user="'.$hasConnection->username.'">
 									<div class="lineConnector"></div>
 									
@@ -424,7 +435,7 @@ echo '
 									</div>' : '' ).'
 										<div class=" userInfoT ">
 											<div class="userInfoT-flex userInfoIn">
-												<h4 class="" > <a style="font-weight: 700;" href="'.BASE_URL.$hasConnection->username.'"> '.$hasConnection->screenName.' </a> </h4>
+												<h4 class="" > <a style="font-weight: 700;" href="'.BASE_URL.$hasConnection->username.'"> '.$hasConnection->screenName.' '.(($hasConnection->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a> </h4>
 												<h4 class="username"> <a href="'.BASE_URL.$hasConnection->username.'"> @'.$hasConnection->username.' </a> </h4>
 												<h4 class="username">  • '.$getFromT->timeAgo(($hasConnection->postedOn)).'  </h4>
 												'.(($hasConnection->tweetOwner === $user_id) ? '
@@ -466,7 +477,7 @@ echo '
 																<img src="'.BASE_URL.$hasConnectionRef->profileImage.'" alt="">
 															</div>
 															<div class="nameref44e">
-																<h4> <a style="color:var( --primary-text-color);" href="'.BASE_URL.$hasConnectionRef->username.'"> '.$hasConnectionRef->screenName.' </a> </h4>
+																<h4> <a style="color:var( --primary-text-color);" href="'.BASE_URL.$hasConnectionRef->username.'"> '.$hasConnectionRef->screenName.' '.(($hasConnectionRef->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a> </h4>
 															</div>
 															<div class="nameref44e">
 																<h4> <a href="#" style="color: var( --secondary-text-color); font-weight: 500;"> @'.$hasConnectionRef->username.' </a>
@@ -500,7 +511,7 @@ echo '
 											<div class="react-retweet-like-flex react-retweet-like flex-icons">
 											<ul>
 											'.(($getFromT->loggedIn() ===true) ? '
-												<li> <i class="fa fa-comment"></i> <span> '.$getFromT->countComments($hasConnection->tweetID).' </span> </li>
+												<li> <i class="fa fa-comment-o"></i> <span> '.$getFromT->countComments($hasConnection->tweetID).' </span> </li>
 												<li> '.((isset($retweet['retweet_tweetID']) ? $hasConnection->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
 												'<button id="retweet-options'.$hasConnection->tweetID.'" class="retweeted retweet-options"  data-tweet="'.$hasConnection->tweetID.'" data-user="'.$hasConnection->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($hasConnection->retweetCount > 0) ? $hasConnection->retweetCount : '').'</span></button>' : 
 												'<button class="retweet-options" id="retweet-options'.$hasConnection->tweetID.'"  data-tweet="'.$hasConnection->tweetID.'" data-user="'.$hasConnection->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($hasConnection->retweetCount > 0) ? $hasConnection->retweetCount : '').'</span></button>').'
@@ -520,7 +531,7 @@ echo '
 												'<button class="like-btn" data-tweet="'.$hasConnection->tweetID.'" data-user="'.$hasConnection->tweetOwner.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($hasConnection->likesCount > 0) ? $hasConnection->likesCount : '' ).'</span></button>').' 
 												</li>
 												<li> <i class="fa fa-bookmark-o"></i> </li>
-												' : '<li><button><i class="fa fa-comment"></i> <span> 485 </span></button></li>
+												' : '<li><button><i class="fa fa-comment-o"></i> <span> 485 </span></button></li>
 													<li><button><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($hasConnection->retweetCount > 0) ? $hasConnection->retweetCount : '').'</span></button></li>	
 													<li><button><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($hasConnection->likesCount > 0) ? $hasConnection->likesCount : '' ).'</span></button></li>
 													<li> <i class="fa fa-bookmark"></i> </li>').'
@@ -533,8 +544,13 @@ echo '
 									</div>
 				
 				
-				
-								</div>';}
+								</div>
+								' : '<div class="deletedTweetExi"> <div class="inner-info-deleted"> This Tweet is unavailable. </div> </div>' ).'
+								' ;}}else if( $userTstatus->commentTrue !=0 && ($getFromT->checkTweetExistence($userTstatus->comment_tweetID)) == false){
+									echo '<div style="    margin-bottom: 25px;
+									position: relative;
+									z-index: 0;"  class="deletedTweetExi"> <div class="lineCExist lineConnector"></div> <div class="inner-info-deleted"> This Tweet is unavailable. </div> </div>';
+								}
 								$likes = $getFromT->likes($user_id, $userTstatus->tweetID);
 								$retweet = $getFromT->checkRetweet($userTstatus->tweetID, $user_id);
 						echo '
@@ -555,7 +571,7 @@ echo '
 												<img src="'.BASE_URL.$userTstatus->profileImage.'"/>
 												</div>
 												<div class="userInfoIn">
-													<h4> <a href="'.BASE_URL.$userTstatus->username.'"> '.$userTstatus->screenName.' </a> </h4>
+													<h4> <a href="'.BASE_URL.$userTstatus->username.'"> '.$userTstatus->screenName.' '.(($userTstatus->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a> </h4>
 													<h4 class="username"> <a href="'.BASE_URL.$userTstatus->username.'"> @'.$userTstatus->username.' </a> </h4>
 												</div>
 
@@ -577,7 +593,7 @@ echo '
 													'<div class="replying-to"> <span> Replying to <a href="#"> @'.$getFromT->userData($userTstatus->comment_userID)->username.' </a> </span> </div>
 												' : '' ).' 
 						
-											<div class="status">
+											<div class="status status-margin">
 						
 												<div class="swi67h">
 												'.$getFromT->getTweetLinks($userTstatus->status).'
@@ -662,7 +678,7 @@ echo '
 													<li> '.((isset($likes['likeOn']) ? $likes['likeOn'] === $userTstatus->tweetID : '') ? 
 															'<button class="unlike-btn" data-tweet="'.$userTstatus->tweetID.'" data-user="'.$userTstatus->tweetBy.'"><i class="fa fa-heart" aria-hidden="true"></i></button>' : 
 															'<button class="like-btn" data-tweet="'.$userTstatus->tweetID.'" data-user="'.$userTstatus->tweetBy.'"><i class="fa fa-heart-o" aria-hidden="true"></i></button>').' </li>
-													<li> <i class="fa fa-share"></i> </li>
+													<li> <i class="fa fa-bookmark-o"></i> </li>
 												</ul>
 													</ul>
 													</div>
@@ -727,7 +743,7 @@ echo '
 											<div class="non-flex">
 												<div class="flex-user-info-tweet">
 													<div class="user-t-r-s">
-														<h4> <a href="'.BASE_URL.$comment->username.'"> '.$comment->screenName.' </a> </h4>
+														<h4> <a href="'.BASE_URL.$comment->username.'"> '.$comment->screenName.' '.(($comment->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a> </h4>
 													</div>
 													<div class="user-t-r-s">
 														<h4> <a href="$" style="            color:var(--secondary-text-color);
@@ -773,7 +789,7 @@ echo '
 
 												<ul>
 												'.(($getFromT->loggedIn() ===true) ? '
-													<li> <i class="fa fa-comment"></i> <span> '.$getFromT->countComments($comment->tweetID).' </span> </li>
+													<li> <i class="fa fa-comment-o"></i> <span> '.$getFromT->countComments($comment->tweetID).' </span> </li>
 													<li> '.((isset($retweet['retweet_tweetID']) ? $comment->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
 													'<button id="retweet-options'.$comment->tweetID.'" class="retweeted retweet-options"  data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($comment->retweetCount > 0) ? $comment->retweetCount : '').'</span></button>' : 
 													'<button class="retweet-options" id="retweet-options'.$comment->tweetID.'"  data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($comment->retweetCount > 0) ? $comment->retweetCount : '').'</span></button>').'
@@ -793,7 +809,7 @@ echo '
 													'<button class="like-btn" data-tweet="'.$comment->tweetID.'" data-user="'.$comment->tweetOwner.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($comment->likesCount > 0) ? $comment->likesCount : '' ).'</span></button>').' 
 													</li>
 													<li> <i class="fa fa-bookmark-o"></i> </li>
-													' : '<li><button><i class="fa fa-comment"></i> <span> 485 </span></button></li>
+													' : '<li><button><i class="fa fa-comment-o"></i> <span> 485 </span></button></li>
 														<li><button><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($comment->retweetCount > 0) ? $comment->retweetCount : '').'</span></button></li>	
 														<li><button><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($comment->likesCount > 0) ? $comment->likesCount : '' ).'</span></button></li>
 														<li> <i class="fa fa-bookmark"></i> </li>').'
@@ -873,6 +889,11 @@ echo '
 
 
 
+						<?php if (!(strpos($_SERVER['REQUEST_URI'], '?retweet_with_comments'))) :?>
+						<!--==WHO TO FOLLOW==-->
+						<?php $getFromF->Relevantpeople($user_id, $profileId , $userTstatus->status); ?>
+						<!--==WHO TO FOLLOW==-->
+						<?php endif; ?>
 						<!--==TRENDS==-->
 						<div class="trend-wrapper">
 							<div class="trend-inner">
@@ -887,11 +908,6 @@ echo '
 						<!--TRENDS WRAPPER ENDS-->
 						<!--==TRENDS==-->
 
-						<?php if (!(strpos($_SERVER['REQUEST_URI'], '?retweet_with_comments'))) :?>
-						<!--==WHO TO FOLLOW==-->
-						<?php $getFromF->Relevantpeople($user_id, $profileId , $userTstatus->status); ?>
-						<!--==WHO TO FOLLOW==-->
-						<?php endif; ?>
 
 					</div><!-- in right wrap-->
 				</div>

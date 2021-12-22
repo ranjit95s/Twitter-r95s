@@ -91,7 +91,7 @@
                     <div class="followInfo">
                         <div class="info-follow">
                         <div class="name-username">
-                        <h3> <a href="'.BASE_URL.$following->username.'">'.$following->screenName.'</a> </h3>
+                        <h3> <a href="'.BASE_URL.$following->username.'">'.$following->screenName.' '.(($following->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').' </a> </h3>
                         <h4> <a href="'.BASE_URL.$following->username.'">@'.$following->username.'</a> </h4>
                         </div>
                         <div class="followBtn"> '.$this->followBtn($following->user_id,$user_id,$profileID).'  </div>
@@ -121,7 +121,7 @@
                     <div class="followInfo">
                         <div class="info-follow">
                         <div class="name-username">
-                        <h3> <a href="'.BASE_URL.$following->username.'">'.$following->screenName.'</a> </h3>
+                        <h3> <a href="'.BASE_URL.$following->username.'">'.$following->screenName.' '.(($following->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a> </h3>
                         <h4> <a href="'.BASE_URL.$following->username.'">@'.$following->username.'</a> </h4>
                         </div>
                         <div class="followBtn"> '.$this->followBtn($following->user_id,$user_id,$profileID).'  </div>
@@ -154,7 +154,7 @@
                         </div>
                         <div class="follow-content">
                             <div class="fo-co-head ellipsis">
-                                <a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a> </br> <span>@'.$user->username.'</span>
+                                <a href="'.BASE_URL.$user->username.'">'.$user->screenName.' '.(($user->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').' </a> </br> <span>@'.$user->username.'</span>
                             </div>
                             <div class="w-t-f-f-btn"> <!-- FOLLOW BUTTON -->
                             '.$this->followBtn($user->user_id,$user_id,$profileID).' 
@@ -171,15 +171,6 @@
         public function Relevantpeople($user_id,$profileID,$status){
 
             $user = $this->userData($profileID);
-
-  
- 
-
-
-   
-
-
-
             if(preg_match_all("/@+([a-zA-Z0-9_]+)/i", $status, $matches)){
                 if($matches){
                     $result = array_values($matches[1]);
@@ -205,7 +196,7 @@
                                 </div>
                                 <div class="follow-content">
                                     <div class="fo-co-head ellipsis">
-                                        <a href="'.BASE_URL.$data->username.'">'.$data->screenName.'</a> </br> <span>@'.$data->username.'</span>
+                                        <a href="'.BASE_URL.$data->username.'">'.$data->screenName.' '.(($data->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a> </br> <span>@'.$data->username.'</span>
                                     </div>
                                     <div class="w-t-f-f-btn"> <!-- FOLLOW BUTTON -->
                                     '.$this->followBtn($data->user_id,$user_id,$profileID).' 
@@ -236,7 +227,7 @@
                 </div>
                 <div class="follow-content">
                     <div class="fo-co-head ellipsis">
-                        <a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a> </br> <span>@'.$user->username.'</span>
+                        <a href="'.BASE_URL.$user->username.'">'.$user->screenName.' '.(($user->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').' </a> </br> <span>@'.$user->username.'</span>
                     </div>
                     <div class="w-t-f-f-btn"> <!-- FOLLOW BUTTON -->
                     '.$this->followBtn($user->user_id,$user_id,$profileID).' 

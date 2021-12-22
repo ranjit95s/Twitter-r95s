@@ -83,7 +83,7 @@
 									</div>
 								</div>
 								<div class="tweet-body">
-								<form method="post" enctype="multipart/form-data">
+								<form method="post" id="popupForm" enctype="multipart/form-data">
 											<textarea class="status" id="post-text" name="status" placeholder="What's happening?" rows="4" cols="50"></textarea>
 											<div class="hash-box">
 												<ul>
@@ -94,8 +94,8 @@
 											
 											<div class="t-fo-left">
 												<ul>
-													<input type="file" name="file" id="file" class="filesss"/>
-													<li><label for="file"><i class="fa fa-camera" aria-hidden="true"></i> <span style="font-size: 15px;" id="filename">  </span> </label>
+													<input type="file" name="files" id="files" class="filesss"/>
+													<li><label for="files"><i class="fa fa-camera" aria-hidden="true"></i> <span style="font-size: 15px;" id="filename">  </span> </label>
 													<span class="tweet-error" style="color:var( --primary-text-color);"> <?php if(isset($error)){echo $error;}else if(isset($imageError)){echo $imageError;} ?> </span>
 													
 												</li>
@@ -108,11 +108,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="selected-imgs">
-                        <!-- <h3>SELECT IMAGE</h3> -->
-						<a style="display:none;" id="removeImage" href="#">Remove</a>
-                        <img id="popup-tweet-image-selects" src="#" onerror="this.style.display='none'">
-                    </div>
+					
 					
 						</div><!--TWEET WRAP END-->
  
@@ -139,7 +135,7 @@
 
 <div class="alert hide">
          <span id="iconSign" class="fa "></span>
-         <span class="msgs"> SAMPLE TEXT </span>
+         <span class="msgs"> SOMETHING WENT WRONG ! </span>
          <div class="close-btn">
             <span class="fa fa-times"></span>
          </div>
@@ -182,7 +178,8 @@
 		<div class="trend-wrapper">
             <div class="trend-inner">
             <div class="trend-title">
-            <h3>Trends</h3>
+            <h3>
+What’s happening</h3>
             </div>
             <!-- trend title end-->
 					<?php $getFromT->trends();?>

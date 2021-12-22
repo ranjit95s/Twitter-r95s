@@ -9,33 +9,41 @@
 
         public function tweets($user_id,$num){
 
-            
+        // select * from ( select t.* from tweets as t where tweetOwner = 7 union select t.* from tweets as t where t.tweetID in (select retweet_tweetID from retweet where retweet_userIDBy = 7) union select t.* from tweets as t where t.tweetOwner in (select receiver from follow where sender = 7)) a order by postedOn desc;
 
-            // select * from ( select t.* from tweets as t where tweetOwner = 7 union select t.* from tweets as t where t.tweetID in (select retweet_tweetID from retweet where retweet_userIDBy = 7) union select t.* from tweets as t where t.tweetOwner in (select receiver from follow where sender = 7)) a order by postedOn desc;
+        // UPDATED Q - select * from ( select t.* from tweets as t where tweetOwner = 7 union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy = 7) union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy = (select receiver from follow where sender = 7)) union select t.* from tweets as t where t.tweetOwner in (select receiver from follow where sender = 7)) a order by postedOn desc;
 
-            // UPDATED Q -               select * from ( select t.* from tweets as t where tweetOwner = 7 union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy = 7) union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy = (select receiver from follow where sender = 7)) union select t.* from tweets as t where t.tweetOwner in (select receiver from follow where sender = 7)) a order by postedOn desc;
+        // v1 UPDATED Q - select * from ( select t.* from tweets as t where tweetOwner = 1 union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy =1) union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet as vt where vt.retweet_userID != 1 and retweet_userIDBy = (select receiver from follow where sender = 1 and receiver != vt.retweet_userID)) union select t.* from tweets as t where t.tweetOwner in (select receiver from follow where sender = 1)) a order by postedOn desc;
 
-            // v1 UPDATED Q - select * from ( select t.* from tweets as t where tweetOwner = 1 union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet where retweet_userIDBy =1) union select t.* from tweets as t where t.tweetOwner in (select retweet_userID from retweet as vt where vt.retweet_userID != 1 and retweet_userIDBy = (select receiver from follow where sender = 1 and receiver != vt.retweet_userID)) union select t.* from tweets as t where t.tweetOwner in (select receiver from follow where sender = 1)) a order by postedOn desc;
+        // v2 UPDATED Q - SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = 1 UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` = 1 ) UNION SELECT t.* from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL OR rt.`retweet_userIDBy` = (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) A ORDER BY `tweetID` DESC
 
-            // v2 UPDATED Q - SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = 1 UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` = 1 ) UNION SELECT t.* from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL OR rt.`retweet_userIDBy` = (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) A ORDER BY `tweetID` DESC
+        // NEW v3 UPDATED O - SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = 1 AND `commentTrue` = 0
 
-            // NEW v3 UPDATED O - SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = 1 AND `commentTrue` = 0
-               
         //  UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` = 1 )
-              
+
         //  UNION SELECT t.* from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL AND rt.`retweet_userIDBy` IN (SELECT `receiver` FROM `follow` WHERE `receiver` IS NOT NULL AND `sender` = 1))              
- 
+
         //  UNION SELECT t.* FROM `tweets` AS t WHERE t.`commentTrue` = 0 AND t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = 1)) A ORDER BY `tweetID` DESC
 
 
             $stmt = $this->pdo->prepare("SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = :user_id AND `commentTrue` = 0 
             UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` AS rt WHERE rt.`retweet_userIDBy` =:user_id) 
             UNION SELECT t.* from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL AND rt.`retweet_userIDBy` IN (SELECT `receiver` FROM `follow` WHERE `receiver` IS NOT NULL AND `sender` =:user_id)) 
-            UNION SELECT t.* FROM `tweets` AS t WHERE t.`commentTrue` = 0 AND t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = :user_id)) A ORDER BY `tweetID` DESC");
+            UNION SELECT t.* FROM `tweets` AS t WHERE t.`commentTrue` = 0 AND t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = :user_id)) A ORDER BY `tweetID` DESC LIMIT :num");
             $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);                                                                                                                         
             $stmt->bindParam(":num", $num, PDO::PARAM_INT);
             $stmt->execute();
             $tweets = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+            // $stmt = $this->pdo->prepare("UPDATE tweets SET tweets.tweetSeen = '1' WHERE tweets.tweetID IN (SELECT t.tweetID FROM `tweets` AS t WHERE `tweetOwner` = :user_id AND `commentTrue` = 0
+            // UNION SELECT t.tweetID FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` = :user_id )
+            // UNION SELECT t.tweetID from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL AND rt.`retweet_userIDBy` IN (SELECT `receiver` FROM `follow` WHERE `receiver` IS NOT NULL AND `sender` = :user_id))
+            // UNION SELECT t.tweetID FROM `tweets` AS t WHERE t.`commentTrue` = 0 AND t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = :user_id)) ORDER BY `tweetID` DESC LIMIT :num");
+            // $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);                                                                                                                         
+            // $stmt->bindParam(":num", $num, PDO::PARAM_INT);
+            // $stmt->execute();
+            
+
     
             foreach($tweets as $tweet){
                 $likes = $this->likes($user_id, $tweet->tweetID);
@@ -60,9 +68,11 @@
                     $userRefS = $this->getUserTweetsByID($tweet->tweetRef,$tweet->tweetRefTo);
                     $userRefD = $this->userData($tweet->tweetRefTo);
 
-                    if($userRefS[0]->commentTrue == 1){
+                  
+                    if($this->checkTweetExistence($tweet->tweetRef) && $userRefS[0]->commentTrue == 1){
                         $commentTrueRef = true;
                        }
+                   
                 }
 
 
@@ -126,7 +136,7 @@
                                     max-width: 30vw;
                                     ">
                                     <div class="useru">
-                                        <h4> <a style="color: var( --primary-text-color); font-weight: 800; text-decoration:none;" href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a></h4>
+                                        <h4> <a style="color: var( --primary-text-color); font-weight: 800; text-decoration:none;" href="'.BASE_URL.$user->username.'">'.$user->screenName.' '.(($user->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').' </a></h4>
                                     </div>
                                     <div class="useru">
                                         <h4 style="color: var( --secondary-text-color); font-weight: 500;">  <a style="color: var( --secondary-text-color); font-weight: 500; text-decoration:none;" href="'.BASE_URL.$user->username.'">@'.$user->username.'</a> </h4>
@@ -164,6 +174,8 @@
 
                             '.( $tweet->tweetRef > 0 && (!empty($tweet->tweetRef))?'
                             '.($tweet->tweetRef > 0 && $this->checkTweetExistence($tweet->tweetRef) ? '
+                        
+                             
                                 <div class="refenceTweet" data-tweet="'.$tweet->tweetRef.'" data-user="'.$userRefD->username.'">
                                 
 
@@ -191,7 +203,7 @@
                                     max-width: 30vw;
                                     ">
                                                     <div class="userd">
-                                                        <h4 style="color: var( --primary-text-color); font-weight: 800;">'.$userRefD->screenName.'</h4>
+                                                        <h4 style="color: var( --primary-text-color); font-weight: 800;">'.$userRefD->screenName.' '.(($userRefD->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</h4>
                                                     </div>
                                                     <div class="userd">
                                                         <h4 style="color: var( --secondary-text-color); font-weight: 500;">@'.$userRefD->username.'</h4>
@@ -230,7 +242,7 @@
                                         <div class="flex-icons">
                                             <ul>
                                             '.(($this->loggedIn() ===true) ? '
-                                                <li> <i class="fa fa-comment"></i> <span> '.$this->countComments($tweet->tweetID).' </span> </li>
+                                                <li> <i class="fa fa-comment-o"></i> <span> '.$this->countComments($tweet->tweetID).' </span> </li>
                                                 <li> '.((isset($retweet['retweet_tweetID']) ? $tweet->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
                                                 '<button id="retweet-options'.$tweet->tweetID.'" class="retweeted retweet-options"  data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : 
                                                 '<button class="retweet-options" id="retweet-options'.$tweet->tweetID.'"  data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>').'
@@ -250,7 +262,7 @@
                                                 '<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>').' 
                                                 </li>
                                                 <li> <i class="fa fa-bookmark-o"></i> </li>
-                                                ' : '<li><button><i class="fa fa-comment"></i> <span> 485 </span></button></li>
+                                                ' : '<li><button><i class="fa fa-comment-o"></i> <span> 485 </span></button></li>
                                                     <li><button><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button></li>	
                                                     <li><button><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button></li>
                                                     <li> <i class="fa fa-bookmark"></i> </li>').'
@@ -272,11 +284,23 @@
                 
             </div>
                     </div>';
+                }
+                
             }
 
-        }
+            // public function fetchNewPostCount($user_id) {
+            //     $stmt = $this->pdo->prepare("SELECT COUNT(tweetID) as newPost from tweets WHERE tweets.tweetSeen = 0 and tweets.tweetID IN (SELECT t.tweetID FROM `tweets` AS t WHERE `tweetOwner` = :user_id AND `commentTrue` = 0
+            //     UNION SELECT t.tweetID FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` = :user_id )
 
-        public function checkTweetExistence($tweet_id){
+            //     UNION SELECT t.tweetID from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL AND rt.`retweet_userIDBy` IN (SELECT `receiver` FROM `follow` WHERE `receiver` IS NOT NULL AND `sender` = :user_id))              
+            
+            //     UNION SELECT t.tweetID FROM `tweets` AS t WHERE t.`commentTrue` = 0 AND t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = :user_id))");
+            //     $stmt->bindParam(":user_id",$user_id,PDO::PARAM_INT);
+            //     $stmt->execute();
+            //     return $stmt->fetch(PDO::FETCH_OBJ);
+            // }
+
+            public function checkTweetExistence($tweet_id){
             $stmt = $this->pdo->prepare("SELECT `tweetID` FROM `tweets` WHERE `tweetID` = :tweet_id");
             $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
             $stmt->execute();
@@ -408,7 +432,7 @@
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
         public function getMention($mention){
-            $stmt = $this->pdo->prepare("SELECT `user_id`,`username`,`profileImage`,`screenName` FROM `users` WHERE `username` LIKE :mention OR `screenName` LIKE :mention LIMIT 5");
+            $stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE `username` LIKE :mention OR `screenName` LIKE :mention LIMIT 5");
             $stmt->bindValue(':mention',$mention.'%');
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -490,9 +514,10 @@
             $stmt->execute();
 
             $dates = date("Y-m-d H:i:s");
-            $stmt = $this->pdo->prepare("INSERT INTO `tweets` (`status`,`tweetOwner`,`tweetRef`,`tweetRefTo`,`tweetBy`,`tweetImage`,`postedOn`,`retweetMsg`)
-                                        SELECT :retweetMsg,:user_id,`tweetID`,`tweetBy`,:user_id,:tweetImage,:dates, :retweetMsg 
+            $stmt = $this->pdo->prepare("INSERT INTO `tweets` (`status`,`tweetOwner`,`tweetRef`,`tweetRefTo`,`tweetBy`,`tweetImage`,`postedOn`)
+                                        SELECT :retweetMsg,:user_id,`tweetID`,`tweetBy`,:user_id,:tweetImage,:dates 
                                         FROM `tweets` WHERE `tweetID` = :tweet_id");
+          
             $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
             // $stmt->bindParam(":get_id", $get_id, PDO::PARAM_INT);
             $stmt->bindParam(":retweetMsg", $comment, PDO::PARAM_STR);
@@ -500,7 +525,8 @@
             $stmt->bindParam(":dates", $dates, PDO::PARAM_STR);
             $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
             $stmt->execute();
-            $this->message->sendNotification($get_id, $user_id, $tweet_id, 'retweet');
+
+            $this->message->sendNotification($get_id, $user_id, $tweet_id, 'quote');
         }
 
         public function retweets($tweet_id, $tweet_id_user_id, $user_id) {
@@ -591,16 +617,25 @@
         }
 
         public function searchTCount($search){
-            $stmt = $this->pdo->prepare("SELECT *, COUNT(`tweetID`) AS `tweetCount` FROM `tweets` LEFT JOIN `users` ON `tweetOwner` = `user_id` WHERE `status` LIKE :search");
-            $stmt->bindValue(":search",'%'.$search.'%',PDO::PARAM_STR);
-            // var_dump($stmt);
-            $stmt->execute();
+
+            $searchQ = $search;
+            $sql = 'SELECT *, COUNT(`tweetID`) AS `tweetCount` FROM `tweets` LEFT JOIN `users` ON `tweetOwner` = `user_id` WHERE ';
+            $wheres = $values = array();
+            foreach (array_filter(explode(' ', $searchQ), 'strlen') as $keyword) {
+                $wheres[] = '`status` LIKE ?';
+                $values[] = '%' . addcslashes($keyword, '%_\\') . '%'; // this is escape for LIKE search
+            }
+            $sql .= $wheres ? implode(' OR ', $wheres) : '1';
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
+
+            
             $count =  $stmt->fetchAll(PDO::FETCH_OBJ);
             return $count[0]->tweetCount;
         }
 
         public function trends(){
-            $stmt = $this->pdo->prepare("SELECT * , COUNT(`tweetID`) AS `tweetCount` FROM `trends` INNER JOIN `tweets` ON `status` LIKE CONCAT('%#',`hashtag`,'%') OR `retweetMsg` LIKE CONCAT('%#',`hashtag`,'%') WHERE `createdOn` BETWEEN SYSDATE() - INTERVAL 7 DAY AND SYSDATE() GROUP BY `hashtag` ORDER BY `tweetID`");
+            $stmt = $this->pdo->prepare("SELECT * , COUNT(`tweetID`) AS `tweetCount` FROM `trends` INNER JOIN `tweets` ON `status` LIKE CONCAT('%#',`hashtag`,'%')  WHERE `createdOn` BETWEEN SYSDATE() - INTERVAL 7 DAY AND SYSDATE() GROUP BY `hashtag` ORDER BY `postedOn` DESC LIMIT 7 ");
             $stmt->execute();
             $trends = $stmt->fetchAll(PDO::FETCH_OBJ);
             // echo '';
@@ -609,11 +644,11 @@
                 <div class="trend-body-content">
                 <h4 style="color:var( --secondary-text-color);">Trending in india</h4>
                 <a href="'.BASE_URL.'hashtag/'.$trend->hashtag.'" style="color:var( --primary-text-color); text-decoration:none; font-weight:200; ">
-                            <div class="trend-link" style="font-size:1rem; font-weight:800;line-height:24px;">
+                            <div class="trend-link" style="font-size:15px; font-weight:800;line-height:24px;">
                                #'.$trend->hashtag.'
                             </div>
                             <div class="trend-tweets">
-                                '.$trend->tweetCount.' <span>tweets</span>
+                                '.$trend->tweetCount.' <span>Tweets</span>
                             </div>
                             </a>
                         </div>
@@ -624,36 +659,58 @@
         }
 
         public function getTweetsByHash($hashtag){
-            $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `status` LIKE :hashtag OR `retweetMsg` LIKE :hashtag AND `postedOn` BETWEEN SYSDATE() - INTERVAL 14 DAY AND SYSDATE() ORDER BY `likesCount` DESC");
+            $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `status` LIKE :hashtag  AND `postedOn` BETWEEN SYSDATE() - INTERVAL 14 DAY AND SYSDATE() ORDER BY `likesCount` DESC");
             $stmt->bindValue(":hashtag",'%#'.$hashtag.'%',PDO::PARAM_STR);
             // var_dump($stmt);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
         public function searchTweets($searchTweets){
-            // logic remains
-            $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `status` LIKE :searchTweets AND `postedOn` BETWEEN SYSDATE() - INTERVAL 14 DAY AND SYSDATE() ORDER BY `likesCount` DESC");
-            $stmt->bindValue(":searchTweets",'%'.$searchTweets.'%',PDO::PARAM_STR);
-            $stmt->execute();
+            
+            $searchQ = $searchTweets;
+            $sql = 'SELECT *, COUNT(`tweetID`) AS `tweetCount` FROM `tweets` LEFT JOIN `users` ON `tweetOwner` = `user_id` WHERE ';
+            $wheres = $values = array();
+            foreach (array_filter(explode(' ', $searchQ), 'strlen') as $keyword) {
+                $wheres[] = '`status` LIKE ?';
+                $values[] = '%' . addcslashes($keyword, '%_\\') . '%'; // this is escape for LIKE search
+            }
+            $sql .= $wheres ? implode(' OR ', $wheres) : '1';
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
+
+            // $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `status` LIKE :searchTweets AND `postedOn` BETWEEN SYSDATE() - INTERVAL 14 DAY AND SYSDATE() ORDER BY `likesCount` DESC");
+            // $stmt->bindValue(":searchTweets",'%'.$searchTweets.'%',PDO::PARAM_STR);
+            // $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
         public function searchTweetsLeasted($searchTweets){
+
+            $searchQ = $searchTweets;
+            $sql = 'SELECT *, COUNT(`tweetID`) AS `tweetCount` FROM `tweets` LEFT JOIN `users` ON `tweetOwner` = `user_id` WHERE ';
+            $wheres = $values = array();
+            foreach (array_filter(explode(' ', $searchQ), 'strlen') as $keyword) {
+                $wheres[] = '`status` LIKE ?';
+                $values[] = '%' . addcslashes($keyword, '%_\\') . '%'; // this is escape for LIKE search
+            }
+            $sql .= $wheres ? implode(' OR ', $wheres) : '1';
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
             // logic remains
-            $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `status` LIKE :searchTweets ORDER BY `postedOn` DESC");
-            $stmt->bindValue(":searchTweets",'%'.$searchTweets.'%',PDO::PARAM_STR);
-            $stmt->execute();
+            // $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `status` LIKE :searchTweets ORDER BY `postedOn` DESC");
+            // $stmt->bindValue(":searchTweets",'%'.$searchTweets.'%',PDO::PARAM_STR);
+            // $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
 
         public function getTweetsByHashLatest($hashtag){
-            $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `status`  LIKE :hashtag OR `retweetMsg` LIKE :hashtag ORDER BY `postedOn` DESC");
+            $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `status`  LIKE :hashtag  ORDER BY `postedOn` DESC");
             $stmt->bindValue(":hashtag",'%#'.$hashtag.'%',PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
 
         public function getUsersByHash($hashtag){
-            $stmt = $this->pdo->prepare("SELECT DISTINCT * FROM `tweets` INNER JOIN `users` ON `tweetBy` = `user_id` WHERE `status` LIKE :hashtag OR `retweetMsg` LIKE :hashtag GROUP BY `user_id`");
+            $stmt = $this->pdo->prepare("SELECT DISTINCT * FROM `tweets` INNER JOIN `users` ON `tweetBy` = `user_id` WHERE `status` LIKE :hashtag  GROUP BY `user_id`");
             $stmt->bindValue(":hashtag", '%#'.$hashtag.'%',PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);

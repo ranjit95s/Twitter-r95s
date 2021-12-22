@@ -27,7 +27,7 @@
 								<img src="'.BASE_URL.$user->profileImage.'"/>
 							</div>
 							<div class="name-right">
-								<div><a>'.$user->screenName.'</a></div>
+								<div><a>'.$user->screenName.' '.(($user->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a></div>
 								<div>@'.$user->username.'</div>
 							</div>
 							<div class="span-time">

@@ -160,7 +160,7 @@
                             <div class="tweet-show-popup-comment-head-right">
                                 <div class="tweet-show-popup-comment-name-box">
                                     <div class="tweet-show-popup-comment-name-box-name"> 
-                                        <a href="'.BASE_URL.$comment->username.'">'.$comment->screenName.'</a>
+                                        <a href="'.BASE_URL.$comment->username.'">'.$comment->screenName.' '.(($comment->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a>
                                     </div>
                                     <div class="tweet-show-popup-comment-name-box-tname">
                                         <a href="'.BASE_URL.$comment->username.'">@'.$comment->username.' -'.$comment->commentAt.'</a>
@@ -238,7 +238,7 @@
                     <div class="followInfo">
                         <div class="info-follow">
                         <div class="name-username">
-                        <h3> <a href="'.BASE_URL.$userList->username.'">'.$userList->screenName.'</a> </h3>
+                        <h3> <a href="'.BASE_URL.$userList->username.'">'.$userList->screenName.' '.(($userList->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a> </h3>
                         <h4> <a href="'.BASE_URL.$userList->username.'">@'.$userList->username.'</a> </h4>
                         </div>
                         <div class="followBtn"> '.$getFromF->followBtn($userList->user_id,$user_id,$user_id).'  </div>
@@ -295,7 +295,7 @@
             <div class="followInfo">
                 <div class="info-follow">
                 <div class="name-username">
-                <h3> <a href="'.BASE_URL.$userList->username.'">'.$userList->screenName.'</a> </h3>
+                <h3> <a href="'.BASE_URL.$userList->username.'">'.$userList->screenName.' '.(($userList->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</a> </h3>
                 <h4> <a href="'.BASE_URL.$userList->username.'">@'.$userList->username.'</a> </h4>
                 </div>
                 <div class="followBtn"> '.$getFromF->followBtn($userList->user_id,$user_id,$user_id).'  </div>

@@ -84,7 +84,7 @@
 								<a href="<?php echo BASE_URL.$user->username;?>"><img src="<?php echo BASE_URL.$user->profileImage;?>"/></a>
 								</div>
 								<div class="name-right2">
-									<div><a href="#"><?php echo $user->screenName;?></a></div> 
+									<div><a href="#"><?php echo $user->screenName;  if($user->statusVerify != 0) {echo ' <i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>';}?></a></div> 
 								
 									<div>@<?php echo $user->username;?></div>
 								</div>
@@ -157,7 +157,7 @@
 								<div class="user-data-msg">
 									<div class="sc-ur">
 										<div class="info-mmmssgg">
-										<?php echo $user->screenName;?>
+										<?php echo $user->screenName;  if($user->statusVerify != 0) {echo ' <i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>';}?>
 										</div>
 										<div class="info-mmmssgg" style="color: var( --secondary-text-color);">
 										@<?php echo $user->username;?>
@@ -206,7 +206,7 @@
 						<div class="message-head-img">
 						<a href="<?php echo BASE_URL.$user->username;?>"><img src="<?php echo BASE_URL.$user->profileImage;?>"/> </a>
 						
-						<h4><?php echo $user->screenName;?> <br> <span style="    position: relative;
+						<h4><?php echo $user->screenName;  if($user->statusVerify != 0) {echo ' <i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>';}?> <br> <span style="    position: relative;
     top: -28px;
 	color:var( --secondary-text-color);
     left: -2px;"> @<?php echo $user->username;?> </span> </h4>

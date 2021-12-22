@@ -42,19 +42,21 @@ $(function(){
 				$(document).on('click','.delete-it',function(){
 					$.post('http://localhost/Twitter-Clone-pre/core/ajax/deleteTweet.php',{deleteTweetWithRef:tweet_id,re:tweetRef,ret:tweetRefTo},function(){
 						$('.retweet-popup').hide();
-						
-						window.setTimeout(function(){location.reload()})
-						
 					});
+					var offset = 11;
+					$.post('http://localhost/Twitter-Clone-pre/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
+							$('.tweets').html(data);
+						});
 				});
 			} else {
 				$(document).on('click','.delete-it',function(){
 					$.post('http://localhost/Twitter-Clone-pre/core/ajax/deleteTweet.php',{deleteTweet:tweet_id},function(){
 						$('.retweet-popup').hide();
-					
-						window.setTimeout(function(){location.reload()})
-						
 					});
+					var offset = 11;
+					$.post('http://localhost/Twitter-Clone-pre/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
+							$('.tweets').html(data);
+						});
 				});
 			}
 		});

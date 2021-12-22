@@ -1,18 +1,18 @@
 $(function(){
-    $(document).on('click', '#popupEditForm',function(){
-        alert("txt");
-        debugger;
+    $(document).on('click', '#edit-from-follow',function(){
+      
+    
         $.post('http://localhost/Twitter-Clone-pre/core/ajax/popupEditForm.php',function(data){
             console.log('popup !!!');
             $('.popupTweet').html(data);
             $('.close').click(function(){
-                $('.popupEditForm').hide();
+                $('.wrap').hide();
             });
         });
     });
     $(document).on('submit','#editform',function(e){
         console.log('edit form !!!');
-        $('.popupEditForm').hide();
+        $('.wrap').hide();
         e.preventDefault();
        
     });

@@ -28,7 +28,6 @@
         }else {
             $error['fields'] = "all fields are required";
         }
-
     }
 ?>
 <!DOCTYPE HTML> 
@@ -40,6 +39,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 	 
  		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style-complete.css"/>
+ 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/cs.css"/>
    		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
 		
 
@@ -105,6 +105,12 @@
    							</div>	
 						</div>
 					</form>
+					<?php if($user->statusVerify == 0) echo '<div class="req-for-verify" style="width: 90%; margin-bottom:20px;">
+						<h4 style="font-size: 18px; font-weight:600;"> Verified </h4>
+						<h5 style="font-size:13px;" class="res"> No. <span style="color:var( --primary-theme-color); cursor:pointer; margin-left:3.5px;" id="req-for-verify-form" data-user="<?php echo $user->user_id ?>"> Request Verification </span> </h5>
+					</div>'; ?>
+					
+
 					</div>
 				</div>
 				<div class="option-box">

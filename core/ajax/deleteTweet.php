@@ -39,7 +39,7 @@
                 </div>
                 <div class="retweet-popup-comment-right-wrap">
                 <div class="retweet-popup-comment-headline">
-                    <a><?php echo $tweet->screenName; ?> </a><span>‏@<?php echo $tweet->username.' '.$tweet->postedOn; ?> </span>
+                    <a><?php echo $tweet->screenName;  if($tweet->statusVerify != 0) {echo ' <i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>';} ?> </a><span>‏@<?php echo $tweet->username.' '.$tweet->postedOn; ?> </span>
                 </div>
                 <div class="retweet-popup-comment-body">
                 <?php echo $tweet->status.' '.$tweet->tweetImage; ?> 

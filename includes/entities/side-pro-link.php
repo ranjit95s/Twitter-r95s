@@ -152,7 +152,7 @@
 											</a>
 										</div>
 										<div class="profile-dev-info ellipsis">
-											<div class="info-pd "> <?php echo $user->screenName; ?> </div>
+											<div class="info-pd"> <?php echo $user->screenName; if($user->statusVerify != 0) {echo ' <i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>';} ?>  </div>
 											<div class="info-pd" style=" font-size: 15px;
             font-weight: 500;
             color: var(--secondary-text-color);"> @<?php echo $user->username; ?> </div>
@@ -164,14 +164,14 @@
 									<div class="dev-li">
 									<a href="<?php echo BASE_URL;?>home.php">
 										<!-- <i class="fa fa-home resp" style="display: none;" aria-hidden="true"></i> -->
-										<li><i class="fa fa-home" aria-hidden="true"></i> <span class="cderd"> Home </span></li>
+										<li><i class="fa fa-home" aria-hidden="true"></i> <div class="cderd"> Home </div></li>
 									</a>
 									</div>
 									<?php }?>
 									<div class="dev-li">
 										<a href="<?php echo BASE_URL;?>explore.php">
 										<!-- <i class="fa fa-hashtag resp" style="display: none;" aria-hidden="true"></i> -->
-										<li><i class="fa fa-hashtag" aria-hidden="true"></i> <span class="cderd"> Explore </span>
+										<li><i class="fa fa-hashtag" aria-hidden="true"></i> <div class="cderd"> Explore </div>
 										</li>
 										</a>
 									</div>
@@ -179,22 +179,24 @@
 									<div class="dev-li">
 										<a href="<?php echo BASE_URL;?>i/notifications">
 										<!-- <i class="fa fa-bell resp" style="display: none;" aria-hidden="true"> <span id="notification" style="position:absolute;"><?php if($notify->totalN > 0){echo '<span class="span-i pro-res">'.$notify->totalN.'</span>';}?></span> </i> -->
-										<li><i class="fa fa-bell" aria-hidden="true"></i> <span class="cderd"> Notification </span> <span id="notification"><?php if($notify->totalN > 0){echo '<span class="span-i pro-i-i">'.$notify->totalN.'</span>';}?></span> </li></a>
+										<li><i class="fa fa-bell" aria-hidden="true"></i> <span id="notification"><?php if($notify->totalN > 0){echo '<span class="span-i pro-i-i">'.$notify->totalN.'</span>';}?></span> <div class="cderd"> Notifications </div>  </li></a>
 									</div>
 									<?php }?>
 									<?php if($getFromU->loggedIn()===true){?>
 									<div class="dev-li" >
 										<!-- <i id="main-page-msg" class="fa fa-envelope resp" style="display: none;" aria-hidden="true"> <span id="messages" style="position:absolute;"><?php if($notify->totalM > 0){echo '<span class="span-i pro-res">'.$notify->totalM.'</span>';}?></span></i> -->
-										<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i> <span class="cderd"> Messages </span> <span id="messages"><?php if($notify->totalM > 0){echo '<span class="span-i pro-i">'.$notify->totalM.'</span>';}?></span></li>
+										<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i> <div class="cderd"> Messages </div> <span id="messages"><?php if($notify->totalM > 0){echo '<span class="span-i pro-i">'.$notify->totalM.'</span>';}?></span></li>
 									</div>
 									<div class="dev-li" >
 										<!-- <i id="main-page-msg" class="fa fa-envelope resp" style="display: none;" aria-hidden="true"> <span id="messages" style="position:absolute;"><?php if($notify->totalM > 0){echo '<span class="span-i pro-res">'.$notify->totalM.'</span>';}?></span></i> -->
-										<li id="bookmark"><i class="fa fa-bookmark" aria-hidden="true"></i> <span class="cderd"> Bookmark </span> </li>
+										<a href="<?php echo BASE_URL;?>i/bookmarks">
+										<!-- <i class="fa fa-bell resp" style="display: none;" aria-hidden="true"> <span id="notification" style="position:absolute;"><?php if($notify->totalN > 0){echo '<span class="span-i pro-res">'.$notify->totalN.'</span>';}?></span> </i> -->
+										<li><i class="fa fa-bookmark" aria-hidden="true"></i>  <div class="cderd"> Bookmarks </div>  </li></a>
 									</div>
 									<div class="dev-li">
 										<a href="<?php echo BASE_URL.$user->username; ?>" style="text-decoration: none;">
 											<!-- <i class="fa fa-user resp" style="display: none;" aria-hidden="true"></i> -->
-											<li><i class="fa fa-user" aria-hidden="true"></i> <span class="cderd"> Profile </span></li>
+											<li><i class="fa fa-user" aria-hidden="true"></i> <div class="cderd"> Profile </div></li>
 										</a>
 										
 									</div>
