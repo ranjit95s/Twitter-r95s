@@ -7,20 +7,26 @@ $(document).ready(function () {
       window.history.replaceState( null, null, window.location.href );
     }
 
-    var s = $(".in-right");
-    var top = ($('.in-right').offset() || { "top": NaN }).top;
-    if (isNaN(top)){
-     console.log('undefined');
-    //  $().myfunction("No such a element found", null);
-  }else {
-    var pos = s.offset().top+s.height(); //offset that you need is actually the div's top offset + it's height
-    $(window).scroll(function() {
-        var windowpos = $(window).scrollTop(); //current scroll position of the window
-        var windowheight = $(window).height(); //window height
-        if (windowpos+windowheight>pos) s.addClass('stick'); //Currently visible part of the window > greater than div offset + div height, add class
-        else s.removeClass('stick');
-    });
+    var dontExecute = location.pathname;
+		dontExecute = dontExecute.substring(dontExecute.lastIndexOf('/'));
+    // console.log(current);
+    if (dontExecute != '/explore.php'){
+      var s = $(".in-right");
+      var top = ($('.in-right').offset() || { "top": NaN }).top;
+      if (isNaN(top)){
+       console.log('undefined');
+      //  $().myfunction("No such a element found", null);
+    }else {
+      var pos = s.offset().top+s.height(); //offset that you need is actually the div's top offset + it's height
+      $(window).scroll(function() {
+          var windowpos = $(window).scrollTop(); //current scroll position of the window
+          var windowheight = $(window).height(); //window height
+          if (windowpos+windowheight>pos) s.addClass('stick'); //Currently visible part of the window > greater than div offset + div height, add class
+          else s.removeClass('stick');
+      });
+    }
   }
+
 
 
     $('.show-nav-home ul li a img').click(function () {
@@ -376,28 +382,14 @@ $(document).ready(function () {
     var iconSign = $('#iconSign');
 
     var like = 'fa-heart';
-    var retweetj = 'fa-heart';
-    var retweetq = 'fa-heart';
-    var commentp = 'fa-heart';
     var deletetc = 'fa-angellist';
-    var followed = 'fa-smile-o';
-    var unfollowed = 'fa-meh-o';
+
 
     if ($success != null) {
       if($success == 'like'){
         iconSign.addClass(like);
-      }else if($success == retweetj){
-
-      }else if($success == retweetq){
-
-      }else if($success == commentp){
-        
-      }else if($success == deletetc){
-        
-      }else if($success == followed){
-        
-      }else if($success == unfollowed){
-        
+      }else if($success == 'deletetc'){
+        iconSign.addClass(deletetc);
       }
       console.log($success);
     }

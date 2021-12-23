@@ -97,7 +97,7 @@
 								' : '<li><button><i class="fa fa-comment"></i> <span> 485 </span></button></li>
 									<li><button><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($comment->retweetCount > 0) ? $comment->retweetCount : '').'</span></button></li>	
 									<li><button><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($comment->likesCount > 0) ? $comment->likesCount : '' ).'</span></button></li>
-									<li> <i class="fa fa-bookmark"></i> </li>').'
+									<li> <i class="fa fa-bookmark-o"></i> </li>').'
 							</ul>
 							</div>
 							</div>

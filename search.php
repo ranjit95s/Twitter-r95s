@@ -665,7 +665,32 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 				</div><!-- in right wrap-->
 			<!--in full wrap end-->
 		</div><!-- in wrappper ends-->
-
+		<?php 
+							if ($getFromU->loggedIn() === false){
+								echo '<section id="non-users">
+								<div class="nonUser">
+									<div class="flex-non">
+										<div class="non-decs">
+											<div class="non-desc-in head">
+												Don’t miss what’s happening
+											</div>
+											<div class="non-desc-in tail">
+												People on Tweety are the first to know.
+											</div>
+										</div>
+										<div class="non-direct">
+											<li>
+												<div class="flex-non-li li-ml0"> <a href="'.BASE_URL.'"> Log in </a> </div>
+											</li>
+											<li>
+											<div class="flex-non-li"> <a href="'.BASE_URL.'"> Sign up  </a> </div>
+											</li>
+										</div>
+									</div>
+								</div>
+							</section>';
+									}
+							?>
 	</div><!-- ends wrapper -->
 	<?php 
                 include 'includes/entities/bottom-nav.php';

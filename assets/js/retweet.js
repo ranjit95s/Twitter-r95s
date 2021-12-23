@@ -27,9 +27,9 @@ $(function(){
 
 		var tweet_id    = $(this).data('tweet');
 		var user_id     = $(this).data('user');
-	    $counter        = $('#retweet-options' + tweet_id).find(".retweetsCount");
-	    $count          = $counter.text();
-	    $button         = $('#retweet-options' + tweet_id)
+		$counter        = $('#retweet-options' + tweet_id).find(".retweetsCount");
+		$count          = $counter.text();
+		$button         = $('#retweet-options' + tweet_id)
 		
 
 		$.post('http://localhost/Twitter-Clone-pre/core/ajax/retweet.php', {showPopup:tweet_id,user_id:user_id}, function(data){
@@ -37,7 +37,6 @@ $(function(){
 			$('.close-retweet-popup').click(function(e){
 				e.preventDefault();
 				e.stopPropagation();
-	
 				$('.retweet-popup').hide();
 				var op = $('#op' + tweet_id).css('display','none')
 			})
@@ -55,8 +54,11 @@ $(function(){
 
 
 		// var hashtag = 'hashtag='+text+'&links=true';
+		$counter = $('#retweet-options' + tweet_id).find(".retweetsCount");
+		$count++;
+		$counter.text($count);
+		console.log($counter)
 
-		
 		e.preventDefault();
         var formData = new FormData($(this)[0]);
         formData.append('file', $('#filesImage')[0].files[0]);
@@ -71,9 +73,17 @@ $(function(){
             cache: false,
             contentType: false,
             processData: false,
-		
+
         });
-        $('.popup-tweet-wrap').hide();
+
+	    $button = $('#retweet-options' + tweet_id)
+        $('.wrap').hide();
+
+		var offset = 10;
+        $.post('http://localhost/Twitter-Clone-pre/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
+                $('.tweets').html(data);
+            }); 
+			$().myfunction("Your Tweet was sent.", "like");
 
 		$.post('http://localhost/Twitter-Clone-pre/core/ajax/retweet.php', {retweetQuote:tweet_id}, function(data){
 			$('.qouteTweett').html(data);
@@ -95,9 +105,10 @@ $(function(){
 			var op = $('#op' + tweet_id).css('display','none')
 			$counter        = $('#retweet-options' + tweet_id).find(".retweetsCount");
 			$count          = $counter.text();
-			$button         = $('#retweet-options' + tweet_id)
+			$button         = $('#retweet-options' + tweet_id);
 			$count++;
 	    	$counter.text($count);
+			console.log($counter)
 	    	$button.addClass('retweeted');
 			op.find(".justCloneTweet").removeClass('justCloneTweet').addClass('undoRetweet').text('Undo Retweet');
 	    });

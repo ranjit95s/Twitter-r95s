@@ -105,12 +105,13 @@ if (isset($_GET['hashtag']) && !empty($_GET['hashtag'])) {
 											
 			<img src="' . BASE_URL . $tweet->tweetImage . '" class="imagePopup" data-tweet="' . $tweet->tweetID . '"/>
 			<div class="hash-img-flex-footer">
+											<div class="flex-icons-hashimg flex-icons">
 				<ul>
 				' . (($getFromU->loggedIn()) ?   '
 						
 						<li><button> <a href="'.BASE_URL.$tweet->username.'"><i class="fa fa-user" aria-hidden="true"> </i></a></button></li>
 						<li>' . (((isset($retweet['retweet_tweetID'])) ? $tweet->tweetID === $retweet['retweet_tweetID'] or $user_id === $retweet['retweet_userIDBy'] : '') ? '<button class="retweeted" data-tweet="' . $tweet->tweetID . '" data-user="' . $tweet->tweetBy . '"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">' . (($tweet->retweetCount > 0) ? $tweet->retweetCount : '') . '</span></button>' : '<button class="retweet" data-tweet="' . $tweet->tweetID . '" data-user="' . $tweet->tweetBy . '"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">' . (($tweet->retweetCount > 0) ? $tweet->retweetCount : '') . '</span></button>') . '</li>
-						<li>' . (((isset($likes['likeOn'])) ?  $likes['likeOn'] 	== $tweet->tweetID : '') ?
+						<li>' . (((isset($likes['likeOn'])) ?  $likes['likeOn'] === $tweet->tweetID : '') ?
 												'<button class="unlike-btn" data-tweet="' . $tweet->tweetID . '" data-user="' . $tweet->tweetBy . '"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">' . (($tweet->likesCount > 0) ? $tweet->likesCount : '') . '</span></button>' :
 												'<button class="like-btn" data-tweet="' . $tweet->tweetID . '" data-user="' . $tweet->tweetBy . '"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">' . (($tweet->likesCount > 0) ? $tweet->likesCount : '') . '</span></button>') . '
 						</li>
@@ -128,6 +129,7 @@ if (isset($_GET['hashtag']) && !empty($_GET['hashtag'])) {
 						<li><button><i class="fa fa-heart-o" aria-hidden="true"></i></button></li>	
 					') . '
 				</ul>
+				</div>
 			</div>
 		</div>';
 										}
@@ -656,6 +658,32 @@ if (isset($_GET['hashtag']) && !empty($_GET['hashtag'])) {
 		</div><!-- in wrappper ends-->
 
 	</div><!-- ends wrapper -->
+	<?php 
+							if ($getFromU->loggedIn() === false){
+								echo '<section id="non-users">
+								<div class="nonUser">
+									<div class="flex-non">
+										<div class="non-decs">
+											<div class="non-desc-in head">
+												Don’t miss what’s happening
+											</div>
+											<div class="non-desc-in tail">
+												People on Tweety are the first to know.
+											</div>
+										</div>
+										<div class="non-direct">
+											<li>
+												<div class="flex-non-li li-ml0"> <a href="'.BASE_URL.'"> Log in </a> </div>
+											</li>
+											<li>
+											<div class="flex-non-li"> <a href="'.BASE_URL.'"> Sign up  </a> </div>
+											</li>
+										</div>
+									</div>
+								</div>
+							</section>';
+									}
+							?>
 	<?php 
                 include 'includes/entities/bottom-nav.php';
             ?>

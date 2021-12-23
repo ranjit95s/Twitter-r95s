@@ -30,7 +30,7 @@ $(function() {
             success: function(data) {
                 result = JSON.parse(data);
                 console.log(result);
-                $().myfunction(result.success, "like");
+                // $().myfunction(result.success, "like");
             },
             cache: false,
             contentType: false,
@@ -38,10 +38,11 @@ $(function() {
         });
         $("#popupForm")[0].reset();
         $('.popup-tweet-wrap').hide();
-        var offset = 11;
+        var offset = 10;
         $.post('http://localhost/Twitter-Clone-pre/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
                 $('.tweets').html(data);
             });
+        $().myfunction("Your Tweet was sent.", "like");
             
     });
 });

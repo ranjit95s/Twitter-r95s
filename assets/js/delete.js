@@ -7,6 +7,7 @@ $(function(){
 		var op = $('#d-t-b-u' + tweet_id).css('display','block')
 		$('.closes' + tweet_id).click(function(e){
 			op.hide();
+			
 			// console.log('hide')
 			e.stopPropagation();
 		});
@@ -37,26 +38,30 @@ $(function(){
 			$('.popupTweet').html(data);
 			$('.close-retweet-popup,.cancel-it').click(function(){
 				$('.retweet-popup').hide();
+				var op = $('#d-t-b-u' + tweet_id).css('display','none')
 			});
 			if(tweetRef > 0 && tweetRefTo > 0) {
 				$(document).on('click','.delete-it',function(){
 					$.post('http://localhost/Twitter-Clone-pre/core/ajax/deleteTweet.php',{deleteTweetWithRef:tweet_id,re:tweetRef,ret:tweetRefTo},function(){
 						$('.retweet-popup').hide();
+						
 					});
-					var offset = 11;
+					var offset = 10;
 					$.post('http://localhost/Twitter-Clone-pre/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
 							$('.tweets').html(data);
 						});
+						$().myfunction("Your Tweet was deleted", "deletetc");
 				});
 			} else {
 				$(document).on('click','.delete-it',function(){
 					$.post('http://localhost/Twitter-Clone-pre/core/ajax/deleteTweet.php',{deleteTweet:tweet_id},function(){
 						$('.retweet-popup').hide();
 					});
-					var offset = 11;
+					var offset = 10;
 					$.post('http://localhost/Twitter-Clone-pre/core/ajax/fetchPost.php' , {fetchPosts:offset}, function(data){
 							$('.tweets').html(data);
 						});
+						$().myfunction("Your Tweet was deleted", "deletetc");
 				});
 			}
 		});

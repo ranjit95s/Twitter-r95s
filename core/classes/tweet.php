@@ -261,7 +261,8 @@
                                                 '<button class="unlike-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>' : 
                                                 '<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>').' 
                                                 </li>
-                                                <li> <i class="fa fa-bookmark-o"></i> </li>
+                                                '.($this->loggedIn() ? '<li class="bookmarkMyTweet" data-user="'.$user->user_id.'" data-tweet="'.$tweet->tweetID.'"> <i class="fa fa-bookmark-o"></i> </li>' : '<li> <i class="fa fa-bookmark-o"></i> </li>').'
+                                                
                                                 ' : '<li><button><i class="fa fa-comment-o"></i> <span> 485 </span></button></li>
                                                     <li><button><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button></li>	
                                                     <li><button><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button></li>
@@ -288,17 +289,290 @@
                 
             }
 
-            // public function fetchNewPostCount($user_id) {
-            //     $stmt = $this->pdo->prepare("SELECT COUNT(tweetID) as newPost from tweets WHERE tweets.tweetSeen = 0 and tweets.tweetID IN (SELECT t.tweetID FROM `tweets` AS t WHERE `tweetOwner` = :user_id AND `commentTrue` = 0
-            //     UNION SELECT t.tweetID FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` = :user_id )
+            public function bookmarkTweet($user_id, $tweet_id,$get_id){
+                $dates = date("Y-m-d H:i:s");
+                $this->create('bookmarks', array('bookmark_tweetID' => $tweet_id, 'bookmark_userID' => $get_id, 'bookmark_userIDBy' => $user_id, 'createdOn' =>$dates ));
+                
+            }
 
-            //     UNION SELECT t.tweetID from `tweets` as t where t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` as rt WHERE rt.`retweet_userIDBy` IS NOT NULL AND rt.`retweet_userIDBy` IN (SELECT `receiver` FROM `follow` WHERE `receiver` IS NOT NULL AND `sender` = :user_id))              
+            public function bookmarkTweets($user_id) {
+                $stmt = $this->pdo->prepare("SELECT * FROM `tweets` WHERE tweetID IN (SELECT bookmark_tweetID from bookmarks where bookmark_userIDBy = :user_id)");
+                $stmt->bindParam(":user_id",$user_id,PDO::PARAM_INT);
+                $stmt->execute();
+                $tweets = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+                $user_ids = @$_SESSION['user_id'];
+                $userss = $this->userData($user_ids);
+                echo '<div class="backBtn" style="    color: var( --secondary-text-color);
+                background: var( --primary-background-color);
+                padding: 10px;
+                border-bottom: 1px solid var( --primary-border-color);
+                display: flex;
+                font-size: 1.2rem;
+                align-items: center;">
+                    <i class="fa fa-angle-left backtweetsarrow" onclick="window.history.back()" style="margin: 0;
+                    margin-left: 8px;
+                    font-weight: 900;
+                    padding: 10px 15.5px;
+                    cursor:pointer;
+                    border-radius: 50%;"></i>
+                    <span style="    margin: 0;
+                    margin-left: 15px;
+                    font-weight: 600;
+                    letter-spacing: 2px;"> Bookmarks <span style="font-size: small;"> ('.$userss->username.') </span> </span>
+                </div>
+                ';
+                
+
+                if(empty($tweets)){echo '<div class="emptyBox" style="    color: var( --secondary-text-color);
+                    display: flex;
+                    position: relative;
+                    font-size:1.6rem;
+                    padding: 15px;
+                    top: 50px;
+                    font-weight: 600;"> <div class="center-box"> <span> Nothing to see here — pin your favorite tweets to access them quickly. </span> </div> </div>';}
+
+            foreach($tweets as $tweet){
+                $likes = $this->likes($user_id, $tweet->tweetID);
+                $retweet = $this->checkRetweet($tweet->tweetID, $user_id);
+                $user = $this->userData($tweet->tweetOwner);
+
+                $retweets = $this->checkRetweeTUser($tweet->tweetID);
+
+							
+							$us = 'Undefined';
+							$su = 'Undefined';
+							foreach($retweets as $product){
+								$userTr = $this->userData($product->retweet_userIDBy);
+								$us = $product->retweet_tweetID;
+                                $su = $product->retweet_userIDBy;
+							}
+
+                            $commentTrue = false;
+                            $commentTrueRef = false;
+                            $userOwnerTweet = $this->getUserTweetsOwnerByID($tweet->tweetID , $tweet->tweetOwner);
+                if($tweet->tweetRef != 0 && $tweet->tweetRefTo != 0){
+                    $userRefS = $this->getUserTweetsByID($tweet->tweetRef,$tweet->tweetRefTo);
+                    $userRefD = $this->userData($tweet->tweetRefTo);
+
+                  
+                    if($this->checkTweetExistence($tweet->tweetRef) && $userRefS[0]->commentTrue == 1){
+                        $commentTrueRef = true;
+                       }
+                   
+                }
+
+
+
+               if($tweet->commentTrue == 1){
+                $commentTrue = true;
+               }
+              
             
-            //     UNION SELECT t.tweetID FROM `tweets` AS t WHERE t.`commentTrue` = 0 AND t.`tweetOwner` IN (SELECT `receiver` FROM `follow` WHERE `sender` = :user_id))");
-            //     $stmt->bindParam(":user_id",$user_id,PDO::PARAM_INT);
-            //     $stmt->execute();
-            //     return $stmt->fetch(PDO::FETCH_OBJ);
-            // }
+               
+                echo '
+                <div class="all-tweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$user->username.'">
+                <div class="container">
+                
+                <div class="tweet-outer">
+                    <div class="tweet-inner">
+                    '.((($us != 'Undefined' && $tweet->tweetID == $us) && $tweet->tweetOwner != $user_id) ? '<div class="retweet-has">
+                    <div class="retweet-info">
+                        <i class="fa fa-retweet"></i>
+                        <span> <a style="color: var( --secondary-text-color); font-weight: 700; text-decoration:none;" href="'.BASE_URL.$userTr->username.'"> '.(( $su != 'Undefined' && $user_id === $su ) ? 'You' : $userTr->screenName ).' Retweeted </a> </span>
+                    </div>
+                </div>' : '' ).'
+        
+                        <!-- flex-out S -->
+                        <div class="flex-out">
+                            <div class="img-user">
+                                <div class="img-inner">
+                                <a href="'.BASE_URL.$user->username.'">
+                                <img src="'.BASE_URL.$user->profileImage.'"/>
+                                </a>
+                                </div>
+                            </div>
+        
+        
+                            <!-- sc-ur-status S -->
+                            <div class="sc-ur-status">
+                                <div class="header">
+                                    
+                                '.(($tweet->tweetOwner === $user_id) ? '
+                                    
+                                    <div class="delete-op" data-tweet="'.$tweet->tweetID.'" > <i class="fa fa-ellipsis-v ellipsiss" tabindex="1"></i> 
+                                    <div class="d-t-b-u" id="d-t-b-u'.$tweet->tweetID.'">
+                                    <div class="prop">
+                                   <label class="deleteTweet" data-tweet="'.$tweet->tweetID.'" data-re="'.$tweet->tweetRef.'" data-ret="'.$tweet->tweetRefTo.'"> <span>Delete Tweet</span>  </label>
+                                   <i class="fa fa-close closes closes'.$tweet->tweetID.'"></i>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    ' : '').'
+                                    
+                                    <div class="text-warpper" style="margin: 0;
+                                    display: flex;
+                                    margin-right: 5px;
+                                    flex-direction: row;
+                                    line-height: 15px;
+                                    
+                                    overflow: hidden;
+                                    min-width: 5vw;
+                                    white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    max-width: 30vw;
+                                    ">
+                                    <div class="useru">
+                                        <h4> <a style="color: var( --primary-text-color); font-weight: 800; text-decoration:none;" href="'.BASE_URL.$user->username.'">'.$user->screenName.' '.(($user->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').' </a></h4>
+                                    </div>
+                                    <div class="useru">
+                                        <h4 style="color: var( --secondary-text-color); font-weight: 500;">  <a style="color: var( --secondary-text-color); font-weight: 500; text-decoration:none;" href="'.BASE_URL.$user->username.'">@'.$user->username.'</a> </h4>
+                                    </div>
+                                    </div>
+                                    <div class="useru">
+                                        <h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$this->timeAgo(($userOwnerTweet[0]->postedOn)).'</h4>
+                                    </div>
+                                </div>
+                                
+                               
+                                '.(($commentTrue == true) ? 
+                                '<div class="replying-to"> <span> Replying to <a href="#"> @'.$this->userData($tweet->comment_userID)->username.' </a> </span> </div>
+                                    ' : '' ).' 
+                               
+                                <div class="status">
+                                    <div class="s-in">
+                                        <div class="sto">
+                                        '.$this->getTweetLinks($userOwnerTweet[0]->status).'
+                                        </div>
+                                    </div>
+                                </div>
+
+                                '.(!empty($userOwnerTweet[0]->tweetImage) ? 
+                                '<!--tweet show head end-->
+                                <div class="imageContainer">
+                                <div class="imageProposal">
+                                    <div class="imageContains">
+                                        <img src="'.BASE_URL.$userOwnerTweet[0]->tweetImage.'" class="imagePopup" data-tweet="'.$userOwnerTweet[0]->tweetID.'" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                                    <!--tweet show body end-->
+                                    ' : '' ).'
+
+                            '.( $tweet->tweetRef > 0 && (!empty($tweet->tweetRef))?'
+                            '.($tweet->tweetRef > 0 && $this->checkTweetExistence($tweet->tweetRef) ? '
+                        
+                             
+                                <div class="refenceTweet" data-tweet="'.$tweet->tweetRef.'" data-user="'.$userRefD->username.'">
+                                
+
+                                    <div class="ref-o">
+        
+                                        <div class="ref-flex">
+        
+                                            <div class="headerU">
+                                                <div class="flex-ref-head">
+                                                    <div class="imageU">
+                                                    <a href="'.BASE_URL.$userRefD->username.'">
+                                                    <img src="'.BASE_URL.$userRefD->profileImage.'"/>
+                                                    </a>
+                                                    </div>
+                                                    <div class="text-warpper" style="margin: 0;
+                                    display: flex;
+                                    margin-right: 5px;
+                                    flex-direction: row;
+                                    line-height: 15px;
+                                    
+                                    overflow: hidden;
+                                    min-width: 5vw;
+                                    white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    max-width: 30vw;
+                                    ">
+                                                    <div class="userd">
+                                                        <h4 style="color: var( --primary-text-color); font-weight: 800;">'.$userRefD->screenName.' '.(($userRefD->statusVerify != 0) ? '<i title="User Verified" id="verifyedUser" class="fa fa-check-circle"></i>' : '').'</h4>
+                                                    </div>
+                                                    <div class="userd">
+                                                        <h4 style="color: var( --secondary-text-color); font-weight: 500;">@'.BASE_URL.$userRefD->username.'</h4>
+                                                    </div>
+                                                    </div>
+                                                    <div class="userd">
+                                                        <h4 style="color: var( --secondary-text-color); font-weight: 500;"> • '.$this->timeAgo(($userRefS[0]->postedOn)).'</h4>
+                                                    </div>
+                                                </div>
+                                                '.(($commentTrueRef == true) ? 
+                                                '<div class="replying-to"> <span> Replying to <a href="#"> @'.$this->userData($userRefS[0]->comment_userID)->username.' </a> </span> </div>
+                                                    ' : '' ).' 
+                                                <div class="ref-status">
+                                                    <h6>'.$this->getTweetLinks($userRefS[0]->status).'</h6>
+                                                    </div>
+                                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    '.(!empty($userRefS[0]->tweetImage) ? 
+                                '<!--tweet show head end-->
+                                <div class="status-image imagePopup">
+                                        <img src="'.BASE_URL.$userRefS[0]->tweetImage.'" class="imagePopup" data-tweet="'.$userRefS[0]->tweetID.'" alt="">
+                                    </div>
+                                    <!--tweet show body end-->
+                                    ' : '' ).'
+                                
+                                    
+                                </div>
+                                ' : '<div class="deletedTweetExi"> <div class="inner-info-deleted"> This Tweet is unavailable. </div> </div>' ).'
+                                ' : '' ).'
+        
+                                <!-- bottom S -->
+                                <div class="bottom">
+                                    <div class="icons-head">
+                                        <div class="flex-icons">
+                                            <ul>
+                                            '.(($this->loggedIn() ===true) ? '
+                                                <li> <i class="fa fa-comment-o"></i> <span> '.$this->countComments($tweet->tweetID).' </span> </li>
+                                                <li> '.((isset($retweet['retweet_tweetID']) ? $tweet->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
+                                                '<button id="retweet-options'.$tweet->tweetID.'" class="retweeted retweet-options"  data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : 
+                                                '<button class="retweet-options" id="retweet-options'.$tweet->tweetID.'"  data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>').'
+                                                <div class="op" id="op'.$tweet->tweetID.'">
+												<ul> 
+                                                '.((isset($retweet['retweet_tweetID']) ? $tweet->tweetID === $retweet['retweet_tweetID'] OR $user_id == $retweet['retweet_userIDBy'] : '') ? 
+                                                '<li class="justUndoCloneTweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'" style="cursor:pointer;  border-right:1px solid;">Undo Rwtweet</li> ' : 
+                                                '<li class="justCloneTweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'" style="cursor:pointer;  border-right:1px solid var( --primary-border-color);">Retweet</li> ').'
+                                                
+                                                <li class="retweet" style="cursor:pointer" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'">Quote Tweet</li> 
+												<i title="close" style="color:var( --primary-text-color)" class="fa fa-close close'.$tweet->tweetID.'"></i>
+													</ul>
+												</div>
+                                                </li>
+                                                <li> '.((isset($likes['likeOn']) ? $likes['likeOn'] === $tweet->tweetID : '') ? 
+                                                '<button class="unlike-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>' : 
+                                                '<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetOwner.'"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>').' 
+                                                </li>
+                                                <li> <i class="fa fa-bookmark-o"></i> </li>
+                                                ' : '<li><button><i class="fa fa-comment-o"></i> <span> 485 </span></button></li>
+                                                    <li><button><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button></li>	
+                                                    <li><button><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button></li>
+                                                    <li> <i class="fa fa-bookmark"></i> </li>').'
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+												
+                                </div>
+                                <!-- bottom E -->
+                            </div>
+                            <!-- sc-ur-status E -->
+        
+                        </div>
+                        <!-- flex-out E -->
+                    </div>
+                </div>
+                
+            </div>
+                    </div>';
+                }
+            }
 
             public function checkTweetExistence($tweet_id){
             $stmt = $this->pdo->prepare("SELECT `tweetID` FROM `tweets` WHERE `tweetID` = :tweet_id");
@@ -324,10 +598,7 @@
         }
 
         public function getUserTweets($user_id){
-
             // select * from ( select t.* from tweets as t where tweetOwner = 7 union select t.* from tweets as t where t.tweetID in (select retweet_tweetID from retweet where retweet_userIDBy = 7)) a order by postedOn desc
-            
-
             $stmt = $this->pdo->prepare("SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = :user_id AND `commentTrue` = 0 UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` WHERE `retweet_userIDBy` =:user_id)) A ORDER BY `postedOn` DESC");
             $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
@@ -335,10 +606,8 @@
         }
 
         public function getUserTweetsWithReplies($user_id){
-
             // select * from ( select t.* from tweets as t where tweetOwner = 7 union select t.* from tweets as t where t.tweetID in (select retweet_tweetID from retweet where retweet_userIDBy = 7)) a order by postedOn desc
             
-
             $stmt = $this->pdo->prepare("SELECT * FROM (SELECT t.* FROM `tweets` AS t WHERE `tweetOwner` = :user_id  UNION SELECT t.* FROM `tweets` AS t WHERE t.`tweetID` IN (SELECT `retweet_tweetID` FROM `retweet` WHERE `retweet_userIDBy` =:user_id)) A ORDER BY `postedOn` DESC");
             $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
@@ -489,10 +758,7 @@
             $stmt->bindParam(":tweet_id",$tweet_id,PDO::PARAM_INT);
             $stmt->execute();
             $res = $stmt->fetch(PDO::FETCH_OBJ);
-         
             return $res;
-
-
         }
 
         public function comments($tweet_id){
@@ -526,7 +792,9 @@
             $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
             $stmt->execute();
 
+            // if($data->user_id != $user_id){
             $this->message->sendNotification($get_id, $user_id, $tweet_id, 'quote');
+        // }
         }
 
         public function retweets($tweet_id, $tweet_id_user_id, $user_id) {
@@ -609,7 +877,7 @@
         }
 
         public function countComments($tweet_id){
-            $stmt = $this->pdo->prepare("SELECT COUNT(`commentOn`) AS totalCom FROM `comments` WHERE `commentOn` = :tweet_id");
+            $stmt = $this->pdo->prepare("SELECT COUNT(`tweetID`) AS totalCom FROM `tweets` WHERE `comment_tweetID` = :tweet_id");
             $stmt->bindParam(":tweet_id" , $tweet_id,PDO::PARAM_INT);
             $stmt->execute();
             $count = $stmt->fetch(PDO::FETCH_OBJ);

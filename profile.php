@@ -1238,7 +1238,32 @@ if (isset($_GET['username']) === true && empty($_GET['username']) === false) {
 		<!-- in wrappper ends-->
 	</div>
 
-
+	<?php 
+							if ($getFromU->loggedIn() === false){
+								echo '<section id="non-users">
+								<div class="nonUser">
+									<div class="flex-non">
+										<div class="non-decs">
+											<div class="non-desc-in head">
+												Don’t miss what’s happening
+											</div>
+											<div class="non-desc-in tail">
+												People on Tweety are the first to know.
+											</div>
+										</div>
+										<div class="non-direct">
+											<li>
+												<div class="flex-non-li li-ml0"> <a href="'.BASE_URL.'"> Log in </a> </div>
+											</li>
+											<li>
+											<div class="flex-non-li"> <a href="'.BASE_URL.'"> Sign up  </a> </div>
+											</li>
+										</div>
+									</div>
+								</div>
+							</section>';
+									}
+							?>
 
 	<!-- ends wrapper -->
 	<?php 

@@ -81,4 +81,15 @@ $(document).ready(function() {
 			console.log('hit')
 		});
 	});
+	$(document).on('click','.bookmarkMyTweet', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		var tweet_id  = $(this).data('tweet');
+		var user  = $(this).data('user');
+		// console.log(tweet_id);
+		$.post('http://localhost/Twitter-Clone-pre/core/ajax/like.php', {bookmark:tweet_id , userID:user}, function(){
+			console.log('hit')
+		});
+		$().myfunction("Tweet added to your bookmarks", "like");
+	});
 });

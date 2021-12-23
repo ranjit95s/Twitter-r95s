@@ -1,11 +1,11 @@
 <?php
 include 'core/init.php';
-$user_id = $_SESSION['user_id'];
-$user = $getFromU->userData($user_id);
-$notify = $getFromM->getNotificationCount($user_id);
 
-if ($getFromU->loggedIn() === false) {
-	header('Location:index.php');
+
+if ($getFromU->loggedIn() === true) {
+	$user_id = $_SESSION['user_id'];
+	$user = $getFromU->userData($user_id);
+	$notify = $getFromM->getNotificationCount($user_id);
 }
 // $getFromU->delete('comments', array('commentID' => 9));
 // $getFromU->create('users',array('username' => 'dany','email' => 'dany12@gmail.com','password'=> md5('password')));
@@ -355,7 +355,11 @@ $NewsData = json_decode($res);
 						<div class="in-right-wrap">
 							<!--Who To Follow-->
 							<!--WHO_TO_FOLLOW HERE-->
-							<?php $getFromF->whoToFollow($user_id, $user_id); ?>
+							<?php 
+							if ($getFromU->loggedIn() === true){
+							$getFromF->whoToFollow($user_id, $user_id);
+									}
+							?>
 							<!--Who To Follow-->
 						</div><!-- in left wrap-->
 	
@@ -366,6 +370,34 @@ $NewsData = json_decode($res);
 			</div><!-- in wrappper ends-->
 		</div><!-- inner wrapper ends-->
 	</div><!-- ends wrapper -->
+							<?php 
+							if ($getFromU->loggedIn() === false){
+								echo '<section id="non-users">
+								<div class="nonUser">
+									<div class="flex-non">
+										<div class="non-decs">
+											<div class="non-desc-in head">
+												Don’t miss what’s happening
+											</div>
+											<div class="non-desc-in tail">
+												People on Tweety are the first to know.
+											</div>
+										</div>
+										<div class="non-direct">
+											<li>
+												<div class="flex-non-li li-ml0"> <a href="'.BASE_URL.'"> Log in </a> </div>
+											</li>
+											<li>
+											<div class="flex-non-li"> <a href="'.BASE_URL.'"> Sign up  </a> </div>
+											</li>
+										</div>
+									</div>
+								</div>
+							</section>';
+									}
+							?>
+	
+
 	<?php 
                 include 'includes/entities/bottom-nav.php';
             ?>
