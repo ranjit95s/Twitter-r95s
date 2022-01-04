@@ -15,7 +15,7 @@
         <div class="sampleSection">
             <div class="ssInner">
                 <div class="ssflex">
-                    <div class="ssImage"> <img src="'.BASE_URL.'users/sttww2.jpg" alt="sampleSection"> </div>
+                    <div class="ssImage"> <img src="'.BASE_URL.'users/2021_12_25-16-57-19_110868.jpg" alt="sampleSection"> </div>
                     <div class="ssText">
                         <div class="ssInfoDummy">
                             <div class="ssInfo">

@@ -1,5 +1,22 @@
 $(document).ready(function () {
 
+
+
+  var preLoader = document.getElementById('preLoader');
+
+	function loader() {
+		preLoader.style.display = 'none';
+		console.log("hide");
+	}
+
+  $("#preLoader").show();
+		// $("#preLoader").show();
+		console.log('gege');
+		function ahref() {
+			$("#preLoader").hide();
+		};
+		window.setTimeout(ahref, 500); // 1.5 seconds
+
   $(function () {
     // $().myfunction("TEXT SAMPLE", null); // [for notify { 1st arg is notify message and 2nd arg is type of message eg. success or danger }]
 

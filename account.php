@@ -46,6 +46,9 @@
     </head>
 	<!--Helvetica Neue-->
 <body style="    min-height: 110vh;">
+<?php
+	include 'includes/entities/loader.php';
+	?>
 <div class="wrapper">
 <?php 
                 include 'includes/entities/side-pro-link.php';

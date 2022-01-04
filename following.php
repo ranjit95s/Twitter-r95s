@@ -40,6 +40,9 @@
 <!--Helvetica Neue-->
 
 <body>
+<?php
+	include 'includes/entities/loader.php';
+	?>
 	<div class="wrapper hash-wrapper">
 		<!-- header wrapper -->
 		<?php 

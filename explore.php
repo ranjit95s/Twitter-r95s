@@ -259,6 +259,9 @@ $NewsData = json_decode($res);
 </head>
 <!--Helvetica Neue-->
 <body>
+<?php
+	include 'includes/entities/loader.php';
+	?>
 	<div class="wrapper">
 		<!-- header wrapper -->
 		<!-- ------------------------------------------------------------------------------------------------ -->

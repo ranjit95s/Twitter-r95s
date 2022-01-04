@@ -47,6 +47,9 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 </style> -->
 
 <body>
+<?php
+	include 'includes/entities/loader.php';
+	?>
 <div class="wrapper">
 		<!-- header wrapper -->
 		

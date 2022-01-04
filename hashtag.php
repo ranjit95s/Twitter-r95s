@@ -34,6 +34,9 @@ if (isset($_GET['hashtag']) && !empty($_GET['hashtag'])) {
 <!--Helvetica Neue-->
 
 <body>
+<?php
+	include 'includes/entities/loader.php';
+	?>
 	<div class="wrapper hash-wrapper">
 		<!-- header wrapper -->
 	

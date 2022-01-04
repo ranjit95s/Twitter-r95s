@@ -34,6 +34,9 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 <!--Helvetica Neue-->
 
 <body>
+<?php
+	include 'includes/entities/loader.php';
+	?>
 	<div class="wrapper hash-wrapper">
 		<!-- header wrapper -->
 	

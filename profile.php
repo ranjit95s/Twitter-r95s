@@ -78,6 +78,9 @@ if (isset($_GET['username']) === true && empty($_GET['username']) === false) {
 <!--Helvetica Neue-->
 
 <body>
+<?php
+	include 'includes/entities/loader.php';
+	?>
 	<div class="wrapper">
 		<!-- header wrapper -->
 		

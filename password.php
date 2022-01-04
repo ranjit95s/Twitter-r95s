@@ -50,6 +50,9 @@
     </head>
 	<!--Helvetica Neue-->
 <body>
+<?php
+	include 'includes/entities/loader.php';
+	?>
 <div class="wrapper">
 <?php 
                 include 'includes/entities/side-pro-link.php';
