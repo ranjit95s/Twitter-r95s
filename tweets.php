@@ -77,27 +77,6 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 									padding: 15px;
 									top: 50px;
 									font-weight: 600;"> <div class="center-box"> <span> Nothing to see here — yet </span> </div> </div>';}
-							
-								foreach ($tweets as $tweet) {
-									$likes = $getFromT->likes($user_id, $tweet->tweetID);
-									$retweet = $getFromT->checkRetweet($tweet->tweetID, $user_id);
-									$retweets = $getFromT->checkRetweeTUser($tweet->tweetID);
-									
-									
-									// $us = 'Undefined';
-									// foreach($retweets as $product){
-									// 	$userTr = $getFromT->userData($product->retweet_userIDBy);
-									// 	$us = $product->retweet_tweetID;
-									// }
-									
-									
-									$user = $getFromT->userData($tweet->tweetOwner);
-									
-									$userRefS = $getFromT->getUserTweetsByID($tweet->tweetRef,$tweet->tweetRefTo);
-									$userOwnerTweet = $getFromT->getUserTweetsOwnerByID($tweet->tweetID , $tweet->tweetOwner);
-									$userRefD = $getFromT->userData($tweet->tweetRefTo);
-									
-									// echo $us;
 									echo '	 
 
 									<div class="backBtn" style="    color: var( --secondary-text-color);
@@ -119,6 +98,27 @@ if ((isset($_GET['username']) === true && empty($_GET['username']) === false) &&
 										letter-spacing: 2px;"> Tweet </span>
 									</div>
 									';
+								foreach ($tweets as $tweet) {
+									$likes = $getFromT->likes($user_id, $tweet->tweetID);
+									$retweet = $getFromT->checkRetweet($tweet->tweetID, $user_id);
+									$retweets = $getFromT->checkRetweeTUser($tweet->tweetID);
+									
+									
+									// $us = 'Undefined';
+									// foreach($retweets as $product){
+									// 	$userTr = $getFromT->userData($product->retweet_userIDBy);
+									// 	$us = $product->retweet_tweetID;
+									// }
+									
+									
+									$user = $getFromT->userData($tweet->tweetOwner);
+									
+									$userRefS = $getFromT->getUserTweetsByID($tweet->tweetRef,$tweet->tweetRefTo);
+									$userOwnerTweet = $getFromT->getUserTweetsOwnerByID($tweet->tweetID , $tweet->tweetOwner);
+									$userRefD = $getFromT->userData($tweet->tweetRefTo);
+									
+									// echo $us;
+									
 									echo '<div class="all-tweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$user->username.'">
 									
 									<div class="container">

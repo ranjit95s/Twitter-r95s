@@ -5420,12 +5420,13 @@
         }
         
         .more-lol ul {
-            display: flex;
-            margin-top: 10px;
-            width: 100%;
-            align-items: center;
-            justify-content: start;
-            margin-left: 10px;
+                display: flex;
+    margin-top: 10px;
+    width: 100%;
+    align-items: center;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin-left: 10px;
         }
         
         .popupEditForm {
@@ -6342,7 +6343,7 @@
                     margin: 0px;
                     width: 100%;
                     white-space: pre-line;
-                    margin-top: 10px;
+                    margin-top: 20px;
                 }
         
                 .proImage,
@@ -6803,7 +6804,7 @@
             margin-top: -20px;
         }
 
-		.status-reply5 a , .sto a {
+		.status-reply5 a , .sto a , .bioFollow a {
 			color:var(--primary-theme-color);
 			text-decoration: none;
 		}
